@@ -11,7 +11,7 @@ ashwin=Player('Ashwin',False, 0, 0, True)
 zaheer=Player('Zaheer',False, 0, 0, True)
 nehra=Player('Nehra',False, 0, 0, True)
 sreesanth=Player('Sreesanth',False, 0, 0, True)
-extras_ind = Player('Extra',False,0,0,True)
+extras = Player('Extra',False,0,0,True)
 
 hayden=Player('hayden',False, 0, 0, True)
 gilchrist=Player('gilchrist',False, 0, 0, True)

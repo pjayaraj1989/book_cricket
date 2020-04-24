@@ -4,7 +4,6 @@ def Error_Exit(msg):
     print("Error: " + msg)
     exit(0)
 
-#calculate result
 def CalculateResult(team1, team2):
     result = Result(team1, team2, None, "")
     #see who won
@@ -141,3 +140,15 @@ def Play(team, extras, pair, num_of_balls):
         UpdateScore(team, extras, wkts_fell, ball)
     #print scorecard
     DisplayScore(team, extras, wkts_fell)
+
+def PrintResult(result):
+    print("Match Summary")
+    print(result.team1.name + " " + 
+          str(result.team1.total_score) + "/" + 
+          str(result.team1.wickets_fell) + "(" +
+          str(result.team1.total_balls) + ")")
+    print(result.team2.name + " " + 
+          str(result.team2.total_score) + "/" + 
+          str(result.team2.wickets_fell) + "(" +
+          str(result.team2.total_balls) + ")")
+    print(result.result_str)
