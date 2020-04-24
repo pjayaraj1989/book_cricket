@@ -1,28 +1,4 @@
-class Player():
-    def __init__(self,name, onstrike, runs, balls, status):
-        self.onstrike=onstrike
-        self.runs=runs
-        self.balls=balls
-        self.name=name
-        self.status=status
-
-class Team():
-    def __init__(self, team_array, total_score, innings_over, batting_second, target, name, wickets_fell, total_balls):
-        self.team_array=team_array
-        self.total_score=total_score
-        self.innings_over=innings_over
-        self.batting_second=batting_second
-        self.target=target
-        self.name=name
-        self.wickets_fell=wickets_fell
-        self.total_balls=total_balls
-
-class Result():
-    def __init__(self, team1, team2, winner, result_str):
-        self.team1=team1
-        self.team2=team2
-        self.winner=winner
-        self.result_str=result_str
+from helper import*
 
 #calculate result
 def CalculateResult(team1, team2):
@@ -115,11 +91,10 @@ def BatsmanOut(pair):
     player_on_strike.balls += 1
     return pair
 
-def Play(team, extras, pair):
+def Play(team, extras, pair, num_of_balls):
     team_list=team.team_array
     total_wkts = len(team_list)-1
     wkts_fell = 0
-    num_of_balls = 300
     for ball in range(1,num_of_balls+1):
         #if batting second, if total score > target, win, break!
         if team.batting_second is True and team.total_score > team.target:

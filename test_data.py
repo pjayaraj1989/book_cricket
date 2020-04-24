@@ -34,3 +34,21 @@ extras_aus = Player('Extra',False,0,0,True)
 australia_squad = [hayden, gilchrist, ponting, clarke, hussey, watson, white, hogg, johnson, lee, tait]
 opening_pair_aus = [hayden, gilchrist]
 gilchrist.onstrike=True
+
+#now add next team, and 
+tharanga=Player('tharanga',False, 0, 0, True)
+dilshan=Player('dilshan',False, 0, 0, True)
+sangakkara=Player('sangakkara',False, 0, 0, True)
+jayawardene=Player('jayawardene',False, 0, 0, True)
+samaraweera=Player('samaraweera',False, 0, 0, True)
+kapugedera=Player('kapugedera',False, 0, 0, True)
+kulashekara=Player('kulashekara',False, 0, 0, True)
+perera=Player('perera',False, 0, 0, True)
+randiv=Player('randiv',False, 0, 0, True)
+malinga=Player('malinga',False, 0, 0, True)
+murali=Player('murali',False, 0, 0, True)
+extras_sl = Player('Extra',False,0,0,True)
+#has to be odd numbered
+sl_squad = [tharanga, dilshan, sangakkara, jayawardene, samaraweera, kapugedera, kulashekara, perera, randiv, malinga, murali]
+opening_pair_sl = [tharanga, dilshan]
+tharanga.onstrike=True
