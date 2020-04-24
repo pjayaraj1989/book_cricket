@@ -5,13 +5,23 @@ if __name__ == "__main__":
     sachin=Player('Sachin',False, 0, 0, True)
     sehwag=Player('Sehwag',False, 0, 0, True)
     gambhir=Player('Gambhir',False, 0, 0, True)
+    kohli=Player('Kohli',False, 0, 0, True)
+    yuvraj=Player('Yuvraj',False, 0, 0, True)
+    dhoni=Player('Dhoni',False, 0, 0, True)
+    raina=Player('Raina',False, 0, 0, True)
+    ashwin=Player('Ashwin',False, 0, 0, True)
+    zaheer=Player('Zaheer',False, 0, 0, True)
+    nehra=Player('Nehra',False, 0, 0, True)
+    sreesanth=Player('Sreesanth',False, 0, 0, True)
+
     extras = Player('Extra',False,0,0,True)
 
-    team = [sachin, sehwag, gambhir]
+    #has to be odd numbered
+    india = [sachin, sehwag, gambhir, kohli, yuvraj, dhoni, raina, ashwin, zaheer, nehra, sreesanth]
 
     #first member always on strike
-    pair = [sachin, sehwag]
+    opening_pair = [sachin, sehwag]
     sachin.onstrike=True
 
-    Play(team,extras, pair)
+    Play(india, extras, opening_pair)
 
