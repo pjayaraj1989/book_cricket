@@ -20,5 +20,11 @@ sl_squad[0].onstrike=True
 opening_pair_sl = [sl_squad[0], sl_squad[1]]
 team_sl=Team(sl_squad, 0, False, False, 0, "sri lanka", 0, 0, opening_pair_sl)
 
-list_of_teams = [team_sl, team_aus, team_ind]
+#rsa
+sa_squad = [smith,amla,kallis,devilliers,duminy,duplessis,vanvyk,botha,peterson,morkel,steyn]
+sa_squad[0].onstrike=True
+opening_pair_sa=[sa_squad[0],sa_squad[1]]
+team_sa=Team(sa_squad, 0, False, False, 0, "south africa", 0, 0, opening_pair_sa)
+
+list_of_teams = [team_sl, team_aus, team_ind, team_sa]
 team_names=[l.name for l in list_of_teams]
