@@ -14,6 +14,8 @@ sreesanth=Player('Sreesanth',False, 0, 0, True)
 extras_ind = Player('Extra',False,0,0,True)
 #has to be odd numbered
 india_squad = [sachin, sehwag, gambhir, kohli, yuvraj, dhoni, raina, ashwin, zaheer, nehra, sreesanth]
+opening_pair_ind = [sachin, sehwag]
+sachin.onstrike=True
 
 #now add next team, and 
 hayden=Player('hayden',False, 0, 0, True)
@@ -30,3 +32,5 @@ tait=Player('tait',False, 0, 0, True)
 extras_aus = Player('Extra',False,0,0,True)
 #has to be odd numbered
 australia_squad = [hayden, gilchrist, ponting, clarke, hussey, watson, white, hogg, johnson, lee, tait]
+opening_pair_aus = [hayden, gilchrist]
+gilchrist.onstrike=True
