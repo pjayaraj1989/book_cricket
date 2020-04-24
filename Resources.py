@@ -25,17 +25,19 @@ def PairFaceBall(pair, run, ball):
         pair[alt_ind].onstrike = True
     return pair
 
-def PrintStat(team, extras):
+def PrintStat(team, extras, wkts_fell):
     total_runs=0
     for p in team:
         total_runs += p.runs
-        if p.status is True:   print("{0} : {1}* ( {2} )".format(p.name, str(p.runs), str(p.balls)))
-        else:   print("{0} : {1} ( {2} )".format(p.name, str(p.runs), str(p.balls)))
+        if p.status is True:
+            print("{0} : {1}* ( {2} )".format(p.name, str(p.runs), str(p.balls)))
+        else:
+            print("{0} : {1} ( {2} )".format(p.name, str(p.runs), str(p.balls)))
+
     print ("Extras: " + str(extras.runs))
     total_runs += extras.runs
     #calculate total
-    print("TOTAL: {0}".format(str(total_runs)))
-
+    print("TOTAL: {0} / {1}".format(str(total_runs), str(wkts_fell)))
 
 def BatsmanOut(pair):
     #find out who is on strike
@@ -55,13 +57,17 @@ def Play(team, extras, pair):
     from random import randint
     total_wkts = len(team)-1
     wkts_fell = 0
-    num_of_balls = 30
-    for ball in range(1,num_of_balls):
+    num_of_balls = 300
+    for ball in range(1,num_of_balls+1):
         print("Ball: " + str(ball))
         if wkts_fell == total_wkts:
             print("All out!")
             break
-        run = randint(-1,6)
+        #this is the main guy who generates runs
+        import random
+        run_array = [-1,0,0,0,0,0,1,1,1,1,1,1,1,1,2,3,4,5]
+        run = random.choice(run_array)
+        #run = randint(-1,6)
         #if run is 5, treat as a wide dont count ball, incr extras
         if run is 5:
             extras.runs += 1
@@ -89,4 +95,4 @@ def Play(team, extras, pair):
             print ("Runs scored: " + str(run))
             PairFaceBall(pair, run, ball)
     #print scorecard
-    PrintStat(team, extras)
+    PrintStat(team, extras, wkts_fell)
