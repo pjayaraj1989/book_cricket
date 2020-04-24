@@ -44,9 +44,8 @@ def PairFaceBall(pair, run, ball):
     elif ind is 1:  alt_ind=0        
     pair[ind].runs += run
     pair[ind].balls += 1
-    print("Player on strike: " + pair[ind].name + 
-       str(pair[ind].runs) + " runs off " + str(pair[ind].balls))        
-    #now if runs is 1/3/5, or if ball is a mul of 6 rotate strike
+    print("On strike: {0} on {1}({2})".format(pair[ind].name, str(pair[ind].runs), str(pair[ind].balls)))        
+    #now if runs is 1/3, or if ball is a mul of 6 rotate strike
     if (run % 2 != 0) or (ball % 6 ==0):
         pair[ind].onstrike = False
         pair[alt_ind].onstrike = True
@@ -81,8 +80,7 @@ def DisplayScore(team, extras, wkts_fell):
 def BatsmanOut(pair):
     #find out who is on strike
     if pair[0].onstrike is True and pair[1].onstrike is True:
-        print("Error! both cant be on strike!")
-        exit(0)
+        Error_Exit("Error! both cant be on strike!")
     player_on_strike = next((x for x in pair if x.onstrike == True), None)
     ind=pair.index(player_on_strike)
     if ind is 0:    alt_ind=1
