@@ -17,11 +17,14 @@ if __name__ == "__main__":
     extras = Player('Extra',False,0,0,True)
 
     #has to be odd numbered
-    india = [sachin, sehwag, gambhir, kohli, yuvraj, dhoni, raina, ashwin, zaheer, nehra, sreesanth]
+    india_squad = [sachin, sehwag, gambhir, kohli, yuvraj, dhoni, raina, ashwin, zaheer, nehra, sreesanth]
+    team_ind = Team(india_squad, 0, False)
 
     #first member always on strike
     opening_pair = [sachin, sehwag]
     sachin.onstrike=True
+    #start innings
+    Play(team_ind, extras, opening_pair)
 
-    Play(india, extras, opening_pair)
+    team_ind=team_ind
 
