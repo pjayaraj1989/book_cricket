@@ -24,7 +24,7 @@ def GetMatchInfo():
     for t in list_of_teams:
         if t.name == t1:    team1=t
         if t.name == t2:    team2=t
-    match=Match(team1, team2, overs)
+    match=Match(team1, team2, overs, None)
     return match
 
 def CalculateResult(team1, team2):

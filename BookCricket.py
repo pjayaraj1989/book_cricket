@@ -6,6 +6,7 @@ if __name__ == "__main__":
     match=GetMatchInfo()
     
     balls=int(match.overs)*6
+    
     t1=match.team1
     t2=match.team2
     
@@ -22,4 +23,8 @@ if __name__ == "__main__":
     
     #now calc result
     result = CalculateResult(t1, t2)
-    PrintResult(result)
+    
+    #add result to match
+    match.result = result
+    
+    PrintResult(match.result)
