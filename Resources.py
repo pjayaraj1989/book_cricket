@@ -25,13 +25,17 @@ def PairFaceBall(pair, run, ball):
         pair[alt_ind].onstrike = True
     return pair
 
-def PrintStat(team):
+def PrintStat(team, extras):
+    total_runs=0
     for p in team:
-        print("Player: " + p.name +
-            " Runs: " + str(p.runs) +
-            " Balls: " + str(p.balls) +
-            " On strike: " + str(p.onstrike) + 
-            "Out/Not out: " + str(p.status))
+        total_runs += p.runs
+        if p.status is True:   print("{0} : {1}* ( {2} )".format(p.name, str(p.runs), str(p.balls)))
+        else:   print("{0} : {1} ( {2} )".format(p.name, str(p.runs), str(p.balls)))
+    print ("Extras: " + str(extras.runs))
+    total_runs += extras.runs
+    #calculate total
+    print("TOTAL: {0}".format(str(total_runs)))
+
 
 def BatsmanOut(pair):
     #find out who is on strike
@@ -50,39 +54,39 @@ def BatsmanOut(pair):
 def Play(team, extras, pair):
     from random import randint
     total_wkts = len(team)-1
-    wkts_fell = 0    
-    for ball in range(1,10):
+    wkts_fell = 0
+    num_of_balls = 30
+    for ball in range(1,num_of_balls):
+        print("Ball: " + str(ball))
         if wkts_fell == total_wkts:
+            print("All out!")
+            break
+        run = randint(-1,6)
+        #if run is 5, treat as a wide dont count ball, incr extras
+        if run is 5:
+            extras.runs += 1
+            print("Wide, total extras: " + str(extras.runs))
+        #-1 ==> out!
+        elif run is -1:
+            ball += 1
+            pair=BatsmanOut(pair)
+            player_dismissed = next((x for x in pair if x.status == False), None)
+            ind=pair.index(player_dismissed)
+            print ("Player dismissed: " + player_dismissed.name + " for " + str(player_dismissed.runs))
+            wkts_fell += 1
+            print ("Total wkts fell " + str(wkts_fell))
+            #now bring the next batsman
+            #if len(team)-wkts fell =2, stop
+            if wkts_fell == total_wkts:
                 print("All out!")
                 break
-        while(wkts_fell < total_wkts):
-            print("Ball: " + str(ball))
-            run = randint(-1,6)
-            #if run is 5, treat as a wide reduce ball -1
-            if run is 5:
-                #ball -= 1
-                extras.runs += 1
-                print("Wide, total extras: " + str(extras.runs))
-
-            elif run is -1:
-                ball += 1
-                pair=BatsmanOut(pair)
-                player_dismissed = next((x for x in pair if x.status == False), None)
-                ind=pair.index(player_dismissed)
-                print ("Player dismissed: " + player_dismissed.name + " for " + str(player_dismissed.runs))
-                wkts_fell += 1
-                print ("Total wkts fell " + str(wkts_fell))
-                #now bring the next batsman
-                #if len(team)-wkts fell =2, stop
-                if wkts_fell == total_wkts:
-                    print("All out!")
-                    break
-                pair[ind] = team[wkts_fell + 1]
-                pair[ind].onstrike=True
-                print ("New Batsman: " + pair[ind].name)
-
-            else:
-                ball += 1
-                print ("Runs: " + str(run))
-                PairFaceBall(pair, run, ball)
-    PrintStat(team)
+            pair[ind] = team[wkts_fell + 1]
+            pair[ind].onstrike=True
+            print ("New Batsman: " + pair[ind].name)
+        #if not out or wide, count runs
+        else:
+            ball += 1
+            print ("Runs scored: " + str(run))
+            PairFaceBall(pair, run, ball)
+    #print scorecard
+    PrintStat(team, extras)
