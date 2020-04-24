@@ -7,7 +7,7 @@ class Player():
         self.status=status
 
 class Team():
-    def __init__(self, team_array, total_score, innings_over, batting_second, target, name, wickets_fell):
+    def __init__(self, team_array, total_score, innings_over, batting_second, target, name, wickets_fell, total_balls):
         self.team_array=team_array
         self.total_score=total_score
         self.innings_over=innings_over
@@ -15,6 +15,7 @@ class Team():
         self.target=target
         self.name=name
         self.wickets_fell=wickets_fell
+        self.total_balls=total_balls
 
 class Result():
     def __init__(self, team1, team2, winner, result_str):
@@ -26,20 +27,33 @@ class Result():
 #calculate result
 def CalculateResult(team1, team2):
     result = Result(team1, team2, None, "")
-    batting_first = next((x for x in [team1,team2] if x.batting_second == False), None)
     #see who won
-    winner=None
+    loser=None
     if team1.total_score == team2.total_score:
         result.winner=None
         result.result_str="Match Tied"
     elif team1.total_score > team2.total_score:
         result.winner=team1
+        loser=team2
         result.result_str="{0} won".format(team1.name)
-    elif team2.total_score > team2.total_score:
+    elif team2.total_score > team1.total_score:
         result.winner=team2
+        loser=team1
         result.result_str="{0} won".format(team2.name)
     else:
         None
+    if result.winner is not None:
+        win_margin = 0
+        #if batting first, simply get diff between total runs
+        #else get how many wkts remaining
+        if result.winner.batting_second == True:
+            win_margin = 10 - result.winner.wickets_fell
+            if win_margin is not 0:
+                result.result_str += " by {0} wickets".format(str(win_margin))
+        elif result.winner.batting_second == False:
+            win_margin = abs(result.winner.total_score - loser.total_score)
+            if win_margin is not 0:
+                result.result_str += " by {0} runs".format(str(win_margin))
     return result
 
 def PairFaceBall(pair, run, ball):
@@ -61,13 +75,14 @@ def PairFaceBall(pair, run, ball):
         pair[alt_ind].onstrike = True
     return pair
 
-def UpdateScore(team, extras, wkts_fell):
+def UpdateScore(team, extras, wkts_fell, balls):
     total_runs=0
     for p in team.team_array:
         total_runs += p.runs        
     total_runs += extras.runs
     #calculate total
     team.total_score=total_runs
+    team.total_balls=balls
 
 def DisplayScore(team, extras, wkts_fell):
     total_runs=0
@@ -146,6 +161,6 @@ def Play(team, extras, pair):
             ball += 1
             print ("Runs scored: " + str(run))
             PairFaceBall(pair, run, ball)
-        UpdateScore(team, extras, wkts_fell)
+        UpdateScore(team, extras, wkts_fell, ball)
     #print scorecard
     DisplayScore(team, extras, wkts_fell)
