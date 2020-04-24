@@ -1,5 +1,7 @@
 from helper import*
 
+extras = Player('Extra',False,0,0,True)
+
 sachin=Player('Sachin',False, 0, 0, True)
 sehwag=Player('Sehwag',False, 0, 0, True)
 gambhir=Player('Gambhir',False, 0, 0, True)
@@ -11,7 +13,6 @@ ashwin=Player('Ashwin',False, 0, 0, True)
 zaheer=Player('Zaheer',False, 0, 0, True)
 nehra=Player('Nehra',False, 0, 0, True)
 sreesanth=Player('Sreesanth',False, 0, 0, True)
-extras = Player('Extra',False,0,0,True)
 
 hayden=Player('hayden',False, 0, 0, True)
 gilchrist=Player('gilchrist',False, 0, 0, True)
@@ -24,7 +25,6 @@ hogg=Player('hogg',False, 0, 0, True)
 johnson=Player('johnson',False, 0, 0, True)
 lee=Player('lee',False, 0, 0, True)
 tait=Player('tait',False, 0, 0, True)
-extras_aus = Player('Extra',False,0,0,True)
 
 tharanga=Player('tharanga',False, 0, 0, True)
 dilshan=Player('dilshan',False, 0, 0, True)
@@ -37,4 +37,3 @@ perera=Player('perera',False, 0, 0, True)
 randiv=Player('randiv',False, 0, 0, True)
 malinga=Player('malinga',False, 0, 0, True)
 murali=Player('murali',False, 0, 0, True)
-extras_sl = Player('Extra',False,0,0,True)
