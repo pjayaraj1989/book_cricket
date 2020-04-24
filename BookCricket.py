@@ -3,22 +3,15 @@ from test_data import*
 from helper import*
 
 if __name__ == "__main__":
-    #teams=['india','sri lanka','australia']
     teams=team_names
-    #select teams from 
     t1=input('Select teams from : ' + ' / '.join(teams) + '\n')
-    if t1 not in teams:
-        print('Invalid team')
-        exit(0)
+    if t1 not in teams: Error_Exit('Invalid team')
     else:
         print ('Selected ' + t1)
         teams.remove(t1)
         t2=input('Select opponent team from : ' + ' / '.join(teams) + '\n')
-        if not t2 in teams:
-            print('Invalid team')
-            exit(0)
-        else:
-            print('Selected ' + t1 + ' and ' + t2)
+        if not t2 in teams: Error_Exit('Invalid team')
+        else:   print('Selected ' + t1 + ' and ' + t2)
     
     for t in list_of_teams:
         if t.name == t1:    team1=t

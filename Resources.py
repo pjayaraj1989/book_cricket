@@ -1,5 +1,9 @@
 from helper import*
 
+def Error_Exit(msg):
+    print("Error: " + msg)
+    exit(0)
+
 #calculate result
 def CalculateResult(team1, team2):
     result = Result(team1, team2, None, "")
@@ -34,9 +38,7 @@ def CalculateResult(team1, team2):
 
 def PairFaceBall(pair, run, ball):
     #find out who is on strike
-    if pair[0].onstrike is True and pair[1].onstrike is True:
-        print("Error! both cant be on strike!")
-        exit(0)    
+    if pair[0].onstrike is True and pair[1].onstrike is True:   Error_Exit("Error! both cant be on strike!")  
     player_on_strike = next((x for x in pair if x.onstrike == True), None)
     ind=pair.index(player_on_strike)
     if ind is 0:    alt_ind=1
