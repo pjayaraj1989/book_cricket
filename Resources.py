@@ -6,6 +6,12 @@ class Player():
         self.name=name
         self.status=status
 
+class Team():
+    def __init__(self, team_array, total_score, innings_over):
+        self.team_array=team_array
+        self.total_score=total_score
+        self.innings_over=innings_over
+
 def PairFaceBall(pair, run, ball):
     #find out who is on strike
     if pair[0].onstrike is True and pair[1].onstrike is True:
@@ -25,9 +31,9 @@ def PairFaceBall(pair, run, ball):
         pair[alt_ind].onstrike = True
     return pair
 
-def PrintStat(team, extras, wkts_fell):
+def UpdateStat(team, extras, wkts_fell):
     total_runs=0
-    for p in team:
+    for p in team.team_array:
         total_runs += p.runs
         if p.status is True:
             print("{0} : {1}* ( {2} )".format(p.name, str(p.runs), str(p.balls)))
@@ -38,6 +44,8 @@ def PrintStat(team, extras, wkts_fell):
     total_runs += extras.runs
     #calculate total
     print("TOTAL: {0} / {1}".format(str(total_runs), str(wkts_fell)))
+    team.innings_over=True
+    team.total_score=total_runs
 
 def BatsmanOut(pair):
     #find out who is on strike
@@ -54,11 +62,12 @@ def BatsmanOut(pair):
     return pair
 
 def Play(team, extras, pair):
-    from random import randint
-    total_wkts = len(team)-1
+    team_list=team.team_array
+    total_wkts = len(team_list)-1
     wkts_fell = 0
     num_of_balls = 300
     for ball in range(1,num_of_balls+1):
+        #input()
         print("Ball: " + str(ball))
         if wkts_fell == total_wkts:
             print("All out!")
@@ -86,7 +95,7 @@ def Play(team, extras, pair):
             if wkts_fell == total_wkts:
                 print("All out!")
                 break
-            pair[ind] = team[wkts_fell + 1]
+            pair[ind] = team_list[wkts_fell + 1]
             pair[ind].onstrike=True
             print ("New Batsman: " + pair[ind].name)
         #if not out or wide, count runs
@@ -95,4 +104,4 @@ def Play(team, extras, pair):
             print ("Runs scored: " + str(run))
             PairFaceBall(pair, run, ball)
     #print scorecard
-    PrintStat(team, extras, wkts_fell)
+    UpdateStat(team, extras, wkts_fell)
