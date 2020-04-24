@@ -2,18 +2,41 @@ from Resources import*
 from test_data import*
 from helper import*
 
-if __name__ == "__main__": 
-    #start innings
-    t1 = Team(india_squad, 0, False, False, 0, "India", 0, 0)   
-    Play(t1, extras_ind, opening_pair_ind, 300)
+if __name__ == "__main__":
+    #teams=['india','sri lanka','australia']
+    teams=team_names
+    #select teams from 
+    t1=input('Select teams from : ' + ' / '.join(teams) + '\n')
+    if t1 not in teams:
+        print('Invalid team')
+        exit(0)
+    else:
+        print ('Selected ' + t1)
+        teams.remove(t1)
+        t2=input('Select opponent team from : ' + ' / '.join(teams) + '\n')
+        if not t2 in teams:
+            print('Invalid team')
+            exit(0)
+        else:
+            print('Selected ' + t1 + ' and ' + t2)
+    
+    for t in list_of_teams:
+        if t.name == t1:    team1=t
+        if t.name == t2:    team2=t
+    
+    t1=team1
+    Play(t1, extras_ind, t1.opening_pair, 300)
     print("End of 1st innings")
     target=0
     target = t1.total_score + 1        
     print("Target: " + str(target))
     input()
+    
     #start innings
-    t2 = Team(australia_squad, 0, False, True, target, "Australia", 0, 0)    
-    Play(t2, extras_aus, opening_pair_aus, 300)
+    t2=team2
+    t2.batting_second=True
+    t2.target=target
+    Play(t2, extras_aus, t2.opening_pair, 300)
     #now check scores
     result = CalculateResult(t1, t2)
     print("Summary:")

@@ -7,7 +7,7 @@ class Player():
         self.status=status
 
 class Team():
-    def __init__(self, team_array, total_score, innings_over, batting_second, target, name, wickets_fell, total_balls):
+    def __init__(self, team_array, total_score, innings_over, batting_second, target, name, wickets_fell, total_balls, opening_pair):
         self.team_array=team_array
         self.total_score=total_score
         self.innings_over=innings_over
@@ -16,6 +16,7 @@ class Team():
         self.name=name
         self.wickets_fell=wickets_fell
         self.total_balls=total_balls
+        self.opening_pair=opening_pair
 
 class Result():
     def __init__(self, team1, team2, winner, result_str):
