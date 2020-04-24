@@ -7,10 +7,40 @@ class Player():
         self.status=status
 
 class Team():
-    def __init__(self, team_array, total_score, innings_over):
+    def __init__(self, team_array, total_score, innings_over, batting_second, target, name, wickets_fell):
         self.team_array=team_array
         self.total_score=total_score
         self.innings_over=innings_over
+        self.batting_second=batting_second
+        self.target=target
+        self.name=name
+        self.wickets_fell=wickets_fell
+
+class Result():
+    def __init__(self, team1, team2, winner, result_str):
+        self.team1=team1
+        self.team2=team2
+        self.winner=winner
+        self.result_str=result_str
+
+#calculate result
+def CalculateResult(team1, team2):
+    result = Result(team1, team2, None, "")
+    batting_first = next((x for x in [team1,team2] if x.batting_second == False), None)
+    #see who won
+    winner=None
+    if team1.total_score == team2.total_score:
+        result.winner=None
+        result.result_str="Match Tied"
+    elif team1.total_score > team2.total_score:
+        result.winner=team1
+        result.result_str="{0} won".format(team1.name)
+    elif team2.total_score > team2.total_score:
+        result.winner=team2
+        result.result_str="{0} won".format(team2.name)
+    else:
+        None
+    return result
 
 def PairFaceBall(pair, run, ball):
     #find out who is on strike
@@ -31,7 +61,15 @@ def PairFaceBall(pair, run, ball):
         pair[alt_ind].onstrike = True
     return pair
 
-def UpdateStat(team, extras, wkts_fell):
+def UpdateScore(team, extras, wkts_fell):
+    total_runs=0
+    for p in team.team_array:
+        total_runs += p.runs        
+    total_runs += extras.runs
+    #calculate total
+    team.total_score=total_runs
+
+def DisplayScore(team, extras, wkts_fell):
     total_runs=0
     for p in team.team_array:
         total_runs += p.runs
@@ -46,6 +84,7 @@ def UpdateStat(team, extras, wkts_fell):
     print("TOTAL: {0} / {1}".format(str(total_runs), str(wkts_fell)))
     team.innings_over=True
     team.total_score=total_runs
+    team.wickets_fell = wkts_fell
 
 def BatsmanOut(pair):
     #find out who is on strike
@@ -67,6 +106,10 @@ def Play(team, extras, pair):
     wkts_fell = 0
     num_of_balls = 300
     for ball in range(1,num_of_balls+1):
+        #if batting second, if total score > target, win, break!
+        if team.batting_second is True and team.total_score > team.target:
+            print ("Match won!")
+            break
         #input()
         print("Ball: " + str(ball))
         if wkts_fell == total_wkts:
@@ -103,5 +146,6 @@ def Play(team, extras, pair):
             ball += 1
             print ("Runs scored: " + str(run))
             PairFaceBall(pair, run, ball)
+        UpdateScore(team, extras, wkts_fell)
     #print scorecard
-    UpdateStat(team, extras, wkts_fell)
+    DisplayScore(team, extras, wkts_fell)
