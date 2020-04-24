@@ -6,6 +6,12 @@ class Player():
         self.name=name
         self.status=status
 
+class Match():
+    def __init__(self, team1, team2, overs):
+        self.team1=team1
+        self.team2=team2
+        self.overs=overs
+
 class Team():
     def __init__(self, team_array, total_score, innings_over, batting_second, target, name, wickets_fell, total_balls, opening_pair):
         self.team_array=team_array

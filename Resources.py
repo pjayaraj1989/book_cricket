@@ -1,8 +1,31 @@
 from helper import*
+from test_data import*
 
 def Error_Exit(msg):
     print("Error: " + msg)
     exit(0)
+
+def GetMatchInfo():
+    match=None
+    teams=team_names
+    overs=input('Select overs\n')
+    overs=int(overs)
+    if overs > 50 or overs <= 0: Error_Exit('Invalid overs')    
+    
+    t1=input('Select teams from : {0}\n'.format('/'.join(teams)))
+    if t1 not in teams: Error_Exit('Invalid team')
+    else:
+        print ('Selected ' + t1)
+        teams.remove(t1)
+        t2=input('Select teams from : {0}\n'.format('/'.join(teams)))
+        if not t2 in teams: Error_Exit('Invalid team')
+        else:   print('Selected {0} and {1}'.format(t1,t2))
+    #find teams from user input
+    for t in list_of_teams:
+        if t.name == t1:    team1=t
+        if t.name == t2:    team2=t
+    match=Match(team1, team2, overs)
+    return match
 
 def CalculateResult(team1, team2):
     result = Result(team1, team2, None, "")
