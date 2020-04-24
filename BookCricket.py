@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     #has to be odd numbered
     india_squad = [sachin, sehwag, gambhir, kohli, yuvraj, dhoni, raina, ashwin, zaheer, nehra, sreesanth]
-    team_ind = Team(india_squad, 0, False, False, 0, "India", 0)
+    team_ind = Team(india_squad, 0, False, False, 0, "India", 0, 0)
 
     #first member always on strike
     opening_pair_ind = [sachin, sehwag]
@@ -40,10 +40,12 @@ if __name__ == "__main__":
     johnson=Player('johnson',False, 0, 0, True)
     lee=Player('lee',False, 0, 0, True)
     tait=Player('tait',False, 0, 0, True)
+
     #has to be odd numbered
     australia_squad = [hayden, gilchrist, ponting, clarke, hussey, watson, white, hogg, johnson, lee, tait]
-    team_aus = Team(australia_squad, 0, False, True, target, "Australia", 0)
+    team_aus = Team(australia_squad, 0, False, True, target, "Australia", 0, 0)
     extras_aus = Player('Extra',False,0,0,True)
+
     #first member always on strike
     opening_pair_aus = [hayden, gilchrist]
     gilchrist.onstrike=True
@@ -52,4 +54,14 @@ if __name__ == "__main__":
 
     #now check scores
     result = CalculateResult(team_ind, team_aus)
-    result=result
+
+    print("Summary:")
+    print(result.team1.name + " " + 
+          str(result.team1.total_score) + "/" + 
+          str(result.team1.wickets_fell) + "(" +
+          str(result.team1.total_balls) + ")")
+    print(result.team2.name + " " + 
+          str(result.team2.total_score) + "/" + 
+          str(result.team2.wickets_fell) + "(" +
+          str(result.team2.total_balls) + ")")
+    print(result.result_str)
