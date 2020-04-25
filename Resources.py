@@ -24,11 +24,11 @@ def GetMatchInfo():
     for t in list_of_teams:
         if t.name == t1:    team1=t
         if t.name == t2:    team2=t
-    match=Match(team1, team2, overs, None)
+    match=Match(team1=team1, team2=team2, overs=overs, result=None)
     return match
 
 def CalculateResult(team1, team2):
-    result = Result(team1, team2, None, "")
+    result = Result(team1=team1, team2=team2)
     #see who won
     loser=None
     if team1.total_score == team2.total_score:
