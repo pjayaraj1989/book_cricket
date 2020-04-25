@@ -60,7 +60,7 @@ class Match():
 #match details
 class Team():
     def __init__(self, **kwargs):
-        team_array=total_score=innings_over=batting_second=target=name=wickets_fell=total_balls=opening_pair=None
+        team_array=total_score=innings_over=batting_second=target=name=wickets_fell=total_balls=opening_pair=extras=None
         #initialize default values
         self.team_array=None
         self.total_score=0
@@ -71,6 +71,7 @@ class Team():
         self.wickets_fell=0
         self.total_balls=0
         self.opening_pair=None
+        self.extras=0
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='team_array':  self.team_array=kwargs[k]                
@@ -82,6 +83,7 @@ class Team():
                 if k=='wickets_fell': self.wickets_fell=kwargs[k]
                 if k=='total_balls': self.total_balls=kwargs[k]
                 if k=='opening_pair': self.opening_pair=kwargs[k]
+                if k=='extras': self.extras=kwargs[k]
 
 #result details
 class Result():
