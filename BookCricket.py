@@ -7,6 +7,11 @@ if __name__ == "__main__":
     balls=int(match.overs)*6    
     t1=match.team1
     t2=match.team2
+    
+    Play(t1, t2, t1.opening_pair, balls)
+
+    
+    '''
     #first innings
     Play(t1, extras, t1.opening_pair, balls, t2)
     target=0
@@ -22,3 +27,4 @@ if __name__ == "__main__":
     #add result to match
     match.result = result
     PrintResult(match.result)
+    '''

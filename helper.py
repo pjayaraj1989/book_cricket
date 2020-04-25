@@ -19,11 +19,14 @@ class PlayerAttr():
 #player details
 class Player():
     def __init__(self, **kwargs):
-        attr=onstrike=runs=balls=name=status=None
+        attr=onstrike=runs=balls=name=status=wkts=balls_bowled=runs_given=None
         self.attr=None
         self.onstrike=None
         self.runs=0
         self.balls=0
+        self.wkts=0
+        self.balls_bowled=0
+        self.runs_given=0
         self.name=''
         self.status=True
         if kwargs is not None:
@@ -34,6 +37,9 @@ class Player():
                 if k=='name':   self.name=v
                 if k=='status': self.status=v
                 if k=='attr':   self.attr=v
+                if k=='wkts':   self.wkts=v
+                if k=='balls_bowled':   self.balls_bowled=v
+                if k=='runs_given': self.runs_given=v
 
 #match details
 class Match():
