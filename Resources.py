@@ -113,12 +113,17 @@ def BatsmanOut(pair):
     player_on_strike.balls += 1
     return pair
 
-def Play(team, extras, pair, num_of_balls):
+def Play(team, extras, pair, num_of_balls, team2):
     team_list=team.team_array
     total_wkts = len(team_list)-1
     wkts_fell = 0
+    
+    #get opp bowlers if their bowling strength is >5
+    fielding_team_members = [plr for plr in team2.team_array]
+    bowlers = [plr for plr in team2.team_array if plr.attr.bowling > 5]    
+    keeper = [plr for plr in team2.team_array if plr.attr.iskeeper==True] 
+    
     for ball in range(1,num_of_balls+1):
-        #if batting second, if total score > target, win, break!
         if team.batting_second is True and team.total_score > team.target:
             print ("Match won!")
             break
@@ -129,20 +134,35 @@ def Play(team, extras, pair, num_of_balls):
             break
         #this is the main guy who generates runs
         import random
-        run_array = [-1,0,0,0,0,0,1,1,1,1,1,1,1,1,2,3,4,5]
+        run_array = [-1,0,0,0,0,0,1,1,1,1,1,1,1,1,2,3,4,5,6]
         run = random.choice(run_array)
-        #run = randint(-1,6)
         #if run is 5, treat as a wide dont count ball, incr extras
         if run is 5:
             extras.runs += 1
             print("Wide, total extras: " + str(extras.runs))
         #-1 ==> out!
         elif run is -1:
+            #randomly get bowler
+            wicket_taker=random.choice(bowlers)
+            catcher = random.choice(fielding_team_members)
+            dismissal_mode=random.choice(['B','C','runout','LBW'])
+            if dismissal_mode == 'C':
+                dismissal = 'c {0} b {1}'.format(catcher.name, wicket_taker.name)
+            elif dismissal_mode == 'B' or 'LBW':
+                dismissal = '{0} {1}'.format(dismissal_mode,wicket_taker.name)
+            else:
+                dismissal = ' runout {0}'.format(random.choice(fielding_team_members))
+                
             ball += 1
             pair=BatsmanOut(pair)
             player_dismissed = next((x for x in pair if x.status == False), None)
             ind=pair.index(player_dismissed)
-            print ("Player dismissed: " + player_dismissed.name + " for " + str(player_dismissed.runs))
+            
+            print("OUT! {0} {1} {2} ({3})".format(player_dismissed.name, 
+                                dismissal, 
+                                str(player_dismissed.runs),
+                                str(player_dismissed.balls)))
+            input()            
             wkts_fell += 1
             print ("Total wkts fell " + str(wkts_fell))
             #now bring the next batsman
@@ -158,6 +178,7 @@ def Play(team, extras, pair, num_of_balls):
             ball += 1
             print ("Runs scored: " + str(run))
             PairFaceBall(pair, run, ball)
+            
         UpdateScore(team, extras, wkts_fell, ball)
     #print scorecard
     DisplayScore(team, extras, wkts_fell)
