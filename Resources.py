@@ -107,11 +107,11 @@ def PrintResult(result):
     print(result.team1.name + " " + 
           str(result.team1.total_score) + "/" + 
           str(result.team1.wickets_fell) + "(" +
-          str(result.team1.total_balls) + ")")
+          str(result.team1.total_balls + result.team1.extras) + ")")
     print(result.team2.name + " " + 
           str(result.team2.total_score) + "/" + 
           str(result.team2.wickets_fell) + "(" +
-          str(result.team2.total_balls) + ")")
+          str(result.team2.total_balls + result.team2.extras) + ")")
     print(result.result_str)
 
 def BatsmanOut(pair, dismissal):
