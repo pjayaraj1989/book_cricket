@@ -27,13 +27,6 @@ def GetMatchInfo():
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
     return match
 
-def CalculateTotal(team):
-    total=0
-    for player in team.team_array:
-        total += player.runs
-    total += team.extras
-    return total
-
 def CalculateResult(team1, team2):
     result = Result(team1=team1, team2=team2)
     #see who won
@@ -80,18 +73,6 @@ def PairFaceBall(pair, run):
         pair[ind].onstrike = False
         pair[alt_ind].onstrike = True
     return pair
-
-#NOT USED!
-'''
-def UpdateScore(team, extras, wkts_fell, balls):
-    total_runs=0
-    for p in team.team_array:
-        total_runs += p.runs        
-    total_runs += extras.runs
-    #calculate total
-    team.total_score=total_runs
-    team.total_balls=balls
-'''
 
 def DisplayScore(team):
     for p in team.team_array:
@@ -227,6 +208,7 @@ def PlayOver(over, batting_team, bowling_team, pair, bowlers):
         print ("Over: {0}.{1}".format(str(over),str(ball)))
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         print ('{0} to {1}'.format(bowler.name, player_on_strike.name))
+        input()
         run = random.choice(run_array)
         if run is 5:
             print ("WIDE")
