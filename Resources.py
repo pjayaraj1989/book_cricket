@@ -194,6 +194,18 @@ def Chunks(l, n):
     n = max(1, n)
     return (l[i:i+n] for i in range(0, len(l), n))
 
+#print bowlers stats
+def DisplayBowlingStats(bowlers):
+    print ("-------------------")
+    print ("Bowling Stats")
+    print ("-------------------")
+    for bowler in bowlers:
+        print ("{0}\t{1}\t{2}\t{3}".format(bowler.name, 
+                                           str(bowler.balls_bowled), 
+                                           str(bowler.runs_given), 
+                                           str(bowler.wkts)))
+    print ("-------------------")
+
 def Play(batting_team, bowling_team, pair, total_balls):
     import random
     run_array = [-1,0,0,0,0,0,1,1,1,1,1,1,1,1,2,3,4,5,]
@@ -209,8 +221,10 @@ def Play(batting_team, bowling_team, pair, total_balls):
         if batting_team.wickets_fell == 10:
             print("All out")
             break
+        #make sure he doesnt bowl consecutive overs
         bowler = random.choice(bowlers)
         print ("New Bowler: " + bowler.name)
+
         #now with this bowler, do an over
         for ball in over:
             print ("Ball: " + str(ball))
@@ -219,6 +233,7 @@ def Play(batting_team, bowling_team, pair, total_balls):
             run = random.choice(run_array)
             if run is 5:
                 ball = ball - 1
+                bowler.balls_bowled -= 1
                 print ("Wide")
                 bowler.runs_given += 1
                 batting_team.extras += 1
@@ -233,8 +248,4 @@ def Play(batting_team, bowling_team, pair, total_balls):
         elif ind is 1:  alt_ind=0    
         pair[ind].onstrike = False
         pair[alt_ind].onstrike = True
-    
-    #DisplayScore(batting_team)    
-    for bowler in bowlers:
-        print ("{0}\t{1}\t{2}\t{3}".format(bowler.name, str(bowler.balls_bowled), str(bowler.runs_given), str(bowler.wkts)))
-        
+    DisplayBowlingStats(bowlers)  
