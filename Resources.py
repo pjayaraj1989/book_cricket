@@ -98,8 +98,20 @@ def DisplayScore(team):
             print("{0} : {1} ( {2} )".format(p.name, str(p.runs), str(p.balls)))
     print ("Extras: " + str(team.extras))
     #calculate total
-    total=CalculateTotal(team)
-    print('{0} {1}/{2} ({3})'.format(team.name, str(total), str(team.wickets_fell), str(team.total_balls)))
+    #total=CalculateTotal(team)
+    print('{0} {1}/{2} ({3})'.format(team.name, str(team.total_score), str(team.wickets_fell), str(team.total_balls)))
+
+def PrintResult(result):
+    print("Match Summary")
+    print(result.team1.name + " " + 
+          str(result.team1.total_score) + "/" + 
+          str(result.team1.wickets_fell) + "(" +
+          str(result.team1.total_balls) + ")")
+    print(result.team2.name + " " + 
+          str(result.team2.total_score) + "/" + 
+          str(result.team2.wickets_fell) + "(" +
+          str(result.team2.total_balls) + ")")
+    print(result.result_str)
 
 def BatsmanOut(pair):
     #find out who is on strike
@@ -118,7 +130,8 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
     #get who is on strike
     import random
     fielder=random.choice(bowling_team.team_array)
-    on_strike = next((x for x in pair if x.onstrike == True), None)
+    on_strike = next((x for x in pair if x.onstrike == True), None)    
+
     #if out
     if run is -1:
             bowler.wkts += 1
@@ -141,6 +154,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             bowler.runs_given += run
             PairFaceBall(pair, run)
             batting_team.total_balls += 1
+            batting_team.total_score += run
 
 def Chunks(l, n):
     n = max(1, n)
@@ -155,6 +169,11 @@ def Play(batting_team, bowling_team, pair, total_balls):
     overs=Chunks(range(1,total_balls+1), 6)
     #now run for each over
     for over in overs:
+        #check if match won
+        #if batting second, see, if target is achieved.
+        if batting_team.batting_second is True and (batting_team.total_score > batting_team.target):
+            print ("Match won")
+            break
         if batting_team.wickets_fell == 10:
             print("All out")
             break
@@ -170,8 +189,10 @@ def Play(batting_team, bowling_team, pair, total_balls):
                 print ("Wide")
                 bowler.runs_given += 1
                 batting_team.extras += 1
-            Ball(run, pair, bowler, batting_team, bowling_team)
-        print("Bowler stat: " + bowler.name  + " balls: " + str(bowler.balls_bowled) + " Runs: " + str(bowler.runs_given) + " wickets: " + str(bowler.wkts))
+                batting_team.total_score += 1
+            else:
+                Ball(run, pair, bowler, batting_team, bowling_team)
+        print("Bowlier stat: {0} balls:{1} Runs:{2} Wkts:{3}".format(bowler.name, str(bowler.balls_bowled), str(bowler.runs_given), str(bowler.wkts)))
         #rotate strike after an over
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         ind=pair.index(player_on_strike)
@@ -180,7 +201,7 @@ def Play(batting_team, bowling_team, pair, total_balls):
         pair[ind].onstrike = False
         pair[alt_ind].onstrike = True
     
-    DisplayScore(batting_team)    
+    #DisplayScore(batting_team)    
     for bowler in bowlers:
         print ("{0}\t{1}\t{2}\t{3}".format(bowler.name, str(bowler.balls_bowled), str(bowler.runs_given), str(bowler.wkts)))
         
