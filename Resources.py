@@ -235,7 +235,7 @@ def PlayOver(over, batting_team, bowling_team, pair, bowlers):
         else:
             Ball(run, pair, bowler, batting_team, bowling_team)
             ball += 1
-    print("Bowler stat: {0} balls:{1} Runs:{2} Wkts:{3}".format(bowler.name, str(bowler.balls_bowled), str(bowler.runs_given), str(bowler.wkts)))
+    return match_status
 
 #play!
 def Play(batting_team, bowling_team, pair, overs, bowlers):
