@@ -92,12 +92,15 @@ def UpdateScore(team, extras, wkts_fell, balls):
 
 def DisplayScore(team):
     for p in team.team_array:
-        if p.status is True:
-            print("{0} : {1}* ( {2} )".format(p.name, str(p.runs), str(p.balls)))
+        if p.status is True:    #* if not out
+            if p.balls == 0 and p.runs == 0:
+                print("{0}: DNB".format(p.name))
+            else:
+                print("{0} : {1}* ( {2} )".format(p.name, str(p.runs), str(p.balls)))
         else:
             print("{0} : {1} ( {2} )".format(p.name, str(p.runs), str(p.balls)))
     print ("Extras: " + str(team.extras))
-    print('{0} {1}/{2} ({3})'.format(team.name, str(team.total_score), str(team.wickets_fell), str(team.total_balls)))
+    print('{0} {1}/{2} ({3})'.format(team.name, str(team.total_score), str(team.wickets_fell), str(team.total_balls + team.extras)))
 
 def PrintResult(result):
     print("Match Summary")
