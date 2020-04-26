@@ -82,6 +82,7 @@ def PairFaceBall(pair, run):
     return pair
 
 #NOT USED!
+'''
 def UpdateScore(team, extras, wkts_fell, balls):
     total_runs=0
     for p in team.team_array:
@@ -90,6 +91,7 @@ def UpdateScore(team, extras, wkts_fell, balls):
     #calculate total
     team.total_score=total_runs
     team.total_balls=balls
+'''
 
 def DisplayScore(team):
     for p in team.team_array:
