@@ -96,9 +96,9 @@ def DisplayScore(team):
             if p.balls == 0 and p.runs == 0:
                 print("{0}: DNB".format(p.name))
             else:
-                print("{0} : {1}* ( {2} )".format(p.name, str(p.runs), str(p.balls)))
+                print ('{0} {1} {2}* ({3})'.format(p.name, p.dismissal, str(p.runs), str(p.balls)))
         else:
-            print("{0} : {1} ( {2} )".format(p.name, str(p.runs), str(p.balls)))
+            print ('{0} {1} {2} ({3})'.format(p.name, p.dismissal, str(p.runs), str(p.balls)))
     print ("Extras: " + str(team.extras))
     print('{0} {1}/{2} ({3})'.format(team.name, str(team.total_score), str(team.wickets_fell), str(team.total_balls + team.extras)))
 
@@ -196,15 +196,15 @@ def Chunks(l, n):
 
 #print bowlers stats
 def DisplayBowlingStats(bowlers):
-    print ("-------------------")
-    print ("Bowling Stats")
-    print ("-------------------")
+    print ("------------------------------")
+    print ("--------Bowling Stats---------")
+    print ("------------------------------")
     for bowler in bowlers:
-        print ("{0}\t{1}\t{2}\t{3}".format(bowler.name, 
+        print ("{0}\t\t\t{1}\t{2}\t{3}".format(bowler.name, 
                                            str(bowler.balls_bowled), 
                                            str(bowler.runs_given), 
                                            str(bowler.wkts)))
-    print ("-------------------")
+    print ("------------------------------")
 
 def Play(batting_team, bowling_team, pair, total_balls):
     import random
