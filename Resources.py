@@ -189,15 +189,18 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
 
 #print bowlers stats
 def DisplayBowlingStats(bowlers):
-    print ("------------------------------")
-    print ("--------Bowling Stats---------")
-    print ("------------------------------")
+    char='-'
+    print (char*45)
+    print (char*15 + '-Bowling Stats-' + char*15)
+    print (char*45)
     for bowler in bowlers:
-        print ("{0}\t\t\t{1}\t{2}\t{3}".format(bowler.name, 
-                                           str(bowler.balls_bowled), 
+        balls=bowler.balls_bowled
+        overs=str(int(balls/6)) + '.' + str(balls%6)
+        print ("{0} Overs:{1} Runs:{2} Wkts:{3}".format(bowler.name, 
+                                           overs, 
                                            str(bowler.runs_given), 
                                            str(bowler.wkts)))
-    print ("------------------------------")
+    print (char*45)
 
 #play an over
 def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
@@ -209,13 +212,6 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
     print ("New Bowler: " + bowler.name)
     ball=1
     while(ball <= 6):
-        #if runs required to win is <10 or 2 more overs to end innings, show a highlights
-        if batting_team.batting_second and (batting_team.target - batting_team.total_score <= 10):
-            ShowHighlights(batting_team)
-            print ('To win: {0} from {1}'.format(str(batting_team.target - batting_team.total_score),
-                                                 str(overs*6 - batting_team.total_balls)))
-            input()
-
         #check if target achieved
         if batting_team.batting_second is True and (batting_team.total_score > batting_team.target):
             print ("Match done!")
@@ -225,6 +221,16 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
             print("All out")
             match_status=False
             break
+
+        #if runs required to win is <10 or 2 more overs to end innings, show a highlights
+        towin=batting_team.target - batting_team.total_score 
+
+        if batting_team.batting_second and towin <= 10:
+            ShowHighlights(batting_team)
+            print ('To win: {0} from {1}'.format(str(batting_team.target - batting_team.total_score),
+                                                    str(overs*6 - batting_team.total_balls)))
+            input()
+
         print ("Over: {0}.{1}".format(str(over),str(ball)))
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         print ('{0} to {1}'.format(bowler.name, player_on_strike.name))
