@@ -212,7 +212,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             #show score
             ShowHighlights(batting_team)
             
-            input()
+            input('press any key to continue..')
 
             if batting_team.wickets_fell < 10:
                 ind=pair.index(player_dismissed)
@@ -261,7 +261,6 @@ def DisplayBowlingStats(bowlers):
 def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
     match_status = True
     import random
-    #run_array = [-1,0,0,0,0,0,1,1,6,6,-1,1,1,4,4,1,1,1,1,2,3,4,5,]    #select random bowler for this over
     #make sure he doesnt bowl consecutive overs
     bowler = random.choice(bowlers)
     print ("New Bowler: " + bowler.name)
@@ -284,12 +283,12 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
             ShowHighlights(batting_team)
             print ('To win: {0} from {1}'.format(str(batting_team.target - batting_team.total_score),
                                                     str(overs*6 - batting_team.total_balls)))
-            input()
+            input('press any key to continue...')
 
         print ("Over: {0}.{1}".format(str(over),str(ball)))
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         print ('{0} to {1}'.format(bowler.name, player_on_strike.name))
-        input()
+        input('press any key to continue..')
         run = random.choice(run_array)
         if run is 5:
             print ("WIDE...!")

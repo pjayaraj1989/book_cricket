@@ -1,4 +1,7 @@
 
+#random array for runs
+run_array = [-1,0,0,0,0,0,3,1,1,6,-1,1,1,4,4,1,1,1,1,2,3,4,5]    #select random bowler for this over
+
 #fielders
 field_positions = ['past slips', 'through fine leg', 'through cover', 'through point',
                     'straight down the ground', 'through mid-on','through mid-off',
