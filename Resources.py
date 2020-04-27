@@ -261,14 +261,14 @@ def DisplayBowlingStats(bowlers):
 def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
     match_status = True
     import random
-    run_array = [-1,0,0,0,0,0,1,1,1,1,1,1,1,1,2,3,4,5,]    #select random bowler for this over
+    #run_array = [-1,0,0,0,0,0,1,1,6,6,-1,1,1,4,4,1,1,1,1,2,3,4,5,]    #select random bowler for this over
     #make sure he doesnt bowl consecutive overs
     bowler = random.choice(bowlers)
     print ("New Bowler: " + bowler.name)
     ball=1
     while(ball <= 6):
         #check if target achieved
-        if batting_team.batting_second is True and (batting_team.total_score > batting_team.target):
+        if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
             print ("Match done!")
             match_status=False
             break
