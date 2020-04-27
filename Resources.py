@@ -266,9 +266,16 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
     match_status = True
     import random
     #make sure he doesnt bowl consecutive overs
-    bowler = random.choice(bowlers)
+    if bowling_team.last_bowler is None:
+        bowler = random.choice(bowlers)
+    else:
+        if bowling_team.last_bowler in bowlers:
+            temp = [x for x in bowlers if x != bowling_team.last_bowler]
+        bowler = random.choice(temp)
     print ("New Bowler: " + bowler.name)
     ball=1
+    bowling_team.last_bowler=bowler
+    
     while(ball <= 6):
         #check if target achieved
         if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
