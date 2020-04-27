@@ -3,13 +3,13 @@ from test_data import*
 from helper import*
 
 if __name__ == "__main__":
-    match=GetMatchInfo()    
+    match=GetMatchInfo(team_keys)    
     overs=match.overs  
     t1=match.team1
     t2=match.team2
     
-    bowlers_t1 = [plr for plr in t1.team_array if plr.attr.bowling > 5]
-    bowlers_t2 = [plr for plr in t2.team_array if plr.attr.bowling > 5]
+    bowlers_t1 = [plr for plr in t1.team_array if plr.attr.bowling >= 6]
+    bowlers_t2 = [plr for plr in t2.team_array if plr.attr.bowling >= 6]
 
     Play(t1, t2, t1.opening_pair, overs, bowlers_t2)
     DisplayScore(t1) 

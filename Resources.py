@@ -5,25 +5,27 @@ def Error_Exit(msg):
     print("Error: " + msg)
     exit(0)
 
-def GetMatchInfo():
+def GetMatchInfo(team_keys):
     match=None
-    teams=team_names
+    teams=team_keys
     overs=input('Select overs\n')
     overs=int(overs)
     if overs > 50 or overs <= 0: Error_Exit('Invalid overs')    
     
     t1=input('Select teams from : {0}\n'.format('/'.join(teams)))
+    t1=t1.upper()
     if t1 not in teams: Error_Exit('Invalid team')
     else:
         print ('Selected ' + t1)
         teams.remove(t1)
         t2=input('Select teams from : {0}\n'.format('/'.join(teams)))
+        t2=t2.upper()
         if not t2 in teams: Error_Exit('Invalid team')
         else:   print('Selected {0} and {1}'.format(t1,t2))
     #find teams from user input
     for t in list_of_teams:
-        if t.name == t1:    team1=t
-        if t.name == t2:    team2=t
+        if t.key == t1:    team1=t
+        if t.key == t2:    team2=t
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
     return match
 
@@ -207,6 +209,8 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             else:
                 None
 
+            if player_dismissed.balls is 1:
+                print ('Out first ball!!')
             print (comment)
 
             #show score
