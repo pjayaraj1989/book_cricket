@@ -1,4 +1,20 @@
 
+#fielders
+field_positions = ['past slips', 'through fine leg', 'through cover', 'through point',
+                    'straight down the ground', 'through mid-on','through mid-off',
+                    'through extra cover']
+#commentary
+commentary_big_shot = ['what a shot!','bad ball and punished','well connected', 'that will find the fence!','magnificent shot!','stand and deliver!']
+commentary_ground_shot = ['not timed well', 'found the gap well', 'good ball ! but well played into the gap','into the gap']
+commentary_bowled = ['full and straight what a ball','bowledim!', 'Middle stump out of here','knocked him over with a ripper!','knocked his stumps over!']
+commentary_runout = ['what a terrible mix up!', 'this is bizzare!']
+commentary_stumped = ['swift work by the keeper!', 'thats out stumped!', 'fast hands by the keeper','lightning quick behind the stumps']
+commentary_caught = ['in the air and taken!','thats straight up in the air', 'oh what a catch','what a blinder!','unbelievable catch!']
+commentary_lbw = ['the finger goes up!','thats in line and umpire says out','missing leg? No! thats out','oh thats a harsh decision']
+commentary_dot_ball = ['beautiful delivery, missed the stumps by inches!',  'well defended!','solid defence'
+                        'big appeal.. but umpire says not out!', 'that looks close, but not out says the umpire!'
+                            'outside off and he misses that!','dangerous delivery batsman had no clue about it']
+
 #player attributes
 class PlayerAttr():
     def __init__(self, **kwargs):

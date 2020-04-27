@@ -110,7 +110,7 @@ def DisplayScore(team):
     print (ch*45)
 
 def PrintResult(result):
-    print('*'*10 + 'Match Summary' + '*'*10)
+    print('-'*10 + 'Match Summary' + '-'*10)
     print(result.team1.name + " " + 
           str(result.team1.total_score) + "/" + 
           str(result.team1.wickets_fell) + "(" +
@@ -126,6 +126,7 @@ def PrintResult(result):
     print ('Best bowler: {0} {1}/{2}'.format(result.best_bowler.name,
                                         str(result.best_bowler.runs_given),
                                         str(result.best_bowler.wkts)))
+    print('-'*43)
 
 def BatsmanOut(pair, dismissal):
     #find out who is on strike
@@ -174,11 +175,6 @@ def ShowHighlights(batting_team):
                                                str(batting_team.total_score), 
                                                str(batting_team.wickets_fell), 
                                                str(batting_team.total_balls)))
-    #print ('{0} Balls:{1} {2}/{3}'.format(bowler.name, 
-     #                                     str(bowler.balls_bowled),
-      #                                    str(bowler.runs_given),
-       #                                   str(bowler.wkts)))
-
 #play a ball
 def Ball(run, pair, bowler, batting_team, bowling_team):    
     on_strike = next((x for x in pair if x.onstrike == True), None) 
@@ -196,6 +192,23 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                                                player_dismissed.dismissal, 
                                                str(player_dismissed.runs), 
                                                str(player_dismissed.balls)))
+            #commentary
+            import random
+            if 'runout' in dismissal:
+                comment = random.choice(commentary_runout)
+            elif 'st ' in dismissal:
+                comment = random.choice(commentary_stumped)
+            elif 'c ' in dismissal and ' b ' in dismissal:
+                comment = random.choice(commentary_caught)
+            elif 'lbw' in dismissal:
+                comment = random.choice(commentary_lbw)
+            elif 'b ' in dismissal:
+                comment = random.choice(commentary_bowled)
+            else:
+                None
+
+            print (comment)
+
             #show score
             ShowHighlights(batting_team)
             
@@ -207,7 +220,22 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 pair[ind].onstrike=True
                 print ("New Batsman: " + pair[ind].name)        
     else:
-            print ("Run: " + str(run)) 
+            #appropriate commentary for 4s and 6s
+            import random
+            field=random.choice(field_positions)
+            if run == 4:
+                comment=random.choice(commentary_big_shot)
+                print (field + " FOUR! " + comment)
+            elif run == 6:
+                comment=random.choice(commentary_big_shot)
+                print (field + " SIX! " + comment)
+            elif run == 0:
+                comment=random.choice(commentary_dot_ball)
+                print ('{0}, No Run'.format(comment))
+            else:
+                comment=random.choice(commentary_ground_shot)
+                print ('{0},{1} {2} run'.format(comment, field, str(run)))
+
             bowler.balls_bowled += 1
             bowler.runs_given += run
             PairFaceBall(pair, run)
