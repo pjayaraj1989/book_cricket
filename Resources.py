@@ -27,7 +27,7 @@ def GetMatchInfo():
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
     return match
 
-def CalculateResult(team1, team2):
+def CalculateResult(team1, team2, bowlers_t1, bowlers_t2):
     result = Result(team1=team1, team2=team2)
     #see who won
     loser=None
@@ -56,6 +56,23 @@ def CalculateResult(team1, team2):
             win_margin = abs(result.winner.total_score - loser.total_score)
             if win_margin is not 0:
                 result.result_str += " by {0} runs".format(str(win_margin))
+    #calculate MOM and best bowler
+    bowlers_list = bowlers_t1 + bowlers_t2
+    result=FindBestPlayers(result, bowlers_list)
+    return result
+
+#find best player
+def FindBestPlayers(result, bowlers_list):
+    best_batter=None
+    best_bowler=None
+    total_players = result.team1.team_array + result.team2.team_array
+    from operator import attrgetter
+    #find best batsman
+    best_batter = max(total_players, key=attrgetter('runs'))
+    result.best_batsman = best_batter
+    #find best bowler
+    best_bowler = max(bowlers_list, key=attrgetter('wkts'))
+    result.best_bowler = best_bowler
     return result
 
 def PairFaceBall(pair, run):
@@ -73,7 +90,12 @@ def PairFaceBall(pair, run):
         pair[alt_ind].onstrike = True
     return pair
 
+#batting summary - scoreboard
 def DisplayScore(team):
+    ch='-'
+    print(ch*45)
+    print(ch*15 + 'Batting Summary' + ch*15)
+    print (ch*45)
     for p in team.team_array:
         if p.status is True:    #* if not out
             if p.balls == 0 and p.runs == 0:
@@ -83,10 +105,12 @@ def DisplayScore(team):
         else:
             print ('{0} {1} {2} ({3})'.format(p.name, p.dismissal, str(p.runs), str(p.balls)))
     print ("Extras: " + str(team.extras))
-    print('{0} {1}/{2} ({3})'.format(team.name, str(team.total_score), str(team.wickets_fell), str(team.total_balls)))
+    print (' ')
+    print('{0} {1}/{2} ({3})'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(team.total_balls)))
+    print (ch*45)
 
 def PrintResult(result):
-    print("Match Summary")
+    print('*'*10 + 'Match Summary' + '*'*10)
     print(result.team1.name + " " + 
           str(result.team1.total_score) + "/" + 
           str(result.team1.wickets_fell) + "(" +
@@ -96,6 +120,12 @@ def PrintResult(result):
           str(result.team2.wickets_fell) + "(" +
           str(result.team2.total_balls) + ")")
     print(result.result_str)
+    print ('Most runs: {0} {1} ({2})'.format(result.best_batsman.name,
+                                        str(result.best_batsman.runs),
+                                        str(result.best_batsman.balls)))
+    print ('Best bowler: {0} {1}/{2}'.format(result.best_bowler.name,
+                                        str(result.best_bowler.runs_given),
+                                        str(result.best_bowler.wkts)))
 
 def BatsmanOut(pair, dismissal):
     #find out who is on strike
@@ -106,12 +136,9 @@ def BatsmanOut(pair, dismissal):
     if ind is 0:    alt_ind=1
     elif ind is 1:  alt_ind=0
     #bastman dismissed
-    #player_on_strike.status = False
     pair[ind].status = False
-    #player_on_strike.balls += 1
     pair[ind].balls += 1
     #update dismissal mode
-    #player_on_strike.dismissal = dismissal
     pair[ind].dismissal = dismissal
     return pair
 
@@ -165,7 +192,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             batting_team.total_balls += 1
             pair=BatsmanOut(pair, dismissal)           
             player_dismissed = next((x for x in pair if x.status == False), None)
-            print ("OUT! {0} {1} {2} ({3})".format(player_dismissed.name, 
+            print ("OUT ! {0} {1} {2} ({3})".format(player_dismissed.name, 
                                                player_dismissed.dismissal, 
                                                str(player_dismissed.runs), 
                                                str(player_dismissed.balls)))
@@ -237,7 +264,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
         input()
         run = random.choice(run_array)
         if run is 5:
-            print ("WIDE")
+            print ("WIDE...!")
             bowler.runs_given += 1
             batting_team.extras += 1
             batting_team.total_score += 1

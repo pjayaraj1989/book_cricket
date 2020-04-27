@@ -23,6 +23,6 @@ if __name__ == "__main__":
     DisplayScore(t2)
     DisplayBowlingStats(bowlers_t1)
 
-    result = CalculateResult(t1, t2)
+    result = CalculateResult(t1, t2, bowlers_t1, bowlers_t2)
     match.result = result
     PrintResult(match.result)
