@@ -276,12 +276,12 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
             match_status=False
             break
 
-        #if runs required to win is <10 or 2 more overs to end innings, show a highlights
+        #towards the death overs, show a highlights
         towin=batting_team.target - batting_team.total_score 
-
-        if batting_team.batting_second and towin <= 10:
+        #calculate if score is close        
+        if batting_team.batting_second and towin <= 10):
             ShowHighlights(batting_team)
-            print ('To win: {0} from {1}'.format(str(batting_team.target - batting_team.total_score),
+            print ('To win: {0} from {1}'.format(str(towin),
                                                     str(overs*6 - batting_team.total_balls)))
             input('press any key to continue...')
 
