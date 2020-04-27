@@ -268,18 +268,20 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
     while(ball <= 6):
         #check if target achieved
         if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
-            print ("Match done!")
+            print ("Match won!")
             match_status=False
+            input('press any key to continue...')
             break
         if batting_team.wickets_fell == 10:
-            print("All out")
+            print("All out!")
             match_status=False
+            input ('press any key to continue...')
             break
 
         #towards the death overs, show a highlights
         towin=batting_team.target - batting_team.total_score 
         #calculate if score is close        
-        if batting_team.batting_second and towin <= 10):
+        if batting_team.batting_second and towin <= 20:
             ShowHighlights(batting_team)
             print ('To win: {0} from {1}'.format(str(towin),
                                                     str(overs*6 - batting_team.total_balls)))
