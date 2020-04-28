@@ -10,15 +10,15 @@ def GetMatchInfo(team_keys):
     teams=team_keys
     overs=input('Select overs\n')
     overs=int(overs)
-    if overs > 50 or overs <= 0: Error_Exit('Invalid overs')    
+    if overs > 50 or overs <= 0: Error_Exit('Invalid overs') 
     
-    t1=input('Select teams from : {0}\n'.format('/'.join(teams)))
+    t1=input('Select your team from : {0}\n'.format('/'.join(teams)))
     t1=t1.upper()
     if t1 not in teams: Error_Exit('Invalid team')
     else:
         print ('Selected ' + t1)
         teams.remove(t1)
-        t2=input('Select teams from : {0}\n'.format('/'.join(teams)))
+        t2=input('Select opponent team from : {0}\n'.format('/'.join(teams)))
         t2=t2.upper()
         if not t2 in teams: Error_Exit('Invalid team')
         else:   print('Selected {0} and {1}'.format(t1,t2))
@@ -27,6 +27,28 @@ def GetMatchInfo(team_keys):
         if t.key == t1:    team1=t
         if t.key == t2:    team2=t
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
+    return match
+
+#toss
+def Toss (match):
+    print('Toss..')
+    if match.team1.captain is None or match.team2.captain is None:
+        Error_Exit('No captains assigned!')
+    print ('Here we are, with the captains {0} and {1}'.format(match.team1.captain.name, match.team2.captain.name))
+    import random
+    print ('{0} is gonna flip the coin'.format(match.team2.captain.name))
+    call=input('{0}, Heads or tails? 1.Heads 2.Tails'.format(match.team1.captain.name))
+    call=int(call)
+    coin=random.choice([1,2])
+    coin=int(coin)
+    if coin == call:
+        print('{0} won the toss, batting first'.format(match.team1.captain.name))
+        match.team1.batting_second=False
+        match.team2.batting_second=True
+    else:
+        print('{0} won the toss, batting first'.format(match.team2.captain.name))
+        match.team2.batting_second=False
+        match.team1.batting_second=True
     return match
 
 def ValidateMatchTeams(match):
@@ -304,6 +326,7 @@ def DisplayBowlingStats(bowlers):
                                            str(bowler.eco),
                                            str(bowler.maidens)))
     print (char*45)
+    input('Press any key to continue..')
     return bowlers_updated
 
 #play an over
