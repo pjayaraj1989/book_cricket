@@ -11,14 +11,12 @@ if __name__ == "__main__":
     ValidateMatchTeams(match)
     bowlers_t1=t1.bowlers
     bowlers_t2=t2.bowlers
-    
+
     Play(t1, t2, t1.opening_pair, overs, bowlers_t2)
     DisplayScore(t1) 
     DisplayBowlingStats(bowlers_t2)
     input()
-    target=t1.total_score+1
-
-    t2.target = target
+    t2.target = t1.total_score+1
     t2.batting_second=True
     Play(t2, t1, t2.opening_pair, overs, bowlers_t1)
     DisplayScore(t2)

@@ -333,6 +333,10 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
 
 #play!
 def Play(batting_team, bowling_team, pair, overs, bowlers):
+    if batting_team.batting_second is True:
+        print('Target for {0}: {1} from {2} overs'.format(batting_team.name,
+                                                                 str(batting_team.target),
+                                                                 str(overs)))
     #now run for each over
     for over in range(0,overs):
         #play an over      
