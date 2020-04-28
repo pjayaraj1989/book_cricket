@@ -29,6 +29,24 @@ def GetMatchInfo(team_keys):
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
     return match
 
+def ValidateMatchTeams(match):
+    if match.team1 is None or match.team2 is None:
+        Error_Exit('No teams found!')
+    for t in [match.team1, match.team2]:
+        #check if 11 players
+        if len(t.team_array) != 11:
+            Error_Exit('Only {0} members in team {1}'.format(len(t.team_array), t.name))
+        #check if they have keeper
+        if [plr for plr in t.team_array if plr.attr.iskeeper == True] is None or []:
+            Error_Exit('No keeper found in team {0}'.format(t.name))
+        #get bowlers must be at least 5 of them
+        bowlers = [plr for plr in t.team_array if plr.attr.bowling >= 6]
+        if len(bowlers) < 5:
+            Error_Exit('Team {0} should have 5 bowlers in the playing XI'.format(t.name) )
+        else:
+            t.bowlers = bowlers
+    print('Validated teams')
+
 def CalculateResult(team1, team2, bowlers_t1, bowlers_t2):
     result = Result(team1=team1, team2=team2)
     #see who won
