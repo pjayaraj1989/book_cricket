@@ -7,6 +7,14 @@ def Error_Exit(msg):
 
 def GetMatchInfo(team_keys):
     match=None
+    
+    import random
+    #get venue randomly
+    venue=random.choice(venues)
+    intro=random.choice(intro_dialogues)
+    commentator=random.sample(set(commentators), 2)
+    umpire = random.choice(umpires)
+    
     teams=team_keys
     overs=input('Select overs\n')
     overs=int(overs)
@@ -27,6 +35,16 @@ def GetMatchInfo(team_keys):
         if t.key == t1:    team1=t
         if t.key == t2:    team2=t
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
+    print('{4}, {0}, for the exciting {1} over match between {2} and {3}'.format(venue,
+                                                        str(overs),
+                                                        team1.name,
+                                                        team2.name,
+                                                       intro))
+    print ('In the commentary box, myself {0} with {1}'.format(commentator[0],commentator[1]))
+    print ('Umpire: {0}'.format(umpire))
+    input('press any key to continue..')
+    match.venue = venue
+    match.umpire = umpire
     return match
 
 #toss
@@ -34,10 +52,13 @@ def Toss (match):
     print('Toss..')
     if match.team1.captain is None or match.team2.captain is None:
         Error_Exit('No captains assigned!')
-    print ('Here we are, with the captains {0} and {1}'.format(match.team1.captain.name, match.team2.captain.name))
+    print ('We have the captains {0}({1}) and {2}({3}) in the middle'.format(match.team1.captain.name,
+                                                                            match.team1.name,
+                                                                        match.team2.captain.name,
+                                                                        match.team2.name))
     import random
     print ('{0} is gonna flip the coin'.format(match.team2.captain.name))
-    call=input('{0}, Heads or tails? 1.Heads 2.Tails'.format(match.team1.captain.name))
+    call=input('{0}, Heads or tails? 1.Heads 2.Tails\n'.format(match.team1.captain.name))
     call=int(call)
     coin=random.choice([1,2])
     coin=int(coin)
@@ -173,6 +194,7 @@ def DisplayScore(team):
 
 def PrintResult(result):
     print('-'*10 + 'Match Summary' + '-'*10)
+    print('{0} vs {1}'.format(result.team1.name, result.team2.name))
     print(result.team1.name + " " + 
           str(result.team1.total_score) + "/" + 
           str(result.team1.wickets_fell) + "(" +

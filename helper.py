@@ -1,22 +1,39 @@
+#venues
+venues = ['Lords','The MCG','The Chinnaswamy Stadium,Bengaluru','SuperSport Park Centurion','The Sydney Cricket Ground','The Wankhede, Mumbai',
+            'Edgbaston', 'The WACA, Perth', 'The Eden Gardens, Kolkata', 'Johannesburg', 'R.Premadasa Stadium, Colombo']
+
+intro_dialogues = ['welcome everybody, here we are','hello everyone, here we are','warm welcome to everyone to ']
+
+commentators = ['Harsha Bhogle','Sourav Ganguly','Tony Greig','Ian Smith','Ravi Shastri','Michael Clarke','Pommie Mbangwa','Rahul Dravid','Michael Hussey']
+
+umpires = ['Kumar Dharmasena','Ian Gould','Asad Rauf','Aleem Dar','Nitin Menon','Marais Erasmus','Richard Kettleborough','Nigel Llong','Paul Reiffel',
+                'Richard Illingworth','Simon Tauffel','S Ravi','Billy Bowden',]
 
 #random array for runs
 run_array = [-1,0,0,0,0,0,3,1,1,6,-1,1,1,4,4,1,1,1,1,2,3,4,5]    #select random bowler for this over
 
 #fielders
-field_positions = ['past slips', 'through fine leg', 'through cover', 'through point',
+field_positions = ['past slips','through first slip','through fine leg', 'through cover', 'through point',
                     'straight down the ground', 'through mid-on','through mid-off',
                     'through extra cover']
 #commentary
-commentary_big_shot = ['what a shot!','bad ball and punished','well connected', 'that will find the fence!','magnificent shot!','stand and deliver!']
+commentary_big_shot = ['what a shot!','bad ball and punished','well connected','that will find the fence!',
+                        'magnificent shot!','stand and deliver!','oh unbelievable timing!','Beautiful shot!'
+                        'he is getting warmed up here!','boy what a shot!','right out of the middle of the bat!']
 commentary_ground_shot = ['not timed well', 'found the gap well', 'good ball ! but well played into the gap','into the gap']
-commentary_bowled = ['full and straight what a ball','bowledim!', 'Middle stump out of here','knocked him over with a ripper!','knocked his stumps over!']
-commentary_runout = ['what a terrible mix up!', 'this is bizzare!']
-commentary_stumped = ['swift work by the keeper!', 'thats out stumped!', 'fast hands by the keeper','lightning quick behind the stumps']
-commentary_caught = ['in the air and taken!','thats straight up in the air', 'oh what a catch','what a blinder!','unbelievable catch!']
-commentary_lbw = ['the finger goes up!','thats in line and umpire says out','missing leg? No! thats out','oh thats a harsh decision']
-commentary_dot_ball = ['beautiful delivery, missed the stumps by inches!',  'well defended!','solid defence'
-                        'big appeal.. but umpire says not out!', 'that looks close, but not out says the umpire!'
-                            'outside off and he misses that!','dangerous delivery batsman had no clue about it']
+commentary_bowled = ['full and straight what a ball','what a yorker! he is on fire!','bowled himm!', 'Middle stump out of here',
+                            'done him and shattered the stumps!','he has made an awful mess of the stumps!','knocked him over with a ripper!',
+                            'knocked his stumps over!','off stump out of the ground!','bowled him! You beauty!','oh bowledim, an unplayable delivery!']
+commentary_runout = ['what a terrible mix up!','this is bizzare!','he is coming back for the double, gone!','that was a horrible call!',
+                        'direct hit and gone!','what was the batsman thinking!?']
+commentary_stumped = ['swift work by the keeper!', 'thats out stumped!','stumped, no need to refer it!','fast hands behind the stumps!','lightning quick behind the stumps']
+commentary_caught = ['in the air and taken!','thats straight up in the air.. taken!','leading edge and gone!','oh what a catch!','what a blinder!','unbelievable catch!','has he taken that? He has!']
+commentary_lbw = ['big appeal.. and the finger goes up!','thats in line and umpire says out','missing leg? No! thats out','oh thats a harsh decision',
+                        'given out, batsman is not happy at all','thats dead, dont look at the umpire!','thats a long appeal and finally the finger is raised!']
+commentary_dot_ball = ['beautiful delivery, missed the stumps by inches!','well defended!','solid defence','swings and misses',
+                        'big appeal.. but umpire says not out!', 'that looks close, but not out says the umpire!','missed it, there is a stare from the bowler',
+                        'swing and a miss!',
+                            'outside off and he misses that!','dangerous delivery! batsman had no clue about it','slower ball and he misses it!']
 
 #player attributes
 class PlayerAttr():
@@ -71,19 +88,23 @@ class Player():
 #match details
 class Match():
     def __init__(self, **kwargs):
-        team1=team2=overs=result=None
+        team1=team2=overs=result=venue=None
         #initialize default values
         self.overs=0
         self.result=None
         self.team1=None
         self.team2=None
+        self.venue=None
+        self.umpire=None
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='team1':  self.team1=kwargs[k]                
                 if k=='team2':  self.team2=kwargs[k]               
                 if k=='overs':  self.overs=kwargs[k]                
-                if k=='result': self.result=kwargs[k]       
-
+                if k=='result': self.result=kwargs[k]
+                if k=='venue':  self.venue=kwargs[k]     
+                if k=='umpire': self.umpire=kwargs[k]
+                
 #match details
 class Team():
     def __init__(self, **kwargs):
