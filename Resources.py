@@ -132,6 +132,10 @@ def DisplayScore(team):
     print ("Extras: " + str(team.extras))
     print (' ')
     print('{0} {1}/{2} ({3})'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(team.total_balls)))
+    #show FOW
+    if team.wickets_fell is not 0:
+        print ('FOW:')
+        print(', '.join(team.fow))
     print (ch*45)
 
 def PrintResult(result):
@@ -219,6 +223,10 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                                                player_dismissed.dismissal, 
                                                str(player_dismissed.runs), 
                                                str(player_dismissed.balls)))
+            #update fall of wicket
+            fow_info = '{0}/{1} ({2})'.format(str(batting_team.total_score), str(batting_team.wickets_fell), player_dismissed.name)
+            batting_team.fow.append(fow_info)
+
             #commentary
             import random
             if 'runout' in dismissal:
