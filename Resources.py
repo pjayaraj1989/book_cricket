@@ -289,14 +289,15 @@ def DisplayBowlingStats(bowlers):
             eco = float(bowler.runs_given / float(overs))
             eco = round(eco,2)
             bowler.eco = eco
-            print ("{0} Overs:{1} Runs:{2} Wkts:{3} Eco: {4}".format(bowler.name, 
+            print ("{0} Overs:{1} Maidens:{5} Runs:{2} Wkts:{3} Eco: {4}".format(bowler.name, 
                                            overs, 
                                            str(bowler.runs_given), 
                                            str(bowler.wkts),
-                                           str(bowler.eco)))
+                                           str(bowler.eco),
+                                           str(bowler.maidens)))
     print (char*45)
     return bowlers_updated
-    
+
 #play an over
 def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
     match_status = True
@@ -311,7 +312,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
     print ("New Bowler: " + bowler.name)
     ball=1
     bowling_team.last_bowler=bowler
-    
+    ismaiden=True
     while(ball <= 6):
         #check if target achieved
         if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
@@ -339,7 +340,12 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
         print ('{0} to {1}'.format(bowler.name, player_on_strike.name))
         input('press any key to continue..')
         run = random.choice(run_array)
+        #check if maiden or not
+        if run is not 0 or -1:
+            ismaiden=False 
+        #check if extra
         if run is 5:
+            ismaiden=False
             print ("WIDE...!")
             bowler.runs_given += 1
             batting_team.extras += 1
@@ -347,6 +353,8 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
         else:
             Ball(run, pair, bowler, batting_team, bowling_team)
             ball += 1
+    if ismaiden == True:
+        bowler.maidens += 1
     return match_status
 
 #play!
