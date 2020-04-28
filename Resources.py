@@ -137,6 +137,17 @@ def PairFaceBall(pair, run):
         pair[alt_ind].onstrike = True
     return pair
 
+#calculate required rr at a point
+def GetRequiredRate(totalovers, team):
+    nrr=0.0
+    #if chasing, calc net nrr
+    balls_remaining=totalovers*6 - team.total_balls
+    overs_remaining=float(str(int(balls_remaining/6)) + '.' + str(balls_remaining%6))
+    towin = team.target - team.total_score
+    nrr = float(towin / overs_remaining)
+    nrr = round(nrr,2)
+    return nrr
+
 #batting summary - scoreboard
 def DisplayScore(team):
     ch='-'
@@ -396,14 +407,17 @@ def Play(batting_team, bowling_team, pair, overs, bowlers):
                                                                  str(overs)))
     #now run for each over
     for over in range(0,overs):
+        #show net rr required if batting second
+        if batting_team.batting_second is True:
+            nrr=GetRequiredRate(overs, batting_team)
+            print('Reqd Run Rate: {0} per over'.format(str(nrr)))
+
         #play an over      
         status=PlayOver(over, overs, batting_team, bowling_team, pair, bowlers)
         #show batting stats
         for p in pair:
             print('{0} {1} ({2})'.format(p.name, str(p.runs), str(p.balls)))
-
         ShowHighlights(batting_team)
-
         if status is False:
             break
         #rotate strike after an over
