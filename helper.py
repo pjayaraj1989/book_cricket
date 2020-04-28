@@ -67,7 +67,7 @@ class Player():
                 if k=='dismissal':  self.dismissal=v
                 if k=='maidens':    self.maidens=v
                 if k=='eco':    self.eco=v
-                
+
 #match details
 class Match():
     def __init__(self, **kwargs):
@@ -122,13 +122,14 @@ class Team():
 class Result():
     def __init__(self, **kwargs):
         #default
-        team1=team2=winner=result_str=most_runs=most_wkts=None
+        team1=team2=winner=result_str=most_runs=most_wkts=besteco=None
         self.team1=None
         self.team2=None
         self.winner=None
         self.result_str=''
         self.most_runs=None
         self.most_wkts=None
+        self.besteco=None
         if kwargs is not None:
             for k, v in kwargs.items():
                 if k=='team1':  self.team1=v
@@ -137,3 +138,4 @@ class Result():
                 if k=='result_str': self.result_str=v
                 if k=='most_runs':  self.most_runs=v
                 if k=='most_wkts:': self.most_wkts=v
+                if k=='besteco':    self.besteco=v

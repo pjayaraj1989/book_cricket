@@ -77,6 +77,7 @@ def CalculateResult(team1, team2, bowlers_t1, bowlers_t2):
             if win_margin is not 0:
                 result.result_str += " by {0} runs".format(str(win_margin))
     #calculate MOM and best bowler
+    #onlt bowlers who bowled
     bowlers_list = bowlers_t1 + bowlers_t2
     result=FindBestPlayers(result, bowlers_list)
     return result
@@ -85,14 +86,18 @@ def CalculateResult(team1, team2, bowlers_t1, bowlers_t2):
 def FindBestPlayers(result, bowlers_list):
     best_batter=None
     best_bowler=None
+    best_eco_bowler=None
     total_players = result.team1.team_array + result.team2.team_array
     from operator import attrgetter
     #find best batsman
     best_batter = max(total_players, key=attrgetter('runs'))
     result.best_batsman = best_batter
-    #find best bowler
+    #find most wkts
     best_bowler = max(bowlers_list, key=attrgetter('wkts'))
     result.best_bowler = best_bowler
+    #find best eco bowler
+    best_eco_bowler = min(bowlers_list, key=attrgetter('eco'))
+    result.besteco = best_eco_bowler
     return result
 
 def PairFaceBall(pair, run):
@@ -146,6 +151,8 @@ def PrintResult(result):
     print ('Best bowler: {0} {1}/{2}'.format(result.best_bowler.name,
                                         str(result.best_bowler.runs_given),
                                         str(result.best_bowler.wkts)))
+    print ('Best economy: {0} {1}'.format(result.besteco.name,
+                                        str(result.besteco.eco)))
     print('-'*43)
 
 def BatsmanOut(pair, dismissal):
@@ -266,6 +273,8 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
 
 #print bowlers stats
 def DisplayBowlingStats(bowlers):
+    #here, remove the bowlers who didnt bowl
+    bowlers_updated=[]
     char='-'
     print (char*45)
     print (char*15 + '-Bowling Stats-' + char*15)
@@ -274,6 +283,7 @@ def DisplayBowlingStats(bowlers):
     for bowler in bowlers:
         #dont print if he hasnt bowled
         if bowler.balls_bowled is not 0:
+            bowlers_updated.append(bowler)
             balls=bowler.balls_bowled
             overs=str(int(balls/6)) + '.' + str(balls%6)
             eco = float(bowler.runs_given / float(overs))
@@ -285,7 +295,8 @@ def DisplayBowlingStats(bowlers):
                                            str(bowler.wkts),
                                            str(bowler.eco)))
     print (char*45)
-
+    return bowlers_updated
+    
 #play an over
 def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
     match_status = True
