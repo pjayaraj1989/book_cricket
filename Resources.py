@@ -265,9 +265,9 @@ def DisplayBowlingStats(bowlers):
 def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
     match_status = True
     import random
-    #make sure he doesnt bowl consecutive overs
     if bowling_team.last_bowler is None:
-        bowler = random.choice(bowlers)
+        #if first over, opening bowler does it
+        bowler = next((x for x in bowlers if x.attr.isopeningbowler == True), None)
     else:
         if bowling_team.last_bowler in bowlers:
             temp = [x for x in bowlers if x != bowling_team.last_bowler]

@@ -22,18 +22,20 @@ commentary_dot_ball = ['beautiful delivery, missed the stumps by inches!',  'wel
 class PlayerAttr():
     def __init__(self, **kwargs):
         #attribs should be int out of 10
-        batting=bowling=iscaptain=iskeeper=None
+        batting=bowling=iscaptain=iskeeper=isopeningbowler=None
         #init default
         self.batting=0
         self.bowling=0
         self.iskeeper=False
         self.iscaptain=False
+        self.isopeningbowler=False
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='batting':    self.batting=v
                 if k=='bowling':    self.bowling=v
                 if k=='iscaptain':  self.iscaptain=v
                 if k=='iskeeper':   self.iskeeper=v
+                if k=='isopeningbowler':    self.isopeningbowler=v
 
 #player details
 class Player():
