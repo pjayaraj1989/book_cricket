@@ -270,13 +270,20 @@ def DisplayBowlingStats(bowlers):
     print (char*45)
     print (char*15 + '-Bowling Stats-' + char*15)
     print (char*45)
+    eco=0.0
     for bowler in bowlers:
-        balls=bowler.balls_bowled
-        overs=str(int(balls/6)) + '.' + str(balls%6)
-        print ("{0} Overs:{1} Runs:{2} Wkts:{3}".format(bowler.name, 
+        #dont print if he hasnt bowled
+        if bowler.balls_bowled is not 0:
+            balls=bowler.balls_bowled
+            overs=str(int(balls/6)) + '.' + str(balls%6)
+            eco = float(bowler.runs_given / float(overs))
+            eco = round(eco,2)
+            bowler.eco = eco
+            print ("{0} Overs:{1} Runs:{2} Wkts:{3} Eco: {4}".format(bowler.name, 
                                            overs, 
                                            str(bowler.runs_given), 
-                                           str(bowler.wkts)))
+                                           str(bowler.wkts),
+                                           str(bowler.eco)))
     print (char*45)
 
 #play an over

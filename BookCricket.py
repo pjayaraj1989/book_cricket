@@ -5,12 +5,10 @@ from helper import*
 if __name__ == "__main__":
     match=GetMatchInfo(team_keys)    
     overs=match.overs  
-    t1=match.team1
-    t2=match.team2
+    t1, t2=match.team1, match.team2
     
     ValidateMatchTeams(match)
-    bowlers_t1=t1.bowlers
-    bowlers_t2=t2.bowlers
+    bowlers_t1, bowlers_t2=t1.bowlers, t2.bowlers
 
     Play(t1, t2, t1.opening_pair, overs, bowlers_t2)
     DisplayScore(t1) 
