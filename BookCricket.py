@@ -1,3 +1,6 @@
+import sys
+sys.path.append('data')
+sys.path.append('functions')
 from Resources import*
 from test_data import*
 from helper import*
