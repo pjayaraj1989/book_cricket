@@ -34,6 +34,22 @@ commentary_dot_ball = ['beautiful delivery, missed the stumps by inches!','well 
                         'big appeal.. but umpire says not out!', 'that looks close, but not out says the umpire!','missed it, there is a stare from the bowler',
                         'swing and a miss!','oh that was perilously close to the off stump!, batsman looking nervous here!',
                             'outside off and he misses that!','dangerous delivery! batsman had no clue about it','slower ball and he misses it!']
+#color codes90
+color_map = {
+    'red' : "\033[1;31m",
+    'green' : "\033[0;32m",
+    'reset' : "\033[0;0m",
+    'bold' : "\033[;1m",
+    'cyan' : "\033[1;36m",
+    'blue' : "\033[1;34m",
+    'purple'   :   "\033[1;35m",
+    'gray': "\033[1;37m",
+    'lightblue':    "\033[1;34m",
+    'lightgreen':   "\033[1;32m",
+    'brown':    "\033[1;33m",
+    'yellow':  "\033[1;93m",
+    'magenta':  "\033[1;45m"
+    }
 
 #player attributes
 class PlayerAttr():
@@ -108,7 +124,7 @@ class Match():
 #match details
 class Team():
     def __init__(self, **kwargs):
-        team_array=total_score=innings_over=batting_second=target=name=wickets_fell=total_balls=opening_pair=extras=key=last_bowler=bowlers=fow=captain=nrr=None
+        team_array=total_score=innings_over=batting_second=target=name=wickets_fell=total_balls=opening_pair=extras=key=last_bowler=bowlers=fow=captain=nrr=color=None
         #initialize default values
         self.team_array=None
         self.total_score=0
@@ -126,6 +142,7 @@ class Team():
         self.fow=[]
         self.captain=None
         self.nrr=0.0
+        self.color=None
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='team_array':  self.team_array=kwargs[k]                
@@ -144,6 +161,7 @@ class Team():
                 if k=='fow':    self.fow=kwargs[k]
                 if k=='captain':    self.captain=kwargs[k]
                 if k=='nrr':    self.nrr=kwargs[k]
+                if k=='color':  self.color=kwargs[k]
 
 #result details
 class Result():
