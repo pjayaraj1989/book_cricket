@@ -113,11 +113,11 @@ def CalculateResult(team1, team2, bowlers_t1, bowlers_t2):
         #else get how many wkts remaining
         if result.winner.batting_second == True:
             win_margin = 10 - result.winner.wickets_fell
-            if win_margin is not 0:
+            if win_margin != 0:
                 result.result_str += " by {0} wickets".format(str(win_margin))
         elif result.winner.batting_second == False:
             win_margin = abs(result.winner.total_score - loser.total_score)
-            if win_margin is not 0:
+            if win_margin != 0:
                 result.result_str += " by {0} runs".format(str(win_margin))
     #calculate MOM and best bowler
     #onlt bowlers who bowled
@@ -148,8 +148,8 @@ def PairFaceBall(pair, run):
     if pair[0].onstrike is True and pair[1].onstrike is True:   Error_Exit("Error! both cant be on strike!")  
     player_on_strike = next((x for x in pair if x.onstrike == True), None)
     ind=pair.index(player_on_strike)
-    if ind is 0:    alt_ind=1
-    elif ind is 1:  alt_ind=0        
+    if ind == 0:    alt_ind=1
+    elif ind == 1:  alt_ind=0        
     pair[ind].runs += run
     pair[ind].balls += 1
     #now if runs is 1/3
@@ -187,7 +187,7 @@ def DisplayScore(team):
     print (' ')
     print('{0} {1}/{2} ({3})'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(team.total_balls)))
     #show FOW
-    if team.wickets_fell is not 0:
+    if team.wickets_fell != 0:
         print ('FOW:')
         print(', '.join(team.fow))
     print (ch*45)
@@ -220,8 +220,8 @@ def BatsmanOut(pair, dismissal):
         Error_Exit("Error! both cant be on strike!")
     player_on_strike = next((x for x in pair if x.onstrike == True), None)
     ind=pair.index(player_on_strike)
-    if ind is 0:    alt_ind=1
-    elif ind is 1:  alt_ind=0
+    if ind == 0:    alt_ind=1
+    elif ind == 1:  alt_ind=0
     #bastman dismissed
     pair[ind].status = False
     pair[ind].balls += 1
@@ -265,7 +265,7 @@ def ShowHighlights(batting_team):
 def Ball(run, pair, bowler, batting_team, bowling_team):    
     on_strike = next((x for x in pair if x.onstrike == True), None) 
     #if out
-    if run is -1:
+    if run == -1:
             dismissal = GenerateDismissal(bowler, bowling_team)
             if not 'runout' in dismissal:
                 bowler.wkts += 1
@@ -297,7 +297,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             else:
                 None
 
-            if player_dismissed.balls is 1:
+            if player_dismissed.balls == 1:
                 print ('Out first ball!!')
             print (comment)
 
@@ -345,7 +345,7 @@ def DisplayBowlingStats(bowlers):
     eco=0.0
     for bowler in bowlers:
         #dont print if he hasnt bowled
-        if bowler.balls_bowled is not 0:
+        if bowler.balls_bowled != 0:
             bowlers_updated.append(bowler)
             balls=bowler.balls_bowled
             overs=str(int(balls/6)) + '.' + str(balls%6)
@@ -405,10 +405,10 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
         input('press any key to continue..')
         run = random.choice(run_array)
         #check if maiden or not
-        if run is not 0 or -1:
+        if run != 0 or run != -1:
             ismaiden=False 
         #check if extra
-        if run is 5:
+        if run == 5:
             ismaiden=False
             print ("WIDE...!")
             bowler.runs_given += 1
@@ -445,7 +445,7 @@ def Play(batting_team, bowling_team, pair, overs, bowlers):
         #rotate strike after an over
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         ind=pair.index(player_on_strike)
-        if ind is 0:    alt_ind=1
-        elif ind is 1:  alt_ind=0    
+        if ind == 0:    alt_ind=1
+        elif ind == 1:  alt_ind=0    
         pair[ind].onstrike = False
         pair[alt_ind].onstrike = True  
