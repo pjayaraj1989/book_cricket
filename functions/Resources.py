@@ -72,11 +72,11 @@ def Toss (match):
     coin=random.choice([1,2])
     coin=int(coin)
     if coin == call:
-        PrintInColor('{0} won the toss, batting first'.format(match.team1.captain.name), 'green')
+        PrintInColor('{0} won the toss, batting first'.format(match.team1.captain.name), match.team1.color)
         match.team1.batting_second=False
         match.team2.batting_second=True
     else:
-        PrintInColor('{0} won the toss, batting first'.format(match.team2.captain.name), 'green')
+        PrintInColor('{0} won the toss, batting first'.format(match.team2.captain.name), match.team2.color)
         match.team2.batting_second=False
         match.team1.batting_second=True
     return match
@@ -182,7 +182,7 @@ def GetRequiredRate(totalovers, team):
 def DisplayScore(team):
     ch='-'
     print(ch*45)
-    PrintInColor(ch*15 + 'Batting Summary' + ch*15, 'bold')
+    PrintInColor(ch*15 + 'Batting Summary' + ch*15, team.color)
     print (ch*45)
     for p in team.team_array:
         if p.status is True:    #* if not out
@@ -319,7 +319,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 ind=pair.index(player_dismissed)
                 pair[ind] = batting_team.team_array[batting_team.wickets_fell + 1]
                 pair[ind].onstrike=True
-                PrintInColor ("New Batsman: " + pair[ind].name, 'cyan')        
+                PrintInColor ("New Batsman: " + pair[ind].name, batting_team.color)        
     else:
             #appropriate commentary for 4s and 6s
             import random
@@ -382,7 +382,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
         if bowling_team.last_bowler in bowlers:
             temp = [x for x in bowlers if x != bowling_team.last_bowler]
         bowler = random.choice(temp)
-    PrintInColor ("New Bowler: " + bowler.name, 'cyan')
+    PrintInColor ("New Bowler: " + bowler.name, bowling_team.color)
     ball=1
     bowling_team.last_bowler=bowler
     ismaiden=True
@@ -435,7 +435,7 @@ def Play(batting_team, bowling_team, pair, overs, bowlers):
     if batting_team.batting_second is True:
         PrintInColor('Target for {0}: {1} from {2} overs'.format(batting_team.name,
                                                                  str(batting_team.target),
-                                                                 str(overs)), 'cyan')
+                                                                 str(overs)), batting_team.color)
     #now run for each over
     for over in range(0,overs):
         #show net rr required if batting second
@@ -447,7 +447,7 @@ def Play(batting_team, bowling_team, pair, overs, bowlers):
         status=PlayOver(over, overs, batting_team, bowling_team, pair, bowlers)
         #show batting stats
         for p in pair:
-            print('{0} {1} ({2})'.format(p.name, str(p.runs), str(p.balls)))
+            PrintInColor('{0} {1} ({2})'.format(p.name, str(p.runs), str(p.balls)), 'bold')
         ShowHighlights(batting_team)
         if status is False:
             break
