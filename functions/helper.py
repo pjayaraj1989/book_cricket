@@ -169,6 +169,13 @@ commentary_milestone = ['Its been a terrific knock..!',
                     'Thats it! A brilliant knock under pressure!',
                     'he is on absolute fire here !']
 
+commentary_keeper_catch = ['edged.. and taken!',
+                            'thin edge, big appeal from behind the stumps! given!',
+                            'is there an edge? Yes it is!',
+                            'oh is there a nick!? Batsman is walking...!',
+                            'straight up in the air, keeper says mine and takes it!',
+                            ]
+
 #color codes90
 color_map = {
     'red' : "\033[1;31m",
@@ -190,13 +197,15 @@ color_map = {
 class PlayerAttr():
     def __init__(self, **kwargs):
         #attribs should be int out of 10
-        batting=bowling=iscaptain=iskeeper=isopeningbowler=None
+        batting=bowling=iscaptain=iskeeper=isopeningbowler=isspinner=ispacer=None
         #init default
         self.batting=0
         self.bowling=0
         self.iskeeper=False
         self.iscaptain=False
         self.isopeningbowler=False
+        self.isspinner=False
+        self.ispacer=False
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='batting':    self.batting=v
@@ -204,6 +213,8 @@ class PlayerAttr():
                 if k=='iscaptain':  self.iscaptain=v
                 if k=='iskeeper':   self.iskeeper=v
                 if k=='isopeningbowler':    self.isopeningbowler=v
+                if k=='isspinner':  self.isspinner=v
+                if k=='ispacer':    self.ispacer=v
 
 #player details
 class Player():
