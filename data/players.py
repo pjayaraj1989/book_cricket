@@ -115,7 +115,31 @@ mashrafe=Player(name='M. Mortaza',attr=PlayerAttr(bowling=8))
 rubel=Player(name='R. Hossain',attr=PlayerAttr(bowling=7, isopeningbowler=True))
 mustafizur=Player(name='Mustafizur',attr=PlayerAttr(bowling=8))
 
+#classic india
+sehwag=Player(name='V. Sehwag',attr=PlayerAttr(batting=8))
+sachin=Player(name='S. Tendulkar', attr=PlayerAttr(batting=8, bowling=7, isspinner=True))
+ganguly=Player(name='S. Ganguly',attr=PlayerAttr(batting=8, bowling=6))
+dravid=Player(name='R. Dravid',attr=PlayerAttr(batting=8, iskeeper=True))
+yuvraj=Player(name='Yuvraj',attr=PlayerAttr(batting=7, bowling=8,isspinner=True))
+kaif=Player(name='M. Kaif',attr=PlayerAttr(batting=7))
+mongia=Player(name='D. Mongia',attr=PlayerAttr(bowling=6,batting=6, isspinner=True))
+harbhajan=Player(name='Harbhajan',attr=PlayerAttr(bowling=8,isspinner=True))
+zaheer=Player(name='Zaheer',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+nehra=Player(name='A. Nehra',attr=PlayerAttr(bowling=8))
+srinath=Player(name='J. Srinath',attr=PlayerAttr(bowling=9))
 
+#classic aus
+gilchrist=Player(name='A. Gilchrist',attr=PlayerAttr(batting=8, iskeeper=True))
+hayden=Player(name='M. Hayden', attr=PlayerAttr(batting=8))
+ponting=Player(name='R. Ponting',attr=PlayerAttr(batting=8))
+martyn=Player(name='R. Martyn',attr=PlayerAttr(batting=8))
+symonds=Player(name='A. Symonds',attr=PlayerAttr(batting=7, bowling=8,isspinner=True))
+bevan=Player(name='M. Bevan',attr=PlayerAttr(batting=7))
+lehmann=Player(name='D. Lehmann',attr=PlayerAttr(bowling=6,batting=6, isspinner=True))
+hogg=Player(name='B. Hogg',attr=PlayerAttr(bowling=8,isspinner=True))
+bichel=Player(name='A. Bichel',attr=PlayerAttr(bowling=8))
+lee=Player(name='B. Lee',attr=PlayerAttr(bowling=8))
+mcgrath=Player(name='G. McGrath',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 
 
 
