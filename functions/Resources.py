@@ -424,7 +424,9 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
         #check if extra
         if run == 5:
             ismaiden=False
+            comment = random.choice(commentary_wide)
             PrintInColor ("WIDE...!", 'bold')
+            PrintInColor (comment, 'bold')
             bowler.runs_given += 1
             batting_team.extras += 1
             batting_team.total_score += 1
