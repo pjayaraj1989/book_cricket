@@ -9,10 +9,15 @@ def Error_Exit(msg):
 
 def PrintInColor(msg, color):
     import sys
+    import platform
     #use color mappings from color_map
-    sys.stdout.write(color_map[color])
-    print(msg)
-    sys.stdout.write(color_map['reset'])
+    #somehow this doesnt work on windows
+    if str(platform.system()).lower() != 'windows':
+        sys.stdout.write(color_map[color])
+        print(msg)
+        sys.stdout.write(color_map['reset'])
+    else:
+        print (msg)
 
 def GetMatchInfo(team_keys):
     match=None    
