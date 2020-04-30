@@ -18,15 +18,16 @@ intro_dialogues = ['Welcome everybody, here we are at',
                     'Warm welcome to everybody to ']
 
 commentators = ['Harsha Bhogle',
-                'Sourav Ganguly',
+                'Ramiz Raja',
                 'Tony Greig',
                 'Ian Smith',
+                'Sunil Gavaskar',
+                'Sanjay Manjrekar',
                 'Ravi Shastri',
-                'Brett Lee',
-                'Michael Clarke',
+                'Richie Benaud',
+                'Phil Tufnel',
                 'Pommie Mbangwa',
-                'Rahul Dravid',
-                'Michael Hussey']
+                'Nasser Hussain']
 
 umpires = ['Kumar Dharmasena',
                 'Ian Gould',
@@ -43,7 +44,7 @@ umpires = ['Kumar Dharmasena',
                 'Billy Bowden',]
 
 #random array for runs
-run_array = [-1,0,0,0,0,0,3,1,1,6,-1,1,1,4,4,1,1,1,1,2,3,4,5]    #select random bowler for this over
+run_array = [-1,0,0,0,0,0,3,1,1,6,1,1,4,4,1,-1,1,1,1,2,3,4,5]    #select random bowler for this over
 
 #fielders
 field_positions = ['past slips',
@@ -56,12 +57,14 @@ field_positions = ['past slips',
                     'through mid-off',
                     'through extra cover',
                     'through the gully']
+
 #commentary
 commentary_big_shot = ['what a shot!',
                         'the crowd is loving this!',
                         'how do you set fields for this batsman!',
                         'bad ball and punished!',
                         'well connected!',
+                        'Great shot! Abssollutely magnificent!. And the batsman has not moved an inch!',
                         'that will find the fence!',
                         'magnificent shot!',
                         'stand and deliver!',
@@ -159,6 +162,13 @@ commentary_wide = ['he has lost his line completely!',
                     'he is leaking runs here!',
                     'bowler under pressure here!',
                     ]
+
+commentary_milestone = ['Its been a terrific knock..!',
+                    'what a performance...!',
+                    'Absolutely magnificent innings!',
+                    'Thats it! A brilliant knock under pressure!',
+                    'he is on absolute fire here !']
+
 #color codes90
 color_map = {
     'red' : "\033[1;31m",
@@ -198,7 +208,7 @@ class PlayerAttr():
 #player details
 class Player():
     def __init__(self, **kwargs):
-        attr=onstrike=runs=balls=name=status=wkts=balls_bowled=runs_given=dismissal=maidens=eco=None
+        attr=onstrike=runs=balls=name=status=wkts=balls_bowled=runs_given=dismissal=maidens=eco=fifty=hundred=None
         self.attr=None
         self.onstrike=None
         self.runs=0
@@ -211,6 +221,8 @@ class Player():
         self.status=True
         self.dismissal=""
         self.eco=0.0
+        self.fifty=0
+        self.hundred=0
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='onstrike':   self.onstrike=v
@@ -225,6 +237,8 @@ class Player():
                 if k=='dismissal':  self.dismissal=v
                 if k=='maidens':    self.maidens=v
                 if k=='eco':    self.eco=v
+                if k=='fifty':  self.eco=v
+                if k=='hundred':    self.hundred=v
 
 #match details
 class Match():

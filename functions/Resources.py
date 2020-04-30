@@ -3,10 +3,12 @@ sys.path.append('../data')
 from helper import*
 from test_data import*
 
+#just error and exit
 def Error_Exit(msg):
     PrintInColor("Error: " + msg, 'red')
     exit(0)
 
+#print in color
 def PrintInColor(msg, color):
     import sys
     import platform
@@ -19,6 +21,7 @@ def PrintInColor(msg, color):
     else:
         print (msg)
 
+#get match info
 def GetMatchInfo(team_keys):
     match=None    
     import random
@@ -86,6 +89,7 @@ def Toss (match):
         match.team1.batting_second=True
     return match
 
+#validate teams
 def ValidateMatchTeams(match):
     if match.team1 is None or match.team2 is None:
         Error_Exit('No teams found!')
@@ -104,6 +108,7 @@ def ValidateMatchTeams(match):
             t.bowlers = bowlers
     PrintInColor('Validated teams', 'bold')
 
+#calculate match result
 def CalculateResult(team1, team2, bowlers_t1, bowlers_t2):
     result = Result(team1=team1, team2=team2)
     #see who won
@@ -157,6 +162,7 @@ def FindBestPlayers(result, bowlers_list):
     result.besteco = best_eco_bowler
     return result
 
+#a pair face a delivery
 def PairFaceBall(pair, run):
     #find out who is on strike
     if pair[0].onstrike is True and pair[1].onstrike is True:   Error_Exit("Error! both cant be on strike!")  
@@ -206,6 +212,7 @@ def DisplayScore(team):
         print(', '.join(team.fow))
     print (ch*45)
 
+#print score
 def PrintResult(result):
     PrintInColor('-'*10 + 'Match Summary' + '-'*10, 'bold')
     print('{0} vs {1}'.format(result.team1.name, result.team2.name))
@@ -228,6 +235,7 @@ def PrintResult(result):
                                         str(result.besteco.eco)))
     print('-'*43)
 
+#batsman out
 def BatsmanOut(pair, dismissal):
     #find out who is on strike
     if pair[0].onstrike is True and pair[1].onstrike is True:
@@ -275,6 +283,7 @@ def ShowHighlights(batting_team):
                                                str(batting_team.total_score), 
                                                str(batting_team.wickets_fell), 
                                                str(batting_team.total_balls)), 'bold')
+
 #play a ball
 def Ball(run, pair, bowler, batting_team, bowling_team):    
     on_strike = next((x for x in pair if x.onstrike == True), None) 
@@ -347,6 +356,9 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             PairFaceBall(pair, run)
             batting_team.total_balls += 1
             batting_team.total_score += run
+            
+            #check for milestones
+            CheckMilestone(pair, batting_team)
 
 #print bowlers stats
 def DisplayBowlingStats(bowlers):
@@ -436,6 +448,35 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
     if ismaiden == True:
         bowler.maidens += 1
     return match_status
+
+#check for milestones
+def CheckMilestone(pair, batting_team):
+    import random
+    for p in pair:
+        #first fifty
+        if p.runs >= 50 and p.fifty == 0:
+            comment=random.choice(commentary_milestone)   
+            p.fifty += 1
+            PrintInColor("50 for {0}!".format(p.name), batting_team.color)
+            PrintInColor(comment, batting_team.color)
+            input('Press any key to continue..')
+        elif p.runs >= 100 and (p.fifty == 1 and p.hundred == 0):
+            #after first fifty is done
+            comment=random.choice(commentary_milestone)
+            p.hundred += 1
+            p.fifty += 1
+            PrintInColor("100 for {0}!".format(p.name),  batting_team.color)
+            PrintInColor(comment, batting_team.color)
+            input('Press any key to continue..')
+        elif p.runs >= 200 and (p.hundred == 1):
+            #after first fifty is done
+            comment=random.choice(commentary_milestone)
+            p.hundred += 1
+            PrintInColor("200 for {0}! What a superman!".format(p.name),  batting_team.color)
+            PrintInColor(comment, batting_team.color)
+            input('Press any key to continue..')
+        else:
+            None
 
 #play!
 def Play(batting_team, bowling_team, pair, overs, bowlers):
