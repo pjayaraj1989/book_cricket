@@ -32,3 +32,5 @@ if __name__ == "__main__":
     result = CalculateResult(match)
     match.result = result
     PrintResult(match.result)
+
+    FindPlayerOfTheMatch(match)

@@ -70,6 +70,7 @@ class Match():
         self.umpire=None
         self.batting_first=None
         self.batting_second=None
+        self.won=False
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='team1':  self.team1=kwargs[k]                
@@ -78,12 +79,14 @@ class Match():
                 if k=='result': self.result=kwargs[k]
                 if k=='venue':  self.venue=kwargs[k]     
                 if k=='umpire': self.umpire=kwargs[k]
-                if k=='batting_first':  batting_first=kwargs[k]
-                if k=='batting_second': batting_second=kwargs[k]                
+                if k=='batting_first':  self.batting_first=kwargs[k]
+                if k=='batting_second': self.batting_second=kwargs[k]
+                if k=='won':    self.won=kwargs[k]
+
 #match details
 class Team():
     def __init__(self, **kwargs):
-        team_array=total_score=innings_over=batting_second=target=name=wickets_fell=total_balls=opening_pair=extras=key=last_bowler=bowlers=fow=captain=nrr=color=None
+        team_array=total_score=innings_over=won=batting_second=target=name=wickets_fell=total_balls=opening_pair=extras=key=last_bowler=bowlers=fow=captain=nrr=color=None
         #initialize default values
         self.team_array=None
         self.total_score=0
@@ -126,7 +129,7 @@ class Team():
 class Result():
     def __init__(self, **kwargs):
         #default
-        team1=team2=winner=result_str=most_runs=most_wkts=besteco=None
+        team1=team2=winner=result_str=most_runs=most_wkts=besteco=mom=None
         self.team1=None
         self.team2=None
         self.winner=None
@@ -134,6 +137,7 @@ class Result():
         self.most_runs=None
         self.most_wkts=None
         self.besteco=None
+        self.mom=None
         if kwargs is not None:
             for k, v in kwargs.items():
                 if k=='team1':  self.team1=v
@@ -143,3 +147,4 @@ class Result():
                 if k=='most_runs':  self.most_runs=v
                 if k=='most_wkts:': self.most_wkts=v
                 if k=='besteco':    self.besteco=v
+                if k=='mom':    self.mom=v

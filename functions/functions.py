@@ -78,6 +78,8 @@ def Toss (match):
     import random
     print ('{0} is gonna flip the coin'.format(match.team2.captain.name))
     call=input('{0}, Heads or tails? 1.Heads 2.Tails\n'.format(match.team1.captain.name))
+    if call == '' or None:
+        Error_Exit("Invalid choice!")
     call=int(call)
     coin=random.choice([1,2])
     coin=int(coin)
@@ -117,7 +119,6 @@ def ValidateMatchTeams(match):
     PrintInColor('Validated teams', 'bold')
 
 #calculate match result
-#CalculateResult(team1, team2, bowlers_t1, bowlers_t2):
 def CalculateResult(match):
     team1=match.team1
     team2=match.team2
@@ -152,29 +153,46 @@ def CalculateResult(match):
             win_margin = abs(result.winner.total_score - loser.total_score)
             if win_margin != 0:
                 result.result_str += " by {0} runs".format(str(win_margin))
-    #calculate MOM and best bowler
-    #onlt bowlers who bowled
+    #only bowlers who bowled
     bowlers_list = bowlers_t1 + bowlers_t2
     result=FindBestPlayers(result, bowlers_list)
     return result
 
 #find best player
 def FindBestPlayers(result, bowlers_list):
-    best_batter=None
-    best_bowler=None
-    best_eco_bowler=None
     total_players = result.team1.team_array + result.team2.team_array
-    from operator import attrgetter
     #find best batsman
-    best_batter = max(total_players, key=attrgetter('runs'))
-    result.best_batsman = best_batter
+    most_runs = sorted(total_players, key=lambda x: x.runs, reverse=True)
+    if len(most_runs) >= 3:
+        most_runs = most_runs[:3]    #we need only top 3 scorers
+    result.most_runs = most_runs
+    
     #find most wkts
-    best_bowler = max(bowlers_list, key=attrgetter('wkts'))
-    result.best_bowler = best_bowler
+    most_wkts = sorted(bowlers_list, key=lambda x: x.wkts, reverse=True)
+    if len(most_wkts) >= 3:
+        most_wkts = most_wkts[:3]    #we need only top 3 scorers
+    result.most_wkts = most_wkts
+
     #find best eco bowler
-    best_eco_bowler = min(bowlers_list, key=attrgetter('eco'))
-    result.besteco = best_eco_bowler
+    best_eco = sorted(bowlers_list, key=lambda x: x.eco, reverse=False)
+    if len(best_eco) >= 3:
+        best_eco = best_eco[:3]    #we need only top 3 scorers
+    result.besteco = best_eco
     return result
+
+def FindPlayerOfTheMatch(match):
+    #find which team won
+    from operator import attrgetter
+    team_won = max([match.team1,match.team2], key=attrgetter('total_score'))
+    team_lost = min([match.team1,match.team2], key=attrgetter('total_score'))    
+    best_player = None
+    #check if win margin is >50% , if so, give credit to bowlers, else batsmen
+    if (team_won.total_score / team_lost.total_score  >= 2):
+        best_player = max(team_won.team_array, key=attrgetter('wkts'))
+    else:
+        best_player = max(team_won.team_array, key=attrgetter('runs'))
+    match.result.mom = best_player
+    PrintInColor("Player of the match: {0}".format(match.result.mom.name), team_won.color)
 
 #a pair face a delivery
 def PairFaceBall(pair, run):
@@ -239,14 +257,14 @@ def PrintResult(result):
           str(result.team2.wickets_fell) + "(" +
           str(result.team2.total_balls) + ")")
     PrintInColor(result.result_str, 'green')
-    print ('Most runs: {0} {1} ({2})'.format(result.best_batsman.name,
-                                        str(result.best_batsman.runs),
-                                        str(result.best_batsman.balls)))
-    print ('Best bowler: {0} {1}/{2}'.format(result.best_bowler.name,
-                                        str(result.best_bowler.runs_given),
-                                        str(result.best_bowler.wkts)))
-    print ('Best economy: {0} {1}'.format(result.besteco.name,
-                                        str(result.besteco.eco)))
+    print ('Most runs: {0} {1} ({2})'.format(result.most_runs[0].name,
+                                        str(result.most_runs[0].runs),
+                                        str(result.most_runs[0].balls)))
+    print ('Best bowler: {0} {1}/{2}'.format(result.most_wkts[0].name,
+                                        str(result.most_wkts[0].runs_given),
+                                        str(result.most_wkts[0].wkts)))
+    print ('Best economy: {0} {1}'.format(result.besteco[0].name,
+                                        str(result.besteco[0].eco)))
     print('-'*43)
     input('Press any key to exit..')
 
