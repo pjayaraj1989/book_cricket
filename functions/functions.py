@@ -2,6 +2,8 @@ import sys
 sys.path.append('../data')
 from helper import*
 from test_data import*
+from resources import*
+from commentary import*
 
 #just error and exit
 def Error_Exit(msg):
@@ -26,10 +28,10 @@ def GetMatchInfo(team_keys):
     match=None    
     import random
     #get venue randomly
-    venue=random.choice(venues)
-    intro=random.choice(intro_dialogues)
-    commentator=random.sample(set(commentators), 2)
-    umpire = random.choice(umpires)
+    venue=random.choice(list(resources.venues.keys()))
+    intro=random.choice(commentary.intro_dialogues)
+    commentator=random.sample(set(resources.commentators), 2)
+    umpire = random.choice(resources.umpires)
     
     teams=team_keys
     overs=input('Select overs\n')
@@ -87,6 +89,12 @@ def Toss (match):
         PrintInColor('{0} won the toss, batting first'.format(match.team2.captain.name), match.team2.color)
         match.team2.batting_second=False
         match.team1.batting_second=True
+    #now find out who is batting first
+    batting_first = next((x for x in [match.team1, match.team2] if x.batting_second == False), None)
+    batting_second = next((x for x in [match.team1, match.team2] if x.batting_second == True), None)
+
+    match.batting_first = batting_first
+    match.batting_second = batting_second
     return match
 
 #validate teams
@@ -109,7 +117,13 @@ def ValidateMatchTeams(match):
     PrintInColor('Validated teams', 'bold')
 
 #calculate match result
-def CalculateResult(team1, team2, bowlers_t1, bowlers_t2):
+#CalculateResult(team1, team2, bowlers_t1, bowlers_t2):
+def CalculateResult(match):
+    team1=match.team1
+    team2=match.team2
+    bowlers_t1=match.team1.bowlers
+    bowlers_t2=match.team2.bowlers
+
     result = Result(team1=team1, team2=team2)
     #see who won
     loser=None
@@ -234,6 +248,7 @@ def PrintResult(result):
     print ('Best economy: {0} {1}'.format(result.besteco.name,
                                         str(result.besteco.eco)))
     print('-'*43)
+    input('Press any key to exit..')
 
 #batsman out
 def BatsmanOut(pair, dismissal):
@@ -316,23 +331,23 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             #commentary
             import random
             if 'runout' in dismissal:
-                comment = random.choice(commentary_runout)
+                comment = random.choice(commentary.commentary_runout)
                 
             elif 'st ' in dismissal:
-                comment = random.choice(commentary_stumped)
+                comment = random.choice(commentary.commentary_stumped)
                 
             elif 'c ' in dismissal and ' b ' in dismissal:
                 #see if the catcher is the keeper
                 if keeper.name in dismissal:
-                    comment = random.choice(commentary_keeper_catch)
+                    comment = random.choice(commentary.commentary_keeper_catch)
                 else:
-                    comment = random.choice(commentary_caught)
+                    comment = random.choice(commentary.commentary_caught)
                 
             elif 'lbw' in dismissal:
-                comment = random.choice(commentary_lbw)
+                comment = random.choice(commentary.commentary_lbw)
                 
             elif 'b ' in dismissal:
-                comment = random.choice(commentary_bowled)
+                comment = random.choice(commentary.commentary_bowled)
                 
             else:
                 None
@@ -355,18 +370,18 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
     else:
             #appropriate commentary for 4s and 6s
             import random
-            field=random.choice(field_positions)
+            field=random.choice(resources.field_positions)
             if run == 4:
-                comment=random.choice(commentary_big_shot)
+                comment=random.choice(commentary.commentary_big_shot)
                 PrintInColor (field + " FOUR! " + comment, 'green')
             elif run == 6:
-                comment=random.choice(commentary_big_shot)
+                comment=random.choice(commentary.commentary_big_shot)
                 PrintInColor (field + " SIX! " + comment, 'green')
             elif run == 0:
-                comment=random.choice(commentary_dot_ball)
+                comment=random.choice(commentary.commentary_dot_ball)
                 print ('{0}, No Run'.format(comment))
             else:
-                comment=random.choice(commentary_ground_shot)
+                comment=random.choice(commentary.commentary_ground_shot)
                 print ('{0},{1} {2} run'.format(comment, field, str(run)))
 
             bowler.balls_bowled += 1
@@ -379,7 +394,8 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             CheckMilestone(pair, batting_team)
 
 #print bowlers stats
-def DisplayBowlingStats(bowlers):
+def DisplayBowlingStats(team):
+    bowlers=team.bowlers
     #here, remove the bowlers who didnt bowl
     bowlers_updated=[]
     char='-'
@@ -404,10 +420,10 @@ def DisplayBowlingStats(bowlers):
                                            str(bowler.maidens)))
     print (char*45)
     input('Press any key to continue..')
-    return bowlers_updated
+    team.bowlers = bowlers_updated
 
 #play an over
-def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
+def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
     match_status = True
     import random
     if bowling_team.last_bowler is None:
@@ -447,14 +463,14 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers):
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         print ('{0} to {1}'.format(bowler.name, player_on_strike.name))
         input('press any key to continue..')
-        run = random.choice(run_array)
+        run = random.choice(resources.venues[match.venue])
         #check if maiden or not
         if run != 0 or run != -1:
             ismaiden=False 
         #check if extra
         if run == 5:
             ismaiden=False
-            comment = random.choice(commentary_wide)
+            comment = random.choice(commentary.commentary_wide)
             PrintInColor ("WIDE...!", 'bold')
             PrintInColor (comment, 'bold')
             bowler.runs_given += 1
@@ -473,14 +489,14 @@ def CheckMilestone(pair, batting_team):
     for p in pair:
         #first fifty
         if p.runs >= 50 and p.fifty == 0:
-            comment=random.choice(commentary_milestone)   
+            comment=random.choice(commentary.commentary_milestone)   
             p.fifty += 1
             PrintInColor("50 for {0}!".format(p.name), batting_team.color)
             PrintInColor(comment, batting_team.color)
             input('Press any key to continue..')
         elif p.runs >= 100 and (p.fifty == 1 and p.hundred == 0):
             #after first fifty is done
-            comment=random.choice(commentary_milestone)
+            comment=random.choice(commentary.commentary_milestone)
             p.hundred += 1
             p.fifty += 1
             PrintInColor("100 for {0}!".format(p.name),  batting_team.color)
@@ -488,7 +504,7 @@ def CheckMilestone(pair, batting_team):
             input('Press any key to continue..')
         elif p.runs >= 200 and (p.hundred == 1):
             #after first fifty is done
-            comment=random.choice(commentary_milestone)
+            comment=random.choice(commentary.commentary_milestone)
             p.hundred += 1
             PrintInColor("200 for {0}! What a superman!".format(p.name),  batting_team.color)
             PrintInColor(comment, batting_team.color)
@@ -497,7 +513,8 @@ def CheckMilestone(pair, batting_team):
             None
 
 #play!
-def Play(batting_team, bowling_team, pair, overs, bowlers):
+def Play(match, batting_team, bowling_team, pair, bowlers):
+    overs=match.overs
     if batting_team.batting_second is True:
         PrintInColor('Target for {0}: {1} from {2} overs'.format(batting_team.name,
                                                                  str(batting_team.target),
@@ -510,7 +527,7 @@ def Play(batting_team, bowling_team, pair, overs, bowlers):
             PrintInColor('Reqd Run Rate: {0} per over'.format(str(nrr)), 'bold')
 
         #play an over      
-        status=PlayOver(over, overs, batting_team, bowling_team, pair, bowlers)
+        status=PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match)
         #show batting stats
         for p in pair:
             PrintInColor('{0} {1} ({2})'.format(p.name, str(p.runs), str(p.balls)), 'bold')

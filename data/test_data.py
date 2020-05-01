@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../functions')
-from Resources import*
+from functions import*
 from helper import*
 from players import*
 
