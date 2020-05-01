@@ -280,6 +280,8 @@ def BatsmanOut(pair, dismissal):
     #bastman dismissed
     pair[ind].status = False
     pair[ind].balls += 1
+    pair[ind].strikerate = float((pair[ind].runs / pair[ind].balls)*100)
+    pair[ind].strikerate = round(pair[ind].strikerate, 2)
     #update dismissal mode
     pair[ind].dismissal = dismissal
     return pair
@@ -338,10 +340,11 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             batting_team.total_balls += 1
             pair=BatsmanOut(pair, dismissal)
             player_dismissed = next((x for x in pair if x.status == False), None)
-            PrintInColor ("OUT ! {0} {1} {2} ({3})".format(player_dismissed.name, 
+            PrintInColor ("OUT ! {0} {1} {2} ({3}) SR: {4}".format(player_dismissed.name, 
                                                player_dismissed.dismissal, 
                                                str(player_dismissed.runs), 
-                                               str(player_dismissed.balls)), 'red')
+                                               str(player_dismissed.balls),
+                                               str(player_dismissed.strikerate)), 'red')
             #update fall of wicket
             fow_info = '{0}/{1} ({2})'.format(str(batting_team.total_score), str(batting_team.wickets_fell), player_dismissed.name)
             batting_team.fow.append(fow_info)
@@ -349,29 +352,24 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             #commentary
             import random
             if 'runout' in dismissal:
-                comment = random.choice(commentary.commentary_runout)
-                
+                comment = random.choice(commentary.commentary_runout)                
             elif 'st ' in dismissal:
-                comment = random.choice(commentary.commentary_stumped)
-                
+                comment = random.choice(commentary.commentary_stumped)                
             elif 'c ' in dismissal and ' b ' in dismissal:
                 #see if the catcher is the keeper
                 if keeper.name in dismissal:
                     comment = random.choice(commentary.commentary_keeper_catch)
                 else:
-                    comment = random.choice(commentary.commentary_caught)
-                
+                    comment = random.choice(commentary.commentary_caught)                
             elif 'lbw' in dismissal:
-                comment = random.choice(commentary.commentary_lbw)
-                
+                comment = random.choice(commentary.commentary_lbw)                
             elif 'b ' in dismissal:
-                comment = random.choice(commentary.commentary_bowled)
-                
+                comment = random.choice(commentary.commentary_bowled)                
             else:
                 None
 
             if player_dismissed.balls == 1:
-                PrintInColor ('Out first ball!!', 'bold')
+                PrintInColor ('Out first ball !!', 'bold')
                 
             print (comment)
 
