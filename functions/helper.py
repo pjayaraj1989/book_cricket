@@ -25,7 +25,7 @@ class PlayerAttr():
 #player details
 class Player():
     def __init__(self, **kwargs):
-        attr=onstrike=runs=balls=name=status=wkts=balls_bowled=runs_given=dismissal=maidens=eco=fifty=hundred=strikerate=None
+        attr=onstrike=runs=balls=name=status=wkts=balls_bowled=runs_given=dismissal=maidens=eco=fifty=hundred=strikerate=max_overs=None
         self.attr=None
         self.onstrike=None
         self.runs=0
@@ -41,6 +41,7 @@ class Player():
         self.fifty=0
         self.hundred=0
         self.strikerate=0.0
+        self.max_overs=0
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='onstrike':   self.onstrike=v
@@ -58,11 +59,12 @@ class Player():
                 if k=='fifty':  self.eco=v
                 if k=='hundred':    self.hundred=v
                 if k=='strikerate': self.strikerate=v
+                if k=='max_overs':    self.max_overs=v
 
 #match details
 class Match():
     def __init__(self, **kwargs):
-        team1=team2=overs=result=venue=batting_first=batting_second=None
+        team1=team2=overs=result=venue=batting_first=batting_second=bowler_max_overs=None
         #initialize default values
         self.overs=0
         self.result=None
@@ -73,6 +75,7 @@ class Match():
         self.batting_first=None
         self.batting_second=None
         self.won=False
+        self.bowler_max_overs=0
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='team1':  self.team1=kwargs[k]                
@@ -84,6 +87,7 @@ class Match():
                 if k=='batting_first':  self.batting_first=kwargs[k]
                 if k=='batting_second': self.batting_second=kwargs[k]
                 if k=='won':    self.won=kwargs[k]
+                if k=='bowler_max_overs':   self.bowler_max_overs=kwargs[k]
 
 #match details
 class Team():

@@ -37,9 +37,14 @@ def GetMatchInfo(team_keys):
     overs=input('Select overs\n')
     overs=int(overs)
     if overs > 50 or overs <= 0: Error_Exit('Invalid overs') 
-    
-    t1=input('Select your team from : {0}\n'.format('/'.join(teams)))
-    
+    #has to be a multiple of 5
+    if overs%5 != 0:    Error_Exit('Overs should be a multiple of 5')
+
+    #max overs alloted for each bowler
+    bowler_max_overs = overs / 5
+
+    #input teams
+    t1=input('Select your team from : {0}\n'.format('/'.join(teams)))    
     t1=t1.upper()
     if t1 not in teams: Error_Exit('Invalid team')
     else:
@@ -64,6 +69,7 @@ def GetMatchInfo(team_keys):
     input('press any key to continue..')
     match.venue = venue
     match.umpire = umpire
+    match.bowler_max_overs = bowler_max_overs
     return match
 
 #toss
@@ -116,6 +122,10 @@ def ValidateMatchTeams(match):
             Error_Exit('Team {0} should have 5 bowlers in the playing XI'.format(t.name) )
         else:
             t.bowlers = bowlers
+            #assign max overs for bowlers
+            for bowler in t.bowlers:
+                bowler.max_overs = match.bowler_max_overs
+        
     PrintInColor('Validated teams', 'bold')
 
 #calculate match result
@@ -237,10 +247,10 @@ def DisplayScore(team):
             print ('{0} {1} {2} ({3})'.format(p.name, p.dismissal, str(p.runs), str(p.balls)))
     print ("Extras: " + str(team.extras))
     print (' ')
-    print('{0} {1}/{2} ({3})'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(team.total_balls)))
+    PrintInColor('{0} {1}/{2} ({3})'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(team.total_balls)), team.color)
     #show FOW
     if team.wickets_fell != 0:
-        print ('FOW:')
+        PrintInColor ('FOW:', 'bold')
         print(', '.join(team.fow))
     print (ch*45)
 
@@ -442,14 +452,21 @@ def DisplayBowlingStats(team):
 def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
     match_status = True
     import random
+    #if first over, opening bowler does it
     if bowling_team.last_bowler is None:
-        #if first over, opening bowler does it
         bowler = next((x for x in bowlers if x.attr.isopeningbowler == True), None)
     else:
         if bowling_team.last_bowler in bowlers:
+            #bowling list except the bowler who did last over and bowlers who finished their allotted overs
             temp = [x for x in bowlers if x != bowling_team.last_bowler]
+            temp = [x for x in temp if x.balls_bowled < x.max_overs*6]   
         bowler = random.choice(temp)
-    PrintInColor ("New Bowler: " + bowler.name, bowling_team.color)
+
+    PrintInColor ("New Bowler: {0} {1}/{2} ({3})".format(bowler.name, 
+                                                         str(bowler.runs_given),
+                                                         str(bowler.wkts),
+                                                         str(int(bowler.balls_bowled/6)) + '.' + str(bowler.balls_bowled%6)),
+                                                bowling_team.color)
     ball=1
     bowling_team.last_bowler=bowler
     ismaiden=True
