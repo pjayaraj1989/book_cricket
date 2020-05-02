@@ -67,10 +67,15 @@ def GetMatchInfo(team_keys):
                                                        intro), 'cyan')
     print ('In the commentary box, myself {0} with {1}'.format(commentator[0],commentator[1]))
     print ('Umpire: {0}'.format(umpire))
-    input('press any key to continue..')
+    input('press enter to continue..')
     match.venue = venue
     match.umpire = umpire
     match.bowler_max_overs = bowler_max_overs
+
+    #Want to skip balls?
+    opt = input('Do you want to play only highlights? Choose y for highlights, n for full match')
+    if opt.lower() == 'y':
+        match.autoplay=True
     return match
 
 #toss
@@ -362,7 +367,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 comment = random.choice(commentary_fifer)
                 PrintInColor('Thats 5 Wickets for {0} !'.format(bowler.name), bowling_team.color)
                 PrintInColor(commentary_fifer, bowling_team.color)
-                input('Press any key to continue..')
+                input('press enter to continue..')
 
             #update fall of wicket
             fow_info = '{0}/{1} ({2})'.format(str(batting_team.total_score), str(batting_team.wickets_fell), player_dismissed.name)
@@ -394,7 +399,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             #show score
             ShowHighlights(batting_team)
             
-            input('press any key to continue..')
+            input('press enter to continue..')
 
             if batting_team.wickets_fell < 10:
                 ind=pair.index(player_dismissed)
@@ -453,7 +458,7 @@ def DisplayBowlingStats(team):
                                            str(bowler.eco),
                                            str(bowler.maidens)))
     print (char*45)
-    input('Press any key to continue..')
+    input('press enter to continue..')
     team.bowlers = bowlers_updated
 
 #play an over
@@ -483,12 +488,12 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
         if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
             PrintInColor ("Match won!", 'green')
             match_status=False
-            input('press any key to continue...')
+            input('press enter to continue...')
             break
         if batting_team.wickets_fell == 10:
             PrintInColor("All out!", 'red')
             match_status=False
-            input ('press any key to continue...')
+            input ('press enter to continue...')
             break
 
         #towards the death overs, show a highlights
@@ -498,12 +503,16 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             ShowHighlights(batting_team)
             PrintInColor ('To win: {0} from {1}'.format(str(towin),
                                                     str(overs*6 - batting_team.total_balls)), 'bold')
-            input('press any key to continue...')
+            input('press enter to continue...')
 
         print ("Over: {0}.{1}".format(str(over),str(ball)))
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         print ('{0} to {1}'.format(bowler.name, player_on_strike.name))
-        input('press any key to continue..')
+        if match.autoplay == True:
+            import time
+            time.sleep(2)
+        else:
+            input('press enter to continue..')
         run = random.choice(resources.venues[match.venue])
         #check if maiden or not
         if run != 0 or run != -1:
@@ -534,7 +543,7 @@ def CheckMilestone(pair, batting_team):
             p.fifty += 1
             PrintInColor("50 for {0}!".format(p.name), batting_team.color)
             PrintInColor(comment, batting_team.color)
-            input('Press any key to continue..')
+            input('press enter to continue..')
         elif p.runs >= 100 and (p.fifty == 1 and p.hundred == 0):
             #after first fifty is done
             comment=random.choice(commentary.commentary_milestone)
@@ -542,14 +551,14 @@ def CheckMilestone(pair, batting_team):
             p.fifty += 1
             PrintInColor("100 for {0}!".format(p.name),  batting_team.color)
             PrintInColor(comment, batting_team.color)
-            input('Press any key to continue..')
+            input('press enter to continue..')
         elif p.runs >= 200 and (p.hundred == 1):
             #after first fifty is done
             comment=random.choice(commentary.commentary_milestone)
             p.hundred += 1
             PrintInColor("200 for {0}! What a superman!".format(p.name),  batting_team.color)
             PrintInColor(comment, batting_team.color)
-            input('Press any key to continue..')
+            input('press enter to continue..')
         else:
             None
 
