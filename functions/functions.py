@@ -1,9 +1,8 @@
-import sys
-sys.path.append('../data')
-from helper import*
-from test_data import*
-from resources import*
-from commentary import*
+
+from data.test_data import*
+from data.resources import*
+from data.commentary import*
+from data.players import *
 
 #just error and exit
 def Error_Exit(msg):
@@ -369,9 +368,9 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                                                str(player_dismissed.strikerate)), 'red')
             #check if bowler gets 5 wkts
             if bowler.wkts == 5:
-                comment = random.choice(commentary_fifer)
+                comment = random.choice(commentary.commentary_fifer)
                 PrintInColor('Thats 5 Wickets for {0} !'.format(bowler.name), bowling_team.color)
-                PrintInColor(commentary_fifer, bowling_team.color)
+                PrintInColor(commentary.commentary_fifer, bowling_team.color)
                 input('press enter to continue..')
 
             #update fall of wicket

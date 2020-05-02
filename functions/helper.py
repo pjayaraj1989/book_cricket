@@ -2,7 +2,6 @@
 #player attributes
 class PlayerAttr():
     def __init__(self, **kwargs):
-        #attribs should be int out of 10
         batting=bowling=iscaptain=iskeeper=isopeningbowler=isspinner=ispacer=None
         #init default
         self.batting=0

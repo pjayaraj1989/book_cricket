@@ -1,9 +1,5 @@
-import sys
-sys.path.append('./data')
-sys.path.append('./functions')
-from functions import*
-from test_data import*
-from helper import*
+
+from functions.functions import*
 
 if __name__ == "__main__":
     #input teams to play
@@ -34,4 +30,4 @@ if __name__ == "__main__":
     PrintResult(match.result)
 
     FindPlayerOfTheMatch(match)
-    input('End of the Match!.. Press enter to exit')
+    input('End of the Match.. Thanks for watching !!.. Press enter to exit')

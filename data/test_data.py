@@ -1,8 +1,5 @@
-import sys
-sys.path.append('../functions')
-from functions import*
-from helper import*
-from players import*
+
+from data.players import*
 
 #set teams here
 ind_squad = [dhawan, rsharma, kohli, klrahul, dkarthik, dhoni, hpandya, ashwin, bkumar, shami, bumrah]

@@ -76,7 +76,7 @@ class commentary():
                         'oh what a catch!',
                         'what a blinder!',
                         'unbelievable catch!',
-                        'straight down the fielder\'s throat!'
+                        'straight down the fielder\'s throat!',
                         'has he taken that? He has! what a catch!']
 
     commentary_lbw = ['big appeal.. and the finger goes up!',
