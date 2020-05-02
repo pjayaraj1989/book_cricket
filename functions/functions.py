@@ -15,6 +15,7 @@ def Error_Exit(msg):
 def PrintInColor(msg, color):
     import sys
     import platform
+    color_map=resources.color_map
     #use color mappings from color_map
     #somehow this doesnt work on windows
     if str(platform.system()).lower() != 'windows':
