@@ -125,8 +125,8 @@ def ValidateMatchTeams(match):
             Error_Exit('No keeper found in team {0}'.format(t.name))
         #get bowlers must be at least 5 of them
         bowlers = [plr for plr in t.team_array if plr.attr.bowling >= 6]
-        if len(bowlers) < 5:
-            Error_Exit('Team {0} should have 5 bowlers in the playing XI'.format(t.name) )
+        if len(bowlers) < 6:
+            Error_Exit('Team {0} should have 6 bowlers in the playing XI'.format(t.name) )
         else:
             t.bowlers = bowlers
             #assign max overs for bowlers
@@ -476,8 +476,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
     else:
         if bowling_team.last_bowler in bowlers:
             #bowling list except the bowler who did last over and bowlers who finished their allotted overs
-            temp = [x for x in bowlers if x != bowling_team.last_bowler]
-            temp = [x for x in temp if x.balls_bowled < x.max_overs*6]
+            temp = [x for x in bowlers if (x != bowling_team.last_bowler and x.balls_bowled < x.max_overs*6)]
 
         #if autoplay, let bowlers be chosen randomly
         if match.autoplay == True:
