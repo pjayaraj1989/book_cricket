@@ -17,10 +17,13 @@ class commentary():
                         'stand and deliver!',
                         'oh unbelievable timing!',
                         'Beautiful shot!',
+                        'When He Hits It, It Stays Hit !',
                         'he is getting warmed up here!',
                         'boy what a shot!',
                         'right out of the middle of the bat!',
                         'what a smash!',
+                        'He\'s a Better Player Than His Statistics Suggest',
+                        'thats a great lesson for any youngster watching !',
                         'Terrific batting this.. what would be the reply from the bowler?',
                         'Another one of those, and there will be a chat between the bowler and his captain!',
                         'he goes bang!']
@@ -73,6 +76,7 @@ class commentary():
                         'oh what a catch!',
                         'what a blinder!',
                         'unbelievable catch!',
+                        'straight down the fielder\'s throat!'
                         'has he taken that? He has! what a catch!']
 
     commentary_lbw = ['big appeal.. and the finger goes up!',
@@ -86,6 +90,7 @@ class commentary():
     commentary_dot_ball = ['beautiful delivery, missed the stumps by inches!',
                         'well defended!',
                         'solid defence',
+                        'He\'s Bowling a Good Line and Length',
                         'edged and dropped at first slip!.. oh dear!',
                         'swings and misses',
                         'in the air but drops safe..!',
@@ -115,6 +120,13 @@ class commentary():
                     'Absolutely magnificent innings!',
                     'Thats it! A brilliant knock under pressure!',
                     'he is on absolute fire here !']
+
+    commentary_fifer = ['what a bowler he is!',
+                        'he has totally rattled this batting team!',
+                        'he is on absolute fire!',
+                        'thats a fantastic five-fer!',
+                        'he has intimidated every batsmen today!',
+                        'he has made an aweful mess of this innings!',]
 
     commentary_keeper_catch = ['edged.. and taken!',
                             'thin edge, big appeal from behind the stumps! given!',

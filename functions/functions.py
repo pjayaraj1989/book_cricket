@@ -336,6 +336,7 @@ def ShowHighlights(batting_team):
 
 #play a ball
 def Ball(run, pair, bowler, batting_team, bowling_team):
+    import random
     #get keeper
     keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
     #get who is on strike   
@@ -355,12 +356,18 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                                                str(player_dismissed.runs), 
                                                str(player_dismissed.balls),
                                                str(player_dismissed.strikerate)), 'red')
+            #check if bowler gets 5 wkts
+            if bowler.wkts == 5:
+                comment = random.choice(commentary_fifer)
+                PrintInColor('Thats 5 Wickets for {0} !'.format(bowler.name), bowling_team.color)
+                PrintInColor(commentary_fifer, bowling_team.color)
+                input('Press any key to continue..')
+
             #update fall of wicket
             fow_info = '{0}/{1} ({2})'.format(str(batting_team.total_score), str(batting_team.wickets_fell), player_dismissed.name)
             batting_team.fow.append(fow_info)
 
-            #commentary
-            import random
+            #commentary            
             if 'runout' in dismissal:
                 comment = random.choice(commentary.commentary_runout)                
             elif 'st ' in dismissal:
@@ -438,7 +445,7 @@ def DisplayBowlingStats(team):
             eco = float(bowler.runs_given / float(overs))
             eco = round(eco,2)
             bowler.eco = eco
-            print ("{0} Overs:{1} Maidens:{5} Runs:{2} Wkts:{3} Eco: {4}".format(bowler.name, 
+            print ("{0} Overs:{1} Maidens:{5} {2}/{3} Eco: {4}".format(bowler.name, 
                                            overs, 
                                            str(bowler.runs_given), 
                                            str(bowler.wkts),
