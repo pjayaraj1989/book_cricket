@@ -1,0 +1,1 @@
+pyinstaller --onefile --paths ./functions;./data BookCricket.py --distpath ./bin

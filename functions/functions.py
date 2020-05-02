@@ -8,7 +8,8 @@ from commentary import*
 #just error and exit
 def Error_Exit(msg):
     PrintInColor("Error: " + msg, 'red')
-    exit(0)
+    input('Press enter to continue..')
+    sys.exit(0)
 
 #print in color
 def PrintInColor(msg, color):

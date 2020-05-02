@@ -34,3 +34,4 @@ if __name__ == "__main__":
     PrintResult(match.result)
 
     FindPlayerOfTheMatch(match)
+    input('End of the Match!.. Press enter to exit')
