@@ -196,6 +196,7 @@ def FindBestPlayers(result, bowlers_list):
     result.besteco = best_eco
     return result
 
+#Man of the match
 def FindPlayerOfTheMatch(match):
     #find which team won
     from operator import attrgetter
@@ -205,10 +206,13 @@ def FindPlayerOfTheMatch(match):
     #check if win margin is >50% , if so, give credit to bowlers, else batsmen
     if (team_won.total_score / team_lost.total_score  >= 2):
         best_player = max(team_won.team_array, key=attrgetter('wkts'))
+        comment_to_print = 'took {0} wkts'.format(str(best_player.wkts))
     else:
         best_player = max(team_won.team_array, key=attrgetter('runs'))
+        comment_to_print = 'took {0} ({1})'.format(str(best_player.runs), str(best_player.balls))
+
     match.result.mom = best_player
-    PrintInColor("Player of the match: {0}".format(match.result.mom.name), team_won.color)
+    PrintInColor("Player of the match: {0}: {1}".format(best_player.name, comment_to_print), team_won.color)
 
 #a pair face a delivery
 def PairFaceBall(pair, run):
@@ -472,14 +476,23 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
         if bowling_team.last_bowler in bowlers:
             #bowling list except the bowler who did last over and bowlers who finished their allotted overs
             temp = [x for x in bowlers if x != bowling_team.last_bowler]
-            temp = [x for x in temp if x.balls_bowled < x.max_overs*6]   
-        bowler = random.choice(temp)
+            temp = [x for x in temp if x.balls_bowled < x.max_overs*6]
+
+        #if autoplay, let bowlers be chosen randomly
+        if match.autoplay == True:
+            bowler = random.choice(temp)
+        #esle pick bowler
+        else:
+            choice = input('Choose next bowler from: {0} [Press Enter to auto-select]'.format(' / '.join([x.name for x in temp])))            
+            bowler = next((x for x in temp if choice.lower() in x.name.lower()), None)
+            if bowler is None:
+                bowler = random.choice(temp)
 
     PrintInColor ("New Bowler: {0} {1}/{2} ({3})".format(bowler.name, 
                                                          str(bowler.runs_given),
                                                          str(bowler.wkts),
                                                          str(int(bowler.balls_bowled/6)) + '.' + str(bowler.balls_bowled%6)),
-                                                bowling_team.color)
+                                                        bowling_team.color)
     ball=1
     bowling_team.last_bowler=bowler
     ismaiden=True
