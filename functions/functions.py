@@ -6,6 +6,7 @@ from data.players import *
 
 #just error and exit
 def Error_Exit(msg):
+    import sys
     PrintInColor("Error: " + msg, 'red')
     input('Press enter to continue..')
     sys.exit(0)
