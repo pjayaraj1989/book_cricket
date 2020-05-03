@@ -446,10 +446,10 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             import random
             field=random.choice(resources.field_positions)
             if run == 4:
-                comment=random.choice(commentary.commentary_big_shot)
+                comment=random.choice(commentary.commentary_four)
                 PrintInColor (field + " FOUR! " + comment, Fore.GREEN)
             elif run == 6:
-                comment=random.choice(commentary.commentary_big_shot)
+                comment=random.choice(commentary.commentary_six)
                 PrintInColor (field + " SIX! " + comment, Fore.GREEN)
             elif run == 0:
                 comment=random.choice(commentary.commentary_dot_ball)

@@ -6,23 +6,42 @@ class commentary():
                     'Lovely evening here at ',
                     'Electrifying atmosphere here at',
                     'Warm welcome to everybody to ']
-    commentary_big_shot = ['what a shot!',
+
+    commentary_six = ['thats in the stands! ',
+                      'he goes bang ! Thats a big one!',
+                      'smashed it out of the park!',
+                      'where do you set fielders for this man!',
+                      'oh what a shot! That is been smashed out of the ground!',
+                      'stand and deliver!',
+                      'he is dealing in sixes here!',
+                      'fielder in the deep will just watch it sail over the fence!',
+                      'will this be taken in the deep.. no its 6!',
+                      'thats a powerful shot.. will be a one bounce.. not its gone all the way for 6!',
+                      'thats one of the biggest sixes ever!',
+                      'thats a flat six! beautifully hit!',
+                      'thats big and the crowd will catch it! ',
+                      'thats huge, its out of here!',]
+    commentary_four = ['what a shot!.. that will find the fence!',
+                       'oh will this be taken in the deep, oh he has dropped it.. and its six!',
                         'the crowd is loving this!',
+                       'beautiful drive and the fielder has given up the chase!',
+                       'into the gap for four!',
+                       'smashed through the gap!',
+                       'long chase for the fielder... and the ball wins the race!',
                         'how do you set fields for this batsman!',
-                        'bad ball and punished!',
-                        'well connected!',
+                        'bad ball and punished!..',
+                        'well connected!.. that will go to the boundary',
                         'Great shot! Abssollutely magnificent!. And the batsman has not moved an inch!',
                         'that will find the fence!',
-                        'magnificent shot!',
-                        'stand and deliver!',
+                        'magnificent shot!.. ',
                         'oh unbelievable timing!',
-                        'Beautiful shot!',
+                        'Beautiful shot.. oh sloppy fielding in the deep!',
                         'When He Hits It, It Stays Hit !',
                         'he is getting warmed up here!',
                         'boy what a shot!',
                         'right out of the middle of the bat!',
                         'what a smash!',
-                        'He\'s a Better Player Than His Statistics Suggest',
+                        'He\'s a better player Than His statistics suggest',
                         'thats a great lesson for any youngster watching !',
                         'Terrific batting this.. what would be the reply from the bowler?',
                         'Another one of those, and there will be a chat between the bowler and his captain!',
@@ -34,6 +53,8 @@ class commentary():
                         'into the gap',
                         'very quick running',
                         'he has to hurry!',
+                        'in the air, dropped! batsman will get some runs too!',
+                        'sloppy fielding, useful singles and doubles for the batsman',
                         'Oooh! direct hit and he wouldve gone!',
                         'singles and doubles will surely irritate the fielding captain']
                         
@@ -114,11 +135,13 @@ class commentary():
                                     'He is out without disturbing the scoreboard!',]
 
     commentary_wide = ['he has lost his line completely!',
-                    'oh thats a harsh call from the umpire!',
-                    'not good bowling from him!',
-                    'this will irritate the captain!',
-                    'he is leaking runs here!',
-                    'bowler under pressure here!',]
+                        'oh thats a harsh call from the umpire!',
+                        'not good bowling from him!',
+                        'this will irritate the captain!',
+                        'he is leaking runs here!',
+                       'leg side.. umpire says wide!',
+                       'oh big appeal from the keeper but Wide says the umpire!',
+                        'bowler under pressure here!',]
 
     commentary_milestone = ['Its been a terrific knock..!',
                     'what a performance...!',
@@ -140,7 +163,8 @@ class commentary():
                            'hattrick for the bowler! what a performance from him!',]
 
     commentary_keeper_catch = ['edged.. and taken!',
-                            'thin edge, big appeal from behind the stumps! given!',
-                            'is there an edge? Yes it is!',
-                            'oh is there a nick!? Batsman is walking...!',
-                            'straight up in the air, keeper says mine and takes it!',]
+                               'there is an edge and what a catch by the keeper!',
+                                'thin edge, big appeal from behind the stumps! given!',
+                                'is there an edge? Yes it is!',
+                                'oh is there a nick!? Batsman is walking...!',
+                                'straight up in the air, keeper says mine and takes it!',]
