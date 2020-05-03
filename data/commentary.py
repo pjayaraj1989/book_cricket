@@ -128,6 +128,11 @@ class commentary():
                         'he has intimidated every batsmen today!',
                         'he has made an aweful mess of this innings!',]
 
+    commentary_hattrick = ['thats it! thats a hattrick !!',
+                           'Hattrick for the bowler!',
+                           '3 in 3! This man is on absollute fire!',
+                           'hattrick for the bowler! what a performance from him!',]
+
     commentary_keeper_catch = ['edged.. and taken!',
                             'thin edge, big appeal from behind the stumps! given!',
                             'is there an edge? Yes it is!',

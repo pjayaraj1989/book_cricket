@@ -201,11 +201,16 @@ def FindBestPlayers(result, bowlers_list):
 def FindPlayerOfTheMatch(match):
     #find which team won
     from operator import attrgetter
+    import random
     team_won = max([match.team1,match.team2], key=attrgetter('total_score'))
     team_lost = min([match.team1,match.team2], key=attrgetter('total_score'))    
     best_player = None
+    #if scores tied, select randomly
+    if team_won.total_score == team_lost.total_score:
+        best_player = max(team_won.team_array, key=attrgetter('runs'))
+        comment_to_print = 'took {0} ({1})'.format(str(best_player.runs), str(best_player.balls))
     #check if win margin is >50% , if so, give credit to bowlers, else batsmen
-    if (team_won.total_score / team_lost.total_score  >= 2):
+    elif (team_won.total_score / team_lost.total_score  >= 2):
         best_player = max(team_won.team_array, key=attrgetter('wkts'))
         comment_to_print = 'took {0} wkts'.format(str(best_player.wkts))
     else:
@@ -347,18 +352,39 @@ def ShowHighlights(batting_team):
                                                str(batting_team.wickets_fell), 
                                                str(batting_team.total_balls)), 'bold')
 
+#check for N consecutive elements in a list
+def CheckForConsecutiveBalls(bowler, element):
+    result=False
+    total_balls_bowled = len(bowler.ball_history)
+    #check array bowler.ball_history[] without extras!
+    arr=[x for x in bowler.ball_history if x != 'WD']
+    total_balls_bowled = len(arr)
+    for i in range(2, total_balls_bowled):
+        if arr[i] == arr[i-1] == arr[i-2] == element:
+            result = True
+            break
+    return result
+
 #play a ball
 def Ball(run, pair, bowler, batting_team, bowling_team):
     import random
+
     #get keeper
     keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
+
     #get who is on strike   
-    on_strike = next((x for x in pair if x.onstrike == True), None) 
+    on_strike = next((x for x in pair if x.onstrike == True), None)
+
     #if out
     if run == -1:
             dismissal = GenerateDismissal(bowler, bowling_team)
             if not 'runout' in dismissal:
+                # add this to bowlers history
+                bowler.ball_history.append('Wkt')
                 bowler.wkts += 1
+            elif 'runout' in dismissal:
+                bowler.ball_history.append('RO')
+
             bowler.balls_bowled += 1
             batting_team.wickets_fell += 1
             batting_team.total_balls += 1
@@ -369,6 +395,15 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                                                str(player_dismissed.runs), 
                                                str(player_dismissed.balls),
                                                str(player_dismissed.strikerate)), 'red')
+
+            #detect a hat-trick!
+            #check for consecutive 'W's in the bowler.ball_history[]
+            isHattrick = CheckForConsecutiveBalls(bowler, 'Wkt')
+            if isHattrick == True:
+                bowler.hattricks += 1
+                comment=random.choice(commentary.commentary_hattrick)
+                PrintInColor(comment, bowling_team.color)
+
             #check if bowler gets 5 wkts
             if bowler.wkts == 5:
                 comment = random.choice(commentary.commentary_fifer)
@@ -435,7 +470,10 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             PairFaceBall(pair, run)
             batting_team.total_balls += 1
             batting_team.total_score += run
-            
+
+            # add this to bowlers history
+            bowler.ball_history.append(run)
+
             #check for milestones
             CheckMilestone(pair, batting_team)
 
@@ -528,12 +566,17 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             time.sleep(2)
         else:
             input('press enter to continue..')
+
+        #generate run
         run = random.choice(resources.venues[match.venue])
+
         #check if maiden or not
         if run != 0 or run != -1:
             ismaiden=False 
         #check if extra
         if run == 5:
+            # add this to bowlers history
+            bowler.ball_history.append('WD')
             ismaiden=False
             comment = random.choice(commentary.commentary_wide)
             PrintInColor ("WIDE...!", 'bold')
