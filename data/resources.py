@@ -54,19 +54,3 @@ class resources():
                     'through extra cover',
                     'through the gully']
 
-    #color codes90
-    color_map = {
-        'red' : "\033[1;31m",
-        'green' : "\033[0;32m",
-        'reset' : "\033[0;0m",
-        'bold' : "\033[;1m",
-        'cyan' : "\033[1;36m",
-        'blue' : "\033[1;34m",
-        'purple'   :   "\033[1;35m",
-        'gray': "\033[1;37m",
-        'lightblue':    "\033[1;34m",
-        'lightgreen':   "\033[1;32m",
-        'brown':    "\033[1;33m",
-        'yellow':  "\033[1;93m",
-        'magenta':  "\033[1;45m"
-        }

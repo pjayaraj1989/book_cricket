@@ -3,27 +3,20 @@ from data.test_data import*
 from data.resources import*
 from data.commentary import*
 from data.players import *
-
+from colorama import Fore,Style
 #just error and exit
 def Error_Exit(msg):
     import sys
-    PrintInColor("Error: " + msg, 'red')
+    PrintInColor("Error: " + msg, Fore.RED)
     input('Press enter to continue..')
     sys.exit(0)
 
-#print in color
+#print in color (color=Fore.RED)
 def PrintInColor(msg, color):
-    import sys
-    import platform
-    color_map=resources.color_map
-    #use color mappings from color_map
-    #somehow this doesnt work on windows
-    if str(platform.system()).lower() != 'windows':
-        sys.stdout.write(color_map[color])
-        print(msg)
-        sys.stdout.write(color_map['reset'])
-    else:
-        print (msg)
+    import colorama
+    from colorama import Fore, Back, Style
+    colorama.init()
+    print(color + msg + Style.RESET_ALL)
 
 #get match info
 def GetMatchInfo(team_keys):
@@ -65,7 +58,7 @@ def GetMatchInfo(team_keys):
                                                         str(overs),
                                                         team1.name,
                                                         team2.name,
-                                                       intro), 'cyan')
+                                                       intro), Fore.CYAN)
     print ('In the commentary box, myself {0} with {1}'.format(commentator[0],commentator[1]))
     print ('Umpire: {0}'.format(umpire))
     input('press enter to continue..')
@@ -133,7 +126,7 @@ def ValidateMatchTeams(match):
             for bowler in t.bowlers:
                 bowler.max_overs = match.bowler_max_overs
         
-    PrintInColor('Validated teams', 'bold')
+    PrintInColor('Validated teams', Style.BRIGHT)
 
 #calculate match result
 def CalculateResult(match):
@@ -266,13 +259,13 @@ def DisplayScore(team):
     PrintInColor('{0} {1}/{2} ({3})'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(team.total_balls)), team.color)
     #show FOW
     if team.wickets_fell != 0:
-        PrintInColor ('FOW:', 'bold')
+        PrintInColor ('FOW:', Style.BRIGHT)
         print(', '.join(team.fow))
     print (ch*45)
 
 #print score
 def PrintResult(result):
-    PrintInColor('-'*10 + 'Match Summary' + '-'*10, 'bold')
+    PrintInColor('-'*10 + 'Match Summary' + '-'*10, Style.BRIGHT)
     print('{0} vs {1}'.format(result.team1.name, result.team2.name))
     print(result.team1.name + " " + 
           str(result.team1.total_score) + "/" + 
@@ -282,7 +275,7 @@ def PrintResult(result):
           str(result.team2.total_score) + "/" + 
           str(result.team2.wickets_fell) + "(" +
           str(result.team2.total_balls) + ")")
-    PrintInColor(result.result_str, 'green')
+    PrintInColor(result.result_str, Fore.GREEN)
     print ('Most runs: {0} {1} ({2})'.format(result.most_runs[0].name,
                                         str(result.most_runs[0].runs),
                                         str(result.most_runs[0].balls)))
@@ -350,7 +343,7 @@ def ShowHighlights(batting_team):
     PrintInColor('{0} {1} / {2} ({3})'.format(batting_team.name,
                                                str(batting_team.total_score), 
                                                str(batting_team.wickets_fell), 
-                                               str(batting_team.total_balls)), 'bold')
+                                               str(batting_team.total_balls)), Style.BRIGHT)
 
 #check for N consecutive elements in a list
 def CheckForConsecutiveBalls(bowler, element):
@@ -394,7 +387,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                                                player_dismissed.dismissal, 
                                                str(player_dismissed.runs), 
                                                str(player_dismissed.balls),
-                                               str(player_dismissed.strikerate)), 'red')
+                                               str(player_dismissed.strikerate)), Fore.RED)
 
             #detect a hat-trick!
             #check for consecutive 'W's in the bowler.ball_history[]
@@ -436,7 +429,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             print(comment)
 
             if player_dismissed.balls == 1:
-                PrintInColor (random.choice(commentary.commentary_out_first_ball), 'bold')
+                PrintInColor (random.choice(commentary.commentary_out_first_ball), Style.BRIGHT)
 
             #show score
             ShowHighlights(batting_team)
@@ -454,10 +447,10 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             field=random.choice(resources.field_positions)
             if run == 4:
                 comment=random.choice(commentary.commentary_big_shot)
-                PrintInColor (field + " FOUR! " + comment, 'green')
+                PrintInColor (field + " FOUR! " + comment, Fore.GREEN)
             elif run == 6:
                 comment=random.choice(commentary.commentary_big_shot)
-                PrintInColor (field + " SIX! " + comment, 'green')
+                PrintInColor (field + " SIX! " + comment, Fore.GREEN)
             elif run == 0:
                 comment=random.choice(commentary.commentary_dot_ball)
                 print ('{0}, No Run'.format(comment))
@@ -484,7 +477,7 @@ def DisplayBowlingStats(team):
     bowlers_updated=[]
     char='-'
     print (char*45)
-    PrintInColor (char*15 + '-Bowling Stats-' + char*15, 'bold')
+    PrintInColor (char*15 + '-Bowling Stats-' + char*15, Style.BRIGHT)
     print (char*45)
     eco=0.0
     for bowler in bowlers:
@@ -539,12 +532,12 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
     while(ball <= 6):
         #check if target achieved
         if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
-            PrintInColor ("Match won!", 'green')
+            PrintInColor ("Match won!", Fore.GREEN)
             match_status=False
             input('press enter to continue...')
             break
         if batting_team.wickets_fell == 10:
-            PrintInColor("All out!", 'red')
+            PrintInColor("All out!", Fore.RED)
             match_status=False
             input ('press enter to continue...')
             break
@@ -555,7 +548,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
         if batting_team.batting_second and towin <= 20:
             ShowHighlights(batting_team)
             PrintInColor ('To win: {0} from {1}'.format(str(towin),
-                                                    str(overs*6 - batting_team.total_balls)), 'bold')
+                                                    str(overs*6 - batting_team.total_balls)), Style.BRIGHT)
             input('press enter to continue...')
 
         print ("Over: {0}.{1}".format(str(over),str(ball)))
@@ -579,8 +572,8 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             bowler.ball_history.append('WD')
             ismaiden=False
             comment = random.choice(commentary.commentary_wide)
-            PrintInColor ("WIDE...!", 'bold')
-            PrintInColor (comment, 'bold')
+            PrintInColor ("WIDE...!", Style.BRIGHT)
+            PrintInColor (comment, Style.BRIGHT)
             bowler.runs_given += 1
             batting_team.extras += 1
             batting_team.total_score += 1
@@ -632,13 +625,13 @@ def Play(match, batting_team, bowling_team, pair, bowlers):
         #show net rr required if batting second
         if batting_team.batting_second is True:
             nrr=GetRequiredRate(overs, batting_team)
-            PrintInColor('Reqd Run Rate: {0} per over'.format(str(nrr)), 'bold')
+            PrintInColor('Reqd Run Rate: {0} per over'.format(str(nrr)), Style.BRIGHT)
 
         #play an over      
         status=PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match)
         #show batting stats
         for p in pair:
-            PrintInColor('{0} {1} ({2})'.format(p.name, str(p.runs), str(p.balls)), 'bold')
+            PrintInColor('{0} {1} ({2})'.format(p.name, str(p.runs), str(p.balls)), Style.BRIGHT)
         ShowHighlights(batting_team)
         if status is False:
             break
