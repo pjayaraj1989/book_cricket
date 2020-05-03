@@ -281,7 +281,9 @@ def PrintResult(result):
     print ('Most runs: {0} {1} ({2})'.format(result.most_runs[0].name,
                                         str(result.most_runs[0].runs),
                                         str(result.most_runs[0].balls)))
-    print ('Best bowler: {0} {1}/{2}'.format(result.most_wkts[0].name,
+    #dont print this if most wkts is 0!
+    if result.most_wkts[0].wkts > 0:
+        print ('Most wkts: {0} {1}/{2}'.format(result.most_wkts[0].name,
                                         str(result.most_wkts[0].runs_given),
                                         str(result.most_wkts[0].wkts)))
     print ('Best economy: {0} {1}'.format(result.besteco[0].name,
