@@ -401,14 +401,14 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             isHattrick = CheckForConsecutiveBalls(bowler, 'Wkt')
             if isHattrick == True:
                 bowler.hattricks += 1
-                comment=random.choice(commentary.commentary_hattrick)
-                PrintInColor(comment, bowling_team.color)
+                #comment=random.choice(commentary.commentary_hattrick)
+                PrintInColor(random.choice(commentary.commentary_hattrick, bowling_team.color))
 
             #check if bowler gets 5 wkts
             if bowler.wkts == 5:
-                comment = random.choice(commentary.commentary_fifer)
+                #comment = random.choice(commentary.commentary_fifer)
                 PrintInColor('Thats 5 Wickets for {0} !'.format(bowler.name), bowling_team.color)
-                PrintInColor(commentary.commentary_fifer, bowling_team.color)
+                PrintInColor(random.choice(commentary.commentary_fifer), bowling_team.color)
                 input('press enter to continue..')
 
             #update fall of wicket
@@ -432,11 +432,11 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 comment = random.choice(commentary.commentary_bowled)                
             else:
                 None
+            #comment dismissal
+            print(comment)
 
             if player_dismissed.balls == 1:
-                PrintInColor ('Out first ball !!', 'bold')
-                
-            print (comment)
+                PrintInColor (random.choice(commentary.commentary_out_first_ball), 'bold')
 
             #show score
             ShowHighlights(batting_team)

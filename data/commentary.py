@@ -107,6 +107,12 @@ class commentary():
                         'played well but straight to the fielder!',
                         'slower ball and he misses it!']
 
+    commentary_out_first_ball = ['Out first ball!',
+                                    'Gone for a duck!',
+                                    'Dissappoinment for the batsman! gone for a duck!',
+                                    'Thats a slow walk back when youre out first ball!',
+                                    'He is out without disturbing the scoreboard!',]
+
     commentary_wide = ['he has lost his line completely!',
                     'oh thats a harsh call from the umpire!',
                     'not good bowling from him!',
