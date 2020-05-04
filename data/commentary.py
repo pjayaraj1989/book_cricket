@@ -22,7 +22,7 @@ class commentary():
                       'thats big and the crowd will catch it! ',
                       'thats huge, its out of here!',]
     commentary_four = ['what a shot!.. that will find the fence!',
-                       'oh will this be taken in the deep, oh he has dropped it.. and its six!',
+                       'oh will this be taken in the deep, oh he has dropped it.. and its 4!',
                         'the crowd is loving this!',
                        'beautiful drive and the fielder has given up the chase!',
                        'into the gap for four!',

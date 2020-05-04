@@ -58,21 +58,18 @@ team_ban=Team(team_array=ban_squad,color=Fore.LIGHTBLACK_EX,
                     name="Bangladesh",key='BAN',captain=mashrafe,
                     opening_pair=[ban_squad[0],ban_squad[1]])
 
-
-
-
 #classic teams
 #set teams here
 ind_classic = [sehwag, sachin, ganguly, dravid, yuvraj, kaif, mongia, harbhajan, zaheer, nehra, srinath]
 ind_classic[0].onstrike=True
-team_ind_classic=Team(team_array=ind_classic,color='blue',
+team_ind_classic=Team(team_array=ind_classic,color=Fore.BLUE,
                 name="India-Legends",key='IND_CL',captain=ganguly,
                 opening_pair=[ind_classic[0],ind_classic[1]])
 
 #has to be odd numbered
 aus_classic = [gilchrist, hayden, ponting, martyn, symonds, bevan, lehmann, bichel,hogg,lee, mcgrath]
 aus_classic[0].onstrike=True
-team_aus_classic=Team(team_array=aus_classic,color='yellow',
+team_aus_classic=Team(team_array=aus_classic,color=Fore.YELLOW,
                     name="Australia-Legends",key='AUS_CL', captain=ponting,
                     opening_pair=[aus_classic[0],aus_classic[1]])
 
