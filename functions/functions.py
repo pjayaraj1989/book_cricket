@@ -29,6 +29,10 @@ def GetMatchInfo(team_keys):
     umpire = random.choice(resources.umpires)
     
     teams=team_keys
+
+    #welcome text
+    PrintInColor(commentary.intro_game, Style.BRIGHT)
+
     overs=input('Select overs\n')
     overs=int(overs)
     if overs > 50 or overs <= 0: Error_Exit('Invalid overs') 
