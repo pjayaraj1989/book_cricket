@@ -1,17 +1,21 @@
 #other game resources
 
 class resources():
-    venues = {'Lords' : [0,0,0,0,0,3,1,1,1,1,4,4,1,-1,1,1,1,2,3,4,5],
-            'The MCG' : [0,0,0,0,0,3,1,1,1,1,4,4,1,-1,1,1,1,2,3,4,5],
-            'The Chinnaswamy Stadium,Bengaluru' : [0,0,0,0,0,3,1,1,1,1,4,4,1,-1,1,1,1,2,3,4,5],
-            'SuperSport Park Centurion' : [0,0,0,0,0,3,1,1,1,1,4,4,1,-1,1,1,1,2,3,4,5],
-            'The Sydney Cricket Ground' : [0,0,0,0,0,3,1,1,1,1,4,4,1,-1,1,1,1,2,3,4,5],
-            'The Wankhede, Mumbai' : [0,0,0,0,0,3,1,1,1,1,4,4,1,-1,1,1,1,2,3,4,5],
-            'Edgbaston' : [0,0,0,0,0,3,1,1,1,1,4,4,1,-1,1,1,1,2,3,4,5],
-            'The WACA, Perth' : [0,0,0,0,0,3,1,1,1,1,4,4,1,-1,1,1,1,2,3,4,5],
-            'The Eden Gardens, Kolkata' : [0,0,0,0,0,3,1,1,1,1,4,4,1,-1,1,1,1,2,3,4,5],
-            'Johannesburg' : [0,0,0,0,0,3,1,1,1,1,4,4,1,-1,1,1,1,2,3,4,5],
-            'R.Premadasa Stadium, Colombo' : [0,0,0,0,0,3,1,1,1,1,4,1,-1,1,1,1,2,5]}
+    runs_odi = [0,0,0,6,0,0,3,1,1,1,1,4,1,-1,1,1,1,2,5]
+
+    runs_t20 = [0,0,6,6,0,0,3,1,4,1,6,1,4,1,-1,1,4,1,2,5]
+
+    venues = ['Lords',
+            'The MCG',
+            'The Chinnaswamy Stadium,Bengaluru',
+            'SuperSport Park Centurion',
+            'The Sydney Cricket Ground',
+            'The Wankhede, Mumbai',
+            'Edgbaston',
+            'The WACA, Perth',
+            'The Eden Gardens, Kolkata',
+            'Johannesburg',
+            'R.Premadasa Stadium, Colombo']
 
     commentators = ['Harsha Bhogle',
                 'Ramiz Raja',

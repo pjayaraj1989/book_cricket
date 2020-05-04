@@ -23,7 +23,7 @@ def GetMatchInfo(team_keys):
     match=None    
     import random
     #get venue randomly
-    venue=random.choice(list(resources.venues.keys()))
+    venue=random.choice(resources.venues)
     intro=random.choice(commentary.intro_dialogues)
     commentator=random.sample(set(resources.commentators), 2)
     umpire = random.choice(resources.umpires)
@@ -561,7 +561,11 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             input('press enter to continue..')
 
         #generate run
-        run = random.choice(resources.venues[match.venue])
+        #if odi, else t20
+        if match.overs == 50:
+            run = random.choice(resources.runs_odi)
+        else:
+            run = random.choice(resources.runs_t20)
 
         #check if maiden or not
         if run != 0 or run != -1:
