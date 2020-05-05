@@ -111,10 +111,25 @@ class Fow():
                 if k=='player_dismissed': self.player_dismissed=v
                 if k=='player_onstrike':    self.player_onstrike=v
 
+#partnership info
+class Partnership():
+    def __init__(self, **kwargs):
+        batsman_dismissed=batsman_onstrike=runs=balls=None
+        self.batsman_dismissed=None
+        self.batsman_onstrike=None
+        self.runs=0
+        self.balls=0
+        if kwargs is not None:
+            for k, v in kwargs.items():
+                if k=='batsman_dismissed':  self.batsman_dismissed=v
+                if k=='batsman_onstrike':   self.batsman_onstrike=v
+                if k=='runs':   self.runs=v
+                if k=='balls':  self.balls=v
+
 #match details
 class Team():
     def __init__(self, **kwargs):
-        team_array=total_score=innings_over=won=batting_second=target=name=wickets_fell=total_balls=opening_pair=extras=key=last_bowler=bowlers=fow=captain=nrr=color=None
+        team_array=total_score=innings_over=won=batting_second=target=name=wickets_fell=partnerships=total_balls=opening_pair=extras=key=last_bowler=bowlers=fow=captain=nrr=color=None
         #initialize default values
         self.team_array=None
         self.total_score=0
@@ -131,6 +146,8 @@ class Team():
         self.bowlers=None
         #this will be a list of FOW objects
         self.fow=[]
+        #array of partnerships objs
+        self.partnerships=[]
         self.captain=None
         self.nrr=0.0
         self.color=None
@@ -153,6 +170,7 @@ class Team():
                 if k=='captain':    self.captain=kwargs[k]
                 if k=='nrr':    self.nrr=kwargs[k]
                 if k=='color':  self.color=kwargs[k]
+                if k=='partnerships':   self.partnerships=kwargs[k]
 
 #result details
 class Result():

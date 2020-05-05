@@ -277,9 +277,14 @@ def DisplayScore(team):
             fow_array.append('{0}/{1} {2}({3})'.format(str(f.runs),
                                                        str(f.wkt),
                                                        f.player_dismissed.name,
-                                                       str(BallsToOvers(f.total_balls))))
+                                                      str(BallsToOvers(f.total_balls))))
         fow_str = ', '.join(fow_array)
         PrintInColor(fow_str, team.color)
+    #partnerships
+    PrintInColor("Partnerships:", Style.BRIGHT)
+    for p in team.partnerships:
+        print('{0} - {1} : {2}'.format(p.batsman_onstrike.name, p.batsman_dismissed.name, str(p.runs)))
+
     print (ch*45)
 
 #print score
@@ -380,13 +385,10 @@ def CheckForConsecutiveBalls(bowler, element):
 #play a ball
 def Ball(run, pair, bowler, batting_team, bowling_team):
     import random
-
     #get keeper
     keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
-
     #get who is on strike   
     on_strike = next((x for x in pair if x.onstrike == True), None)
-
     #if out
     if run == -1:
             dismissal = GenerateDismissal(bowler, bowling_team)
@@ -415,7 +417,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             if isHattrick == True:
                 bowler.hattricks += 1
                 #comment=random.choice(commentary.commentary_hattrick)
-                PrintInColor(random.choice(commentary.commentary_hattrick, bowling_team.color))
+                PrintInColor(random.choice(commentary.commentary_hattrick), bowling_team.color)
 
             #check if bowler gets 5 wkts
             if bowler.wkts == 5:
@@ -430,9 +432,25 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                            total_balls=batting_team.total_balls,
                            player_onstrike=player_onstrike,
                            player_dismissed=player_dismissed,)
-
-            #fow_info = '{0}/{1} ({2})'.format(str(batting_team.total_score), str(batting_team.wickets_fell), player_dismissed.name)
             batting_team.fow.append(fow_info)
+
+            #get partnership
+            #1st wkt partnership
+            if batting_team.wickets_fell == 1:
+                partnership_runs = batting_team.fow[0].runs
+            else:
+                partnership_runs = batting_team.fow[batting_team.wickets_fell-1].runs - batting_team.fow[batting_team.wickets_fell - 2].runs
+
+            partnership = Partnership(batsman_dismissed=fow_info.player_dismissed,
+                                      batsman_onstrike=fow_info.player_onstrike,
+                                      runs=partnership_runs)
+            #update batting team partnership details
+            batting_team.partnerships.append(partnership)
+
+            #partnership_str='{0} between {1} and {2}'.format(str(partnership_runs),
+             #                                                fow_info.player_onstrike.name,
+              #                                              fow_info.player_dismissed.name,)
+
 
             #commentary            
             if 'runout' in dismissal:
