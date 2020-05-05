@@ -94,6 +94,23 @@ class Match():
                 if k=='bowler_max_overs':   self.bowler_max_overs=kwargs[k]
                 if k=='autoplay':   self.autoplay=kwargs[k]
 
+#Fow info
+class Fow():
+    def __init__(self, **kwargs):
+        wkts=runs=total_balls=player_dismissed=player_onstrike=None
+        self.wkt=0
+        self.runs=0
+        self.total_balls=0
+        self.player_dismissed=None
+        self.player_onstrike=None
+        if kwargs is not None:
+            for k, v in kwargs.items():
+                if k=='wkt':  self.wkt=v
+                if k=='runs':  self.runs=v
+                if k=='total_balls':    self.total_balls=v
+                if k=='player_dismissed': self.player_dismissed=v
+                if k=='player_onstrike':    self.player_onstrike=v
+
 #match details
 class Team():
     def __init__(self, **kwargs):
@@ -112,6 +129,7 @@ class Team():
         self.extras=0
         self.last_bowler=None
         self.bowlers=None
+        #this will be a list of FOW objects
         self.fow=[]
         self.captain=None
         self.nrr=0.0

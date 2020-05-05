@@ -18,6 +18,13 @@ def PrintInColor(msg, color):
     colorama.init()
     print(color + msg + Style.RESET_ALL)
 
+#balls to overs
+def BallsToOvers(balls):
+    overs=0.0
+    if balls >=0:
+        overs = float(str(int(balls/6)) + '.' + str(balls%6))
+    return overs
+
 #get match info
 def GetMatchInfo(team_keys):
     match=None    
@@ -238,7 +245,7 @@ def GetRequiredRate(totalovers, team):
     nrr=0.0
     #if chasing, calc net nrr
     balls_remaining=totalovers*6 - team.total_balls
-    overs_remaining=float(str(int(balls_remaining/6)) + '.' + str(balls_remaining%6))
+    overs_remaining=BallsToOvers(balls_remaining)
     towin = team.target - team.total_score
     nrr = float(towin / overs_remaining)
     nrr = round(nrr,2)
@@ -260,11 +267,19 @@ def DisplayScore(team):
             print ('{0} {1} {2} ({3})'.format(p.name, p.dismissal, str(p.runs), str(p.balls)))
     print ("Extras: " + str(team.extras))
     print (' ')
-    PrintInColor('{0} {1}/{2} ({3})'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(team.total_balls)), team.color)
+    PrintInColor('{0} {1}/{2} from ({3} overs)'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(BallsToOvers(team.total_balls))), team.color)
     #show FOW
     if team.wickets_fell != 0:
-        PrintInColor ('FOW:', Style.BRIGHT)
-        print(', '.join(team.fow))
+        PrintInColor('FOW:', Style.BRIGHT)
+        #get fow_array
+        fow_array = []
+        for f in team.fow:
+            fow_array.append('{0}/{1} {2}({3})'.format(str(f.runs),
+                                                       str(f.wkt),
+                                                       f.player_dismissed.name,
+                                                       str(BallsToOvers(f.total_balls))))
+        fow_str = ', '.join(fow_array)
+        PrintInColor(fow_str, team.color)
     print (ch*45)
 
 #print score
@@ -274,11 +289,11 @@ def PrintResult(result):
     print(result.team1.name + " " + 
           str(result.team1.total_score) + "/" + 
           str(result.team1.wickets_fell) + "(" +
-          str(result.team1.total_balls) + ")")
+          str(BallsToOvers(result.team1.total_balls)) + ")")
     print(result.team2.name + " " + 
           str(result.team2.total_score) + "/" + 
           str(result.team2.wickets_fell) + "(" +
-          str(result.team2.total_balls) + ")")
+          str(BallsToOvers(result.team2.total_balls)) + ")")
     PrintInColor(result.result_str, Fore.GREEN)
     print ('Most runs: {0} {1} ({2})'.format(result.most_runs[0].name,
                                         str(result.most_runs[0].runs),
@@ -344,10 +359,10 @@ def GenerateDismissal(bowler, bowling_team):
 
 #display temporary stat
 def ShowHighlights(batting_team):
-    PrintInColor('{0} {1} / {2} ({3})'.format(batting_team.name,
+    PrintInColor('{0} {1} / {2} ({3} Overs)'.format(batting_team.name,
                                                str(batting_team.total_score), 
                                                str(batting_team.wickets_fell), 
-                                               str(batting_team.total_balls)), Style.BRIGHT)
+                                               str( BallsToOvers(batting_team.total_balls))), Style.BRIGHT)
 
 #check for N consecutive elements in a list
 def CheckForConsecutiveBalls(bowler, element):
@@ -387,6 +402,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             batting_team.total_balls += 1
             pair=BatsmanOut(pair, dismissal)
             player_dismissed = next((x for x in pair if x.status == False), None)
+            player_onstrike = next((x for x in pair if x.status == True), None)
             PrintInColor ("OUT ! {0} {1} {2} ({3}) SR: {4}".format(player_dismissed.name, 
                                                player_dismissed.dismissal, 
                                                str(player_dismissed.runs), 
@@ -409,7 +425,13 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 input('press enter to continue..')
 
             #update fall of wicket
-            fow_info = '{0}/{1} ({2})'.format(str(batting_team.total_score), str(batting_team.wickets_fell), player_dismissed.name)
+            fow_info = Fow(wkt=batting_team.wickets_fell,
+                           runs=batting_team.total_score,
+                           total_balls=batting_team.total_balls,
+                           player_onstrike=player_onstrike,
+                           player_dismissed=player_dismissed,)
+
+            #fow_info = '{0}/{1} ({2})'.format(str(batting_team.total_score), str(batting_team.wickets_fell), player_dismissed.name)
             batting_team.fow.append(fow_info)
 
             #commentary            
@@ -489,12 +511,12 @@ def DisplayBowlingStats(team):
         if bowler.balls_bowled != 0:
             bowlers_updated.append(bowler)
             balls=bowler.balls_bowled
-            overs=str(int(balls/6)) + '.' + str(balls%6)
-            eco = float(bowler.runs_given / float(overs))
+            overs=BallsToOvers(balls)
+            eco = float(bowler.runs_given / overs)
             eco = round(eco,2)
             bowler.eco = eco
             print ("{0} Overs:{1} Maidens:{5} {2}/{3} Eco: {4}".format(bowler.name, 
-                                           overs, 
+                                           str(overs),
                                            str(bowler.runs_given), 
                                            str(bowler.wkts),
                                            str(bowler.eco),
@@ -525,11 +547,12 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             if bowler is None:
                 bowler = random.choice(temp)
 
-    PrintInColor ("New Bowler: {0} {1}/{2} ({3})".format(bowler.name, 
-                                                         str(bowler.runs_given),
-                                                         str(bowler.wkts),
-                                                         str(int(bowler.balls_bowled/6)) + '.' + str(bowler.balls_bowled%6)),
-                                                        bowling_team.color)
+    PrintInColor("New bowler: {0} {1}/{2} ({3})".format(bowler.name,
+                                                        str(bowler.runs_given),
+                                                        str(bowler.wkts),
+                                                        str(BallsToOvers(bowler.balls_bowled))),
+                                bowling_team.color)
+
     ball=1
     bowling_team.last_bowler=bowler
     ismaiden=True
