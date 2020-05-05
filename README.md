@@ -2,7 +2,8 @@
 Trying to emulate the good old book cricket game
 
 Windows Users:
-Just run the file 'Install.cmd'
+To install:(one time) Double click on 'Install.cmd'
+To run: Double click in 'Run.cmd'
 
 Linux/Mac:
 Prerequisite:
