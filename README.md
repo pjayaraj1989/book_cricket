@@ -11,11 +11,4 @@ Python3 should be installed, get the latest from https://www.python.org/download
 then just run:
 python3 BookCricket.py
 
-General:
-Steps to download:
-1. git clone https://github.com/pjayaraj1989/book_cricket.git
-2. git checkout experimental
-3. CreateWindowsExe.bat will generate .exe from the .py files
-Select overs, teams and game!
-
 To update teams, refer to data/players.py and data/test_data.py
