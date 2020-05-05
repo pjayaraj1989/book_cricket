@@ -3,14 +3,14 @@ from data.players import*
 from colorama import Fore, Style, Back
 
 #set teams here
-ind_squad = [dhawan, rsharma, kohli, klrahul, dkarthik, dhoni, hpandya, ashwin, bkumar, shami, bumrah]
+ind_squad = [dhawan, rsharma, kohli, klrahul, dkarthik, dhoni, jadeja, ashwin, bkumar, shami, bumrah]
 ind_squad[0].onstrike=True
 team_ind=Team(team_array=ind_squad,color=Fore.BLUE,
                 name="India",key='IND',captain=kohli,
                 opening_pair=[ind_squad[0],ind_squad[1]])
 
 #has to be odd numbered
-aus_squad = [warner, finch, smarsh, ssmith, maxwell, stoinis, carey, cummins, starc, bdorff, zampa]
+aus_squad = [warner, finch, smarsh, ssmith, maxwell, stoinis, carey, cummins, starc, hazlewood, zampa]
 aus_squad[0].onstrike=True
 team_aus=Team(team_array=aus_squad,color=Fore.YELLOW,
                     name="Australia",key='AUS', captain=finch,

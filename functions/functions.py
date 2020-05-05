@@ -372,7 +372,6 @@ def ShowHighlights(batting_team):
 #check for N consecutive elements in a list
 def CheckForConsecutiveBalls(bowler, element):
     result=False
-    total_balls_bowled = len(bowler.ball_history)
     #check array bowler.ball_history[] without extras!
     arr=[x for x in bowler.ball_history if x != 'WD']
     total_balls_bowled = len(arr)
@@ -416,12 +415,10 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             isHattrick = CheckForConsecutiveBalls(bowler, 'Wkt')
             if isHattrick == True:
                 bowler.hattricks += 1
-                #comment=random.choice(commentary.commentary_hattrick)
                 PrintInColor(random.choice(commentary.commentary_hattrick), bowling_team.color)
 
             #check if bowler gets 5 wkts
             if bowler.wkts == 5:
-                #comment = random.choice(commentary.commentary_fifer)
                 PrintInColor('Thats 5 Wickets for {0} !'.format(bowler.name), bowling_team.color)
                 PrintInColor(random.choice(commentary.commentary_fifer), bowling_team.color)
                 input('press enter to continue..')
@@ -446,11 +443,6 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                                       runs=partnership_runs)
             #update batting team partnership details
             batting_team.partnerships.append(partnership)
-
-            #partnership_str='{0} between {1} and {2}'.format(str(partnership_runs),
-             #                                                fow_info.player_onstrike.name,
-              #                                              fow_info.player_dismissed.name,)
-
 
             #commentary            
             if 'runout' in dismissal:
@@ -543,6 +535,26 @@ def DisplayBowlingStats(team):
     input('press enter to continue..')
     team.bowlers = bowlers_updated
 
+#update last partnership
+def UpdateLastPartnership(batting_team,pair):
+    # update last partnership
+    if batting_team.wickets_fell > 0:
+        last_fow = batting_team.fow[-1].runs
+        last_partnership_runs = batting_team.total_score - last_fow
+        last_partnership = Partnership(batsman_dismissed=pair[0],
+                                       batsman_onstrike=pair[1],
+                                       runs=last_partnership_runs)
+        batting_team.partnerships.append(last_partnership)
+    #if no wkt fell
+    elif batting_team.wickets_fell == 0:
+        last_partnership_runs = batting_team.total_score
+        last_partnership = Partnership(batsman_dismissed=pair[0],
+                                       batsman_onstrike=pair[1],
+                                       runs=last_partnership_runs)
+        batting_team.partnerships.append(last_partnership)
+    else:
+        None
+
 #play an over
 def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
     match_status = True
@@ -575,12 +587,22 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
     bowling_team.last_bowler=bowler
     ismaiden=True
     while(ball <= 6):
-        #check if target achieved
+        #if chasing and lost
+        if batting_team.batting_second is True and batting_team.total_balls >= (match.overs*6):
+                # update last partnership
+                UpdateLastPartnership(batting_team, pair)
+                match_status = False
+                PrintInColor("End of innings", Style.BRIGHT)
+                break
+
+        #check if target achieved chasing
         if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
             PrintInColor ("Match won!", Fore.GREEN)
             match_status=False
+            UpdateLastPartnership(batting_team, pair)
             input('press enter to continue...')
             break
+        #if all out
         if batting_team.wickets_fell == 10:
             PrintInColor("All out!", Fore.RED)
             match_status=False
@@ -629,6 +651,20 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
         else:
             Ball(run, pair, bowler, batting_team, bowling_team)
             ball += 1
+            # check if 1st innings over
+            if batting_team.batting_second is False and batting_team.total_balls == (match.overs * 6):
+                PrintInColor("End of innings", Style.BRIGHT)
+                #update last partnership
+                if batting_team.wickets_fell > 0:
+                    last_fow = batting_team.fow[-1].runs
+                    last_partnership_runs = batting_team.total_score - last_fow
+                    last_partnership = Partnership(batsman_dismissed=pair[0],
+                                          batsman_onstrike=pair[1],
+                                          runs=last_partnership_runs)
+                    batting_team.partnerships.append(last_partnership)
+                input('press enter to continue')
+                break
+
     if ismaiden == True:
         bowler.maidens += 1
     return match_status
