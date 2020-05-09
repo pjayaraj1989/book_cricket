@@ -462,7 +462,10 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             else:
                 None
             #comment dismissal
-            print(comment)
+            PrintInColor(comment, Style.BRIGHT)
+            #if its a great knock, say this
+            if player_dismissed.runs > 50:
+                PrintInColor(random.choice(commentary.commentary_out_fifty), Style.BRIGHT)
 
             if player_dismissed.balls == 1:
                 PrintInColor (random.choice(commentary.commentary_out_first_ball), Style.BRIGHT)
@@ -480,17 +483,19 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
     else:
             #appropriate commentary for 4s and 6s
             import random
-            field=random.choice(resources.field_positions)
             if run == 4:
+                field = random.choice(resources.fields[4])
                 comment=random.choice(commentary.commentary_four)
                 PrintInColor (field + " FOUR! " + comment, Fore.GREEN)
             elif run == 6:
+                field = random.choice(resources.fields[6])
                 comment=random.choice(commentary.commentary_six)
                 PrintInColor (field + " SIX! " + comment, Fore.GREEN)
             elif run == 0:
                 comment=random.choice(commentary.commentary_dot_ball)
                 print ('{0}, No Run'.format(comment))
             else:
+                field = random.choice(resources.fields["ground_shot"])
                 comment=random.choice(commentary.commentary_ground_shot)
                 print ('{0},{1} {2} run'.format(comment, field, str(run)))
 

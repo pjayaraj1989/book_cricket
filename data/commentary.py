@@ -82,6 +82,8 @@ class commentary():
 
     commentary_runout = ['what a terrible mix up!',
                         'this is bizzare!',
+                         'dead accurate throw from the fielder!',
+                         'magnificent fielding.. brilliant throw!',
                         'he is coming back for the second, direct hit and gone!',
                         'that was a horrible call!',
                         'direct hit and gone!','what was the batsman thinking!?']
@@ -135,6 +137,15 @@ class commentary():
                                     'Dissappoinment for the batsman! gone for a duck!',
                                     'Thats a slow walk back when youre out first ball!',
                                     'He is out without disturbing the scoreboard!',]
+
+    commentary_out_fifty = ['what a valuable innings!',
+                            'useful innings comes to a close!',
+                            'he is out but the damage is done!',
+                            'big applause from the crowd as he walks back',
+                            'the party is over, the crowd loved the innings!',
+                            'take a bow, what an innings it was!',
+                            'terrific knock comes to an end!',
+                            'end of a brilliant innings']
 
     commentary_wide = ['he has lost his line completely!',
                         'oh thats a harsh call from the umpire!',
