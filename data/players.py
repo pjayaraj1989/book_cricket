@@ -141,6 +141,18 @@ bichel=Player(name='A. Bichel',attr=PlayerAttr(bowling=8))
 lee=Player(name='B. Lee',attr=PlayerAttr(bowling=8))
 mcgrath=Player(name='G. McGrath',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 
+#classic pak
+anwar=Player(name='S. Anwar',attr=PlayerAttr(batting=8))
+tumer=Player(name='T. Umer', attr=PlayerAttr(batting=8, iskeeper=True))
+yousuf=Player(name='M. Yousuf',attr=PlayerAttr(batting=8))
+younis=Player(name='Y. Khan',attr=PlayerAttr(batting=8))
+inzamam=Player(name='I. Ul Haq',attr=PlayerAttr(batting=7))
+afridi=Player(name='S. Afridi',attr=PlayerAttr(batting=7, bowling=7, isspinner=True))
+razzaq=Player(name='A. Razzaq',attr=PlayerAttr(bowling=6,batting=6))
+saqlain=Player(name='S. Mushtaq',attr=PlayerAttr(batting=6,bowling=7,isspinner=True))
+akram=Player(name='W. Akram',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+waqar=Player(name='W. Younis',attr=PlayerAttr(bowling=8))
+akhtar=Player(name='S. Akhtar',attr=PlayerAttr(bowling=9))
 
 
 

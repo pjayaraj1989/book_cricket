@@ -73,5 +73,11 @@ team_aus_classic=Team(team_array=aus_classic,color=Fore.YELLOW,
                     name="Australia-Legends",key='AUS_CL', captain=ponting,
                     opening_pair=[aus_classic[0],aus_classic[1]])
 
-list_of_teams = [team_aus, team_ind, team_eng, team_nz, team_pak, team_sa, team_wi, team_sl, team_ban, team_aus_classic, team_ind_classic]
+pak_classic = [anwar, tumer, yousuf, younis, inzamam, afridi, razzaq, saqlain,akram,waqar,akram]
+pak_classic[0].onstrike=True
+team_pak_classic=Team(team_array=pak_classic,color=Fore.GREEN,
+                    name="Pakistan-Legends",key='PAK_CL', captain=waqar,
+                    opening_pair=[pak_classic[0],pak_classic[1]])
+
+list_of_teams = [team_aus, team_ind, team_eng, team_nz, team_pak, team_sa, team_wi, team_sl, team_ban, team_aus_classic, team_pak_classic, team_ind_classic]
 team_keys=[l.key for l in list_of_teams]
