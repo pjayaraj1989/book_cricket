@@ -16,7 +16,10 @@ def PrintInColor(msg, color):
     import colorama
     from colorama import Fore, Back, Style
     colorama.init()
-    print(color + msg + Style.RESET_ALL)
+    import os
+    #colorama crashes on windows, so dont use it
+    if 'nt' in os.name: print(msg)
+    else:   print(color + msg + Style.RESET_ALL)
 
 #balls to overs
 def BallsToOvers(balls):
