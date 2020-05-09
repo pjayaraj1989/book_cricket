@@ -142,6 +142,12 @@ class commentary():
                                     'Thats a slow walk back when youre out first ball!',
                                     'He is out without disturbing the scoreboard!',]
 
+    commentary_out_duck = ['The batsman will be so dissapointed.. he is gone for nothing!',
+                           'gone for a duck! His nightmare continues!',
+                           'thats his second duck in a row in this season!',
+                           'slow walk back when youre gone for a duck!',
+                           'he hasnt troubled the scoreboard!']
+
     commentary_out_fifty = ['what a valuable innings!',
                             'useful innings comes to a close!',
                             'he is out but the damage is done!',

@@ -470,6 +470,9 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             #if its a great knock, say this
             if player_dismissed.runs > 50:
                 PrintInColor(random.choice(commentary.commentary_out_fifty), Style.BRIGHT)
+            #if duck
+            if player_dismissed.runs == 0:
+                PrintInColor(random.choice(commentary.commentary_out_duck), Style.BRIGHT)
             #out first ball
             if player_dismissed.balls == 1:
                 PrintInColor (random.choice(commentary.commentary_out_first_ball), Style.BRIGHT)
