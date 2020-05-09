@@ -18,15 +18,16 @@ def Error_Exit(msg):
     input('Press enter to continue..')
     sys.exit(0)
 
-#print in color (color=Fore.RED)
+#print in color
 def PrintInColor(msg, color):
-    import colorama
-    from colorama import Fore, Back, Style
-    colorama.init()
     import os
-    #colorama crashes on windows, so dont use it
+    #colorama crashes on windows, so dont use it in windows
     if 'nt' in os.name: print(msg)
-    else:   print(color + msg + Style.RESET_ALL)
+    else:
+        import colorama
+        from colorama import Fore, Back, Style
+        colorama.init()
+        print(color + msg + Style.RESET_ALL)
 
 #balls to overs
 def BallsToOvers(balls):
