@@ -461,14 +461,18 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 comment = random.choice(commentary.commentary_bowled)                
             else:
                 None
+
             #comment dismissal
             PrintInColor(comment, Style.BRIGHT)
             #if its a great knock, say this
             if player_dismissed.runs > 50:
                 PrintInColor(random.choice(commentary.commentary_out_fifty), Style.BRIGHT)
-
+            #out first ball
             if player_dismissed.balls == 1:
                 PrintInColor (random.choice(commentary.commentary_out_first_ball), Style.BRIGHT)
+            # if partnership is great
+            if partnership.runs > 50:
+                PrintInColor(random.choice(commentary.commentary_partnership_milestone), Style.BRIGHT)
 
             #show score
             ShowHighlights(batting_team)

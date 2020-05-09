@@ -132,6 +132,10 @@ class commentary():
                         'played well but straight to the fielder!',
                         'slower ball and he misses it!']
 
+    commentary_partnership_milestone = ['this has been a terrific partnership!',
+                                        'what a partnership this has been!',
+                                        'end of a terrific partnership between these two!']
+
     commentary_out_first_ball = ['Out first ball!',
                                     'Gone for a duck!',
                                     'Dissappoinment for the batsman! gone for a duck!',
