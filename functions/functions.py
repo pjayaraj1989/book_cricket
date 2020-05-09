@@ -488,7 +488,12 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             if partnership.runs > 50:
                 PrintInColor(Randomize(commentary.commentary_partnership_milestone), Style.BRIGHT)
 
-            #show score
+            # calculate the situation
+            towin = batting_team.target - batting_team.total_score
+            if batting_team.batting_second and batting_team.wickets_fell >= 8:
+                PrintInColor(Randomize(commentary.commentary_goingtolose), Style.BRIGHT)
+
+                #show score
             ShowHighlights(batting_team)
             
             input('press enter to continue..')

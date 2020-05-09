@@ -173,6 +173,13 @@ class commentary():
                     'Thats it! A brilliant knock under pressure!',
                     'he is on absolute fire here !']
 
+    commentary_goingtolose = ['surely its all over now!',
+                              'its now literally impossible to win now!',
+                              'that, I am sure, is the final nail on the coffin!',
+                              'thats the end of all hopes for them now!',
+                              'all over..!',
+                              'now, the bowling captain eyes victory for sure!',]
+
     commentary_fifer = ['what a bowler he is!',
                         'he has totally rattled this batting team!',
                         'he is on absolute fire!',
