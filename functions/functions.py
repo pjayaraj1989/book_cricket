@@ -4,37 +4,7 @@ from data.resources import*
 from data.commentary import*
 from data.players import *
 from colorama import Fore,Style
-
-#randomize
-def Randomize(list):
-    import secrets
-    op = secrets.choice(list)
-    return op
-
-#just error and exit
-def Error_Exit(msg):
-    import sys
-    PrintInColor("Error: " + msg, Fore.RED)
-    input('Press enter to continue..')
-    sys.exit(0)
-
-#print in color
-def PrintInColor(msg, color):
-    import os
-    #colorama crashes on windows, so dont use it in windows
-    if 'nt' in os.name: print(msg)
-    else:
-        import colorama
-        from colorama import Fore, Back, Style
-        colorama.init()
-        print(color + msg + Style.RESET_ALL)
-
-#balls to overs
-def BallsToOvers(balls):
-    overs=0.0
-    if balls >=0:
-        overs = float(str(int(balls/6)) + '.' + str(balls%6))
-    return overs
+from functions.utilities import *
 
 #get match info
 def GetMatchInfo(team_keys):
@@ -340,8 +310,6 @@ def BatsmanOut(pair, dismissal):
     #update dismissal mode
     pair[ind].dismissal = dismissal
     return pair
-
-
 
 #randomly select a mode of dismissals
 def GenerateDismissal(bowler, bowling_team):
