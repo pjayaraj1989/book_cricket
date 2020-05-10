@@ -466,15 +466,26 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                     comment = Randomize(commentary.commentary_keeper_catch)
                 else:
                     comment = Randomize(commentary.commentary_caught)
-            elif 'lbw' in dismissal:
-                comment = Randomize(commentary.commentary_lbw)
-            elif 'b ' in dismissal:
-                comment = Randomize(commentary.commentary_bowled)
+
+            elif 'b ' or 'lbw' in dismissal:
+                #reverse swing if > 30 overs
+                if 150 <= batting_team.total_balls <= 240 and bowler.attr.isspinner==False:
+                    PrintInColor(Randomize(commentary.commentary_reverse), Style.BRIGHT)
+                #initial swing
+                if batting_team.total_balls < 24 and bowler.attr.isspinner==False:
+                    PrintInColor(Randomize(commentary.commentary_swing), Style.BRIGHT)
+                #turn
+                if bowler.attr.isspinner==True:
+                    PrintInColor(Randomize(commentary.commentary_turn), Style.BRIGHT)
+                #if lbw
+                if 'lbw' in dismissal:  comment = Randomize(commentary.commentary_lbw)
+                else:   comment = Randomize(commentary.commentary_bowled)
             else:
                 None
 
             #comment dismissal
             PrintInColor(comment, Style.BRIGHT)
+
             #if its a great knock, say this
             if player_dismissed.runs > 50:
                 PrintInColor(Randomize(commentary.commentary_out_fifty), Style.BRIGHT)

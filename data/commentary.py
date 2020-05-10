@@ -63,6 +63,7 @@ class commentary():
     commentary_bowled = ['full and straight what a ball',
                         'what a yorker! he is on fire!',
                         'bowled himm!',
+                         'perfect length, that has hit the top of off-stump!',
                         'Middle stump out of here',
                         'inside edge and bowled!',
                         'dragged on to the stumps',
@@ -79,6 +80,21 @@ class commentary():
                         'Bowled him! And he is showing the batsman the way to the dressing room!',
                         'done him with a toe crushing yorker!',
                         'oh bowledimm!, an unplayable delivery!',]
+
+    commentary_reverse = ['Oh thats reversed!',
+                          'he gets it to reverse!',
+                          'magnificent reverse swinging delivery',
+                          'brilliant reverse swinger this!']
+
+    commentary_swing = ['Terrific inswinger!',
+                        'superb inswinger!',
+                        'brilliant outswinger!',
+                        'unbelievable swing!']
+
+    commentary_turn = ['that ball turned a long way!',
+                       'oh that spun a long way!',
+                       'terrific spin bowling this!',
+                       'what a turn! it has stunned the batsman!',]
 
     commentary_runout = ['what a terrible mix up!',
                         'this is bizzare!',
