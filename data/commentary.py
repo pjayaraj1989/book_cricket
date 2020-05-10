@@ -81,6 +81,10 @@ class commentary():
                         'done him with a toe crushing yorker!',
                         'oh bowledimm!, an unplayable delivery!',]
 
+    commentary_in_a_row = ['thats 3 in a row!',
+                                 'three in a row now!, bowler is clueless here',
+                                 'three in a row!']
+
     commentary_reverse = ['Oh thats reversed!',
                           'he gets it to reverse!',
                           'magnificent reverse swinging delivery',

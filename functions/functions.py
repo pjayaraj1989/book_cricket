@@ -516,12 +516,15 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 PrintInColor ("New Batsman: " + pair[ind].name, batting_team.color)        
     else:
             #appropriate commentary for 4s and 6s
-            import random
             if run == 4:
                 field = Randomize(resources.fields[4])
                 comment=Randomize(commentary.commentary_four)
                 PrintInColor (field + " FOUR! " + comment, Fore.GREEN)
+                if CheckForConsecutiveBalls(bowler, 4) == True:
+                    PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
             elif run == 6:
+                if CheckForConsecutiveBalls(bowler, 6) == True:
+                    PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
                 field = Randomize(resources.fields[6])
                 comment=Randomize(commentary.commentary_six)
                 PrintInColor (field + " SIX! " + comment, Fore.GREEN)
