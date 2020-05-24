@@ -2,10 +2,19 @@
 Trying to emulate the good old book cricket game
 
 Instructions:
-Download and install the latest python3 for your platform from https://www.python.org/downloads/
-then just run:
-python3 -m pip install colorama (this is one time step)
+Windows:
+Run the exe file  \dist\BookCricket\BookCricket.exe
 
+Ubuntu:
+sudo apt-get update
+sudo apt-get install python3.6
+
+Mac:
+brew install python3
+
+python3 -m pip install colorama
+
+To run the game:
 python3 BookCricket.py
 
-To update teams, refer to data/players.py and data/test_data.py
+To update teams(Linux and Mac), refer to data/players.py and data/test_data.py
