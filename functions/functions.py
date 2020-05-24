@@ -73,6 +73,10 @@ def Toss (match):
                                                                             match.team1.name,
                                                                         match.team2.captain.name,
                                                                         match.team2.name))
+    #assign captain attribute to the players
+    match.team1.captain.attr.iscaptain = True
+    match.team2.captain.attr.iscaptain = True
+
     print ('{0} is gonna flip the coin'.format(match.team2.captain.name))
     call=input('{0}, Heads or tails? 1.Heads 2.Tails\n'.format(match.team1.captain.name))
     if call == '' or None:
@@ -368,6 +372,9 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
     on_strike = next((x for x in pair if x.onstrike == True), None)
     #if out
     if run == -1:
+            #detect if the captain is gone
+            if on_strike.attr.iscaptain == True:
+                PrintInColor(Randomize(commentary.commentary_captain_out), bowling_team.color)
             dismissal = GenerateDismissal(bowler, bowling_team)
             if not 'runout' in dismissal:
                 # add this to bowlers history
@@ -693,6 +700,9 @@ def CheckMilestone(pair, batting_team):
             comment=Randomize(commentary.commentary_milestone)
             p.fifty += 1
             PrintInColor("50 for {0}!".format(p.name), batting_team.color)
+            #check if captain
+            if p.attr.iscaptain == True:
+                PrintInColor(Randomize(commentary.commentary_captain_leading), batting_team.color)
             PrintInColor(comment, batting_team.color)
             input('press enter to continue..')
         elif p.runs >= 100 and (p.fifty == 1 and p.hundred == 0):
@@ -701,6 +711,9 @@ def CheckMilestone(pair, batting_team):
             p.hundred += 1
             p.fifty += 1
             PrintInColor("100 for {0}!".format(p.name),  batting_team.color)
+            #check if captain
+            if p.attr.iscaptain == True:
+                PrintInColor(Randomize(commentary.commentary_captain_leading), batting_team.color)
             PrintInColor(comment, batting_team.color)
             input('press enter to continue..')
         elif p.runs >= 200 and (p.hundred == 1):
@@ -708,6 +721,9 @@ def CheckMilestone(pair, batting_team):
             comment=Randomize(commentary.commentary_milestone)
             p.hundred += 1
             PrintInColor("200 for {0}! What a superman!".format(p.name),  batting_team.color)
+            #check if captain
+            if p.attr.iscaptain == True:
+                PrintInColor(Randomize(commentary.commentary_captain_leading), batting_team.color)
             PrintInColor(comment, batting_team.color)
             input('press enter to continue..')
         else:

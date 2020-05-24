@@ -66,6 +66,15 @@ class commentary():
                                 'first ball and its dispatched! Beware bowlers!',
                                 'thats hit off the first ball!.. ']
 
+    #captain out
+    commentary_captain_out = ['got rid of the skipper!',
+                              'thats the end of the captain!',
+                              'yes! the skippers is gone!']
+    #captain leading
+    commentary_captain_leading = ['captain leading from the front',
+                                  'captain courageous!',
+                                  'the skipper leading from the front here']
+
     commentary_bowled = ['full and straight what a ball',
                         'what a yorker! he is on fire!',
                         'bowled himm!',
