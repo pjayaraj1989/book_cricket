@@ -362,7 +362,6 @@ def CheckForConsecutiveBalls(bowler, element):
 
 #play a ball
 def Ball(run, pair, bowler, batting_team, bowling_team):
-    import random
     #get keeper
     keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
     #get who is on strike   
@@ -472,7 +471,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             if batting_team.batting_second and batting_team.wickets_fell >= 8:
                 PrintInColor(Randomize(commentary.commentary_goingtolose), Style.BRIGHT)
 
-                #show score
+            #show score
             ShowHighlights(batting_team)
             
             input('press enter to continue..')
@@ -488,9 +487,15 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 field = Randomize(resources.fields[4])
                 comment=Randomize(commentary.commentary_four)
                 PrintInColor (field + " FOUR! " + comment, Fore.GREEN)
+                #check if first ball hit for a boundary
+                if on_strike.balls == 0:
+                    PrintInColor(Randomize(commentary.commentary_firstball_four), Fore.GREEN)
                 if CheckForConsecutiveBalls(bowler, 4) == True:
                     PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
             elif run == 6:
+                #check uf furst ball is hit
+                if on_strike.balls == 0:
+                    PrintInColor(Randomize(commentary.commentary_firstball_six), Fore.GREEN)
                 if CheckForConsecutiveBalls(bowler, 6) == True:
                     PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
                 field = Randomize(resources.fields[6])

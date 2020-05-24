@@ -59,7 +59,13 @@ class commentary():
                         'sloppy fielding, useful singles and doubles for the batsman',
                         'Oooh! direct hit and he wouldve gone!',
                         'singles and doubles will surely irritate the fielding captain']
-                        
+
+    #four first  ball
+    commentary_firstball_four = ['what a way to start the innings!']
+    commentary_firstball_six = ['six of the first ball!',
+                                'first ball and its dispatched! Beware bowlers!',
+                                'thats hit off the first ball!.. ']
+
     commentary_bowled = ['full and straight what a ball',
                         'what a yorker! he is on fire!',
                         'bowled himm!',
