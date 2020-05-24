@@ -75,6 +75,9 @@ class commentary():
                                   'captain courageous!',
                                   'the skipper leading from the front here']
 
+    #half the side is down
+    commentary_five_down = ['half the side is back in the pavilion!']
+
     commentary_bowled = ['full and straight what a ball',
                         'what a yorker! he is on fire!',
                         'bowled himm!',

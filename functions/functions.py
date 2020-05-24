@@ -372,9 +372,6 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
     on_strike = next((x for x in pair if x.onstrike == True), None)
     #if out
     if run == -1:
-            #detect if the captain is gone
-            if on_strike.attr.iscaptain == True:
-                PrintInColor(Randomize(commentary.commentary_captain_out), bowling_team.color)
             dismissal = GenerateDismissal(bowler, bowling_team)
             if not 'runout' in dismissal:
                 # add this to bowlers history
@@ -383,11 +380,18 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             elif 'runout' in dismissal:
                 bowler.ball_history.append('RO')
 
+            #update wkts, balls, etc
             bowler.balls_bowled += 1
             batting_team.wickets_fell += 1
             batting_team.total_balls += 1
+
             pair=BatsmanOut(pair, dismissal)
+
             player_dismissed = next((x for x in pair if x.status == False), None)
+            #check if player dismissed is captain
+            if player_dismissed.attr.iscaptain == True:
+                PrintInColor(Randomize(commentary.commentary_captain_out), bowling_team.color)
+
             player_onstrike = next((x for x in pair if x.status == True), None)
             PrintInColor ("OUT ! {0} {1} {2} ({3}) SR: {4}".format(player_dismissed.name, 
                                                player_dismissed.dismissal, 
@@ -396,13 +400,12 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                                                str(player_dismissed.strikerate)), Fore.RED)
 
             #detect a hat-trick!
-            #check for consecutive 'W's in the bowler.ball_history[]
             isHattrick = CheckForConsecutiveBalls(bowler, 'Wkt')
             if isHattrick == True:
                 bowler.hattricks += 1
                 PrintInColor(Randomize(commentary.commentary_hattrick), bowling_team.color)
 
-            #check if bowler gets 5 wkts
+            #check if bowler got 5 wkts
             if bowler.wkts == 5:
                 PrintInColor('Thats 5 Wickets for {0} !'.format(bowler.name), bowling_team.color)
                 PrintInColor(Randomize(commentary.commentary_fifer), bowling_team.color)
@@ -416,7 +419,11 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                            player_dismissed=player_dismissed,)
             batting_team.fow.append(fow_info)
 
-            #get partnership
+            #check if 5 wkts gone
+            if batting_team.wickets_fell == 5:
+                PrintInColor(Randomize(commentary.commentary_five_down), bowling_team.color)
+
+            #get partnership details
             #1st wkt partnership
             if batting_team.wickets_fell == 1:
                 partnership_runs = batting_team.fow[0].runs
