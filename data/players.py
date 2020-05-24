@@ -154,6 +154,45 @@ akram=Player(name='W. Akram',attr=PlayerAttr(bowling=8, isopeningbowler=True))
 waqar=Player(name='W. Younis',attr=PlayerAttr(bowling=8))
 akhtar=Player(name='S. Akhtar',attr=PlayerAttr(bowling=9))
 
+#classic england
+trescothik=Player(name='M. Trescothick',attr=PlayerAttr(batting=8))
+knight=Player(name='N. Knight', attr=PlayerAttr(batting=8))
+hussain=Player(name='N. Hussain',attr=PlayerAttr(batting=8, iscaptain=True))
+vaughan=Player(name='M. Vaughan',attr=PlayerAttr(batting=8))
+stewart=Player(name='A. Stewart',attr=PlayerAttr(batting=7, iskeeper=True))
+collingwood=Player(name='P. Collingwood',attr=PlayerAttr(batting=7, bowling=7))
+flintoff=Player(name='A. Flintoff',attr=PlayerAttr(bowling=7,batting=6))
+giles=Player(name='A. Giles',attr=PlayerAttr(batting=6,bowling=7, isspinner=True))
+gough=Player(name='D. Gough',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+caddick=Player(name='A. Caddick',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+anderson=Player(name='J. Anderson',attr=PlayerAttr(bowling=9))
+
+#classic srilanka
+atapattu=Player(name='M. Atapattu',attr=PlayerAttr(batting=8))
+jayasuriya=Player(name='S. Jayasuriya', attr=PlayerAttr(batting=8, bowling=6, isspinner=True, iscaptain=True))
+adesilva=Player(name='A. de Silva',attr=PlayerAttr(batting=8, bowling=6, isspinner=True))
+sangakkara=Player(name='K. Sangakkara',attr=PlayerAttr(batting=8, iskeeper=True))
+jayawardene=Player(name='M. Jayawardene',attr=PlayerAttr(batting=7))
+arnold=Player(name='R. Arnold',attr=PlayerAttr(batting=7, bowling=7, isspinner=True))
+samaraweera=Player(name='T. Samaraweera',attr=PlayerAttr(bowling=7,batting=6, isspinner=True))
+vaas=Player(name='C. Vaas',attr=PlayerAttr(batting=6,bowling=7, isopeningbowler=True))
+fernando=Player(name='D. Fernando',attr=PlayerAttr(bowling=8))
+gunaratne=Player(name='P. Gunaratne',attr=PlayerAttr(bowling=8))
+murali=Player(name='M. Muralitharan',attr=PlayerAttr(bowling=9, isspinner=True))
+
+#classic SA
+gsmith=Player(name='G. Smith',attr=PlayerAttr(batting=8))
+gibbs=Player(name='H. Gibbs', attr=PlayerAttr(batting=8))
+kirsten=Player(name='G. Kirsten',attr=PlayerAttr(batting=8))
+kallis=Player(name='J. Kallis',attr=PlayerAttr(batting=8, bowling=7))
+dippenaar=Player(name='B. Dippenaar',attr=PlayerAttr(batting=7))
+boucher=Player(name='M. Boucher',attr=PlayerAttr(batting=7, iskeeper=True))
+pollock=Player(name='S. Pollock',attr=PlayerAttr(bowling=7,batting=6, iscaptain=True, isopeningbowler=True))
+klusener=Player(name='L. Klusener',attr=PlayerAttr(batting=6,bowling=7))
+hall=Player(name='A. Hall',attr=PlayerAttr(bowling=8))
+ntini=Player(name='M. Ntini',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+donald=Player(name='A. Donald',attr=PlayerAttr(bowling=9, isopeningbowler=True))
+
 
 
 

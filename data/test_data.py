@@ -79,5 +79,24 @@ team_pak_classic=Team(team_array=pak_classic,color=Fore.GREEN,
                     name="Pakistan-Legends",key='PAK_CL', captain=waqar,
                     opening_pair=[pak_classic[0],pak_classic[1]])
 
-list_of_teams = [team_aus, team_ind, team_eng, team_nz, team_pak, team_sa, team_wi, team_sl, team_ban, team_aus_classic, team_pak_classic, team_ind_classic]
+eng_classic = [trescothik,knight,vaughan,hussain,stewart,collingwood,flintoff,giles,gough,caddick,anderson]
+eng_classic[0].onstrike=True
+team_eng_classic = Team(team_array=eng_classic,color=Fore.LIGHTBLUE_EX,
+                        name="England-Legends",key='ENG_CL',captain=hussain,
+                        opening_pair=[trescothik,knight])
+
+sri_classic = [atapattu,jayasuriya,adesilva,sangakkara,jayawardene,arnold,samaraweera,vaas,fernando,gunaratne,murali]
+sri_classic[0].onstrike=True
+team_sri_classic = Team(team_array=sri_classic,color=Fore.LIGHTMAGENTA_EX,
+                        name="SriLanka-Legends",key='SRI_CL',captain=jayasuriya,
+                        opening_pair=[jayasuriya,atapattu])
+
+sa_classic = [gsmith,gibbs,kirsten,kallis,dippenaar,boucher,pollock,klusener,hall,ntini,donald]
+sa_classic[0].onstrike=True
+team_sa_classic = Team(team_array=sa_classic,color=Fore.LIGHTGREEN_EX,
+                       name="SouthAfrica-Legends",key='SA_CL',captain=pollock,
+                       opening_pair=[gsmith,gibbs])
+
+list_of_teams = [team_aus, team_ind, team_eng, team_nz, team_pak, team_sa, team_wi, team_sl, team_ban,
+                 team_aus_classic, team_pak_classic, team_ind_classic, team_eng_classic, team_sri_classic, team_sa_classic]
 team_keys=[l.key for l in list_of_teams]
