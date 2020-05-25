@@ -7,14 +7,11 @@ def Randomize(list):
 
 #print in color
 def PrintInColor(msg, color):
-    import os
-    #colorama crashes on windows, so dont use it in windows
-    if 'nt' in os.name: print(msg)
-    else:
-        import colorama
-        from colorama import Style
-        colorama.init()
-        print(color + msg + Style.RESET_ALL)
+    import sys
+    from colorama import Style,AnsiToWin32,init
+    init(wrap=False)
+    stream = AnsiToWin32(sys.stderr).stream
+    print(color + msg + Style.RESET_ALL, file=stream)
 
 #just error and exit
 def Error_Exit(msg):
