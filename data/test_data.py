@@ -73,7 +73,7 @@ team_aus_classic=Team(team_array=aus_classic,color=Fore.YELLOW,
                     name="Australia-Legends",key='AUS_CL', captain=ponting,
                     opening_pair=[aus_classic[0],aus_classic[1]])
 
-pak_classic = [anwar, tumer, yousuf, younis, inzamam, afridi, razzaq, saqlain,akram,waqar,akram]
+pak_classic = [anwar, tumer, yousuf, younis, inzamam, afridi, razzaq, saqlain,akram,waqar,akhtar]
 pak_classic[0].onstrike=True
 team_pak_classic=Team(team_array=pak_classic,color=Fore.GREEN,
                     name="Pakistan-Legends",key='PAK_CL', captain=waqar,
