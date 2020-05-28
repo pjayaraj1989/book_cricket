@@ -193,6 +193,17 @@ hall=Player(name='A. Hall',attr=PlayerAttr(bowling=8))
 ntini=Player(name='M. Ntini',attr=PlayerAttr(bowling=8, isopeningbowler=True))
 donald=Player(name='A. Donald',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 
+#classic WI
+hinds=Player(name='W. Hinds', attr=PlayerAttr(batting=8))
+lara=Player(name='B. Lara',attr=PlayerAttr(batting=8))
+chanderpaul=Player(name='S. Chanderpaul',attr=PlayerAttr(batting=8))
+hooper=Player(name='C. Hooper',attr=PlayerAttr(batting=7, iscaptain=True, bowling=7, isspinner=True))
+powell=Player(name='R. Powell',attr=PlayerAttr(batting=7, bowling=6, isspinner=True))
+sarwan=Player(name='R. Sarwan',attr=PlayerAttr(batting=7))
+jacobs=Player(name='R. Jacobs',attr=PlayerAttr(batting=6,iskeeper=True))
+dillon=Player(name='M. Dillon',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+drakes=Player(name='V. Drakes',attr=PlayerAttr(bowling=8))
+collins=Player(name='P. Collins',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 
 
 

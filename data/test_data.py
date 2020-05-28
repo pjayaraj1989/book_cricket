@@ -97,6 +97,12 @@ team_sa_classic = Team(team_array=sa_classic,color=Fore.LIGHTGREEN_EX,
                        name="SouthAfrica-Legends",key='SA_CL',captain=pollock,
                        opening_pair=[gsmith,gibbs])
 
+wi_classic = [gayle,hinds,lara,sarwan,chanderpaul,hooper,powell,jacobs,dillon,drakes,collins]
+wi_classic[0].onstrike=True
+team_wi_classic = Team(team_array=wi_classic,color=Fore.LIGHTMAGENTA_EX,
+                       name="WestIndies-Legends",key='WI_CL',captain=hooper,
+                       opening_pair=[gayle,hinds])
+
 list_of_teams = [team_aus, team_ind, team_eng, team_nz, team_pak, team_sa, team_wi, team_sl, team_ban,
-                 team_aus_classic, team_pak_classic, team_ind_classic, team_eng_classic, team_sri_classic, team_sa_classic]
+                 team_aus_classic, team_pak_classic, team_ind_classic, team_eng_classic, team_sri_classic, team_sa_classic, team_wi_classic]
 team_keys=[l.key for l in list_of_teams]
