@@ -87,7 +87,7 @@ team_eng_classic = Team(team_array=eng_classic,color=Fore.LIGHTBLUE_EX,
 
 sri_classic = [atapattu,jayasuriya,adesilva,sangakkara,jayawardene,arnold,samaraweera,vaas,fernando,gunaratne,murali]
 sri_classic[0].onstrike=True
-team_sri_classic = Team(team_array=sri_classic,color=Fore.LIGHTMAGENTA_EX,
+team_sri_classic = Team(team_array=sri_classic,color=Fore.MAGENTA,
                         name="SriLanka-Legends",key='SRI_CL',captain=jayasuriya,
                         opening_pair=[jayasuriya,atapattu])
 
@@ -103,6 +103,12 @@ team_wi_classic = Team(team_array=wi_classic,color=Fore.LIGHTMAGENTA_EX,
                        name="WestIndies-Legends",key='WI_CL',captain=hooper,
                        opening_pair=[gayle,hinds])
 
+nz_classic = [fleming,astle,mcmillan,styris,cairns,mccullum,harris,vettori,adams,tuffey,bond]
+nz_classic[0].onstrike=True
+team_nz_classic = Team(team_array=nz_classic,color=Fore.CYAN,
+                       name="NewZealand-Legends",key='NZ_CL',captain=fleming,
+                       opening_pair=[fleming,astle])
+
 list_of_teams = [team_aus, team_ind, team_eng, team_nz, team_pak, team_sa, team_wi, team_sl, team_ban,
-                 team_aus_classic, team_pak_classic, team_ind_classic, team_eng_classic, team_sri_classic, team_sa_classic, team_wi_classic]
+                 team_aus_classic, team_pak_classic, team_ind_classic, team_eng_classic, team_sri_classic, team_sa_classic, team_wi_classic, team_nz_classic]
 team_keys=[l.key for l in list_of_teams]
