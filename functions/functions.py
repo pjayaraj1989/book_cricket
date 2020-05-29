@@ -189,7 +189,6 @@ def FindBestPlayers(result, bowlers_list):
 def FindPlayerOfTheMatch(match):
     #find which team won
     from operator import attrgetter
-    import random
     team_won = max([match.team1,match.team2], key=attrgetter('total_score'))
     team_lost = min([match.team1,match.team2], key=attrgetter('total_score'))    
     best_player = None
@@ -247,11 +246,11 @@ def DisplayScore(team):
         if p.attr.iskeeper == True: name = name + '(wk)'
         if p.status is True:    #* if not out
             if p.balls == 0 and p.runs == 0:
-                print("{0}: DNB".format(name))
+                print("{0}\tDNB".format(name))
             else:
-                print ('{0} {1} {2}* ({3})'.format(name, p.dismissal, str(p.runs), str(p.balls)))
+                print ('{0}\t{1}\t{2}* ({3})'.format(name, "not out", str(p.runs), str(p.balls)))
         else:
-            print ('{0} {1} {2} ({3})'.format(name, p.dismissal, str(p.runs), str(p.balls)))
+            print ('{0}\t{1}\t{2} ({3})'.format(name, p.dismissal, str(p.runs), str(p.balls)))
     print ("Extras: " + str(team.extras))
     print (' ')
     PrintInColor('{0} {1}/{2} from ({3} overs)'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(BallsToOvers(team.total_balls))), team.color)
@@ -329,13 +328,13 @@ def GenerateDismissal(bowler, bowling_team):
     #list of mode of dismissals
     #stumped only for a spinner
     if bowler.attr.isspinner == True:
-        dismissal_types = ['c','st','runout','lbw','b', 'c & b']
+        dismissal_types = ['c','st','runout','lbw','b', 'c&b']
     else:
-        dismissal_types = ['c','runout','lbw','b','c & b']
+        dismissal_types = ['c','runout','lbw','b','c&b']
     dismissal=Randomize(dismissal_types)
     if dismissal == 'lbw' or dismissal == 'b':
         dismissal_str = '{0} {1}'.format(dismissal,bowler.name)
-    elif dismissal == 'c & b':
+    elif dismissal == 'c&b':
         dismissal_str = '{0} {1}'.format(dismissal, bowler.name)
     elif dismissal == 'st':
         dismissal_str = 'st {0} b {1}'.format(keeper.name, bowler.name)

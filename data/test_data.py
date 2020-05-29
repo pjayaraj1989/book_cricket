@@ -28,7 +28,7 @@ team_nz=Team(team_array=nz_squad,color=Fore.LIGHTMAGENTA_EX,
                     name="New Zealand",key='NZ',captain=williamson,
                     opening_pair=[nz_squad[0],nz_squad[1]])
 
-pak_squad = [imam, zaman, azam, hsohail, sarfraz, hafeez, imad, shadab, afridi, wahab, amir]
+pak_squad = [imam, zaman, azam, hsohail, sarfraz, hafeez, imad, shadab, safridi, wahab, amir]
 pak_squad[0].onstrike=True
 team_pak=Team(team_array=pak_squad,color=Fore.GREEN,
                     name="Pakistan",key='PAK',captain=sarfraz,
