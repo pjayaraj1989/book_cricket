@@ -326,12 +326,14 @@ def GenerateDismissal(bowler, bowling_team):
     #list of mode of dismissals
     #stumped only for a spinner
     if bowler.attr.isspinner == True:
-        dismissal_types = ['c','st','runout','lbw','b']
+        dismissal_types = ['c','st','runout','lbw','b', 'c & b']
     else:
-        dismissal_types = ['c','runout','lbw','b']
+        dismissal_types = ['c','runout','lbw','b','c & b']
     dismissal=Randomize(dismissal_types)
     if dismissal == 'lbw' or dismissal == 'b':
         dismissal_str = '{0} {1}'.format(dismissal,bowler.name)
+    elif dismissal == 'c & b':
+        dismissal_str = '{0} {1}'.format(dismissal, bowler.name)
     elif dismissal == 'st':
         dismissal_str = 'st {0} b {1}'.format(keeper.name, bowler.name)
     elif dismissal == 'c':
@@ -445,9 +447,11 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 #see if the catcher is the keeper
                 if keeper.name in dismissal:
                     comment = Randomize(commentary.commentary_keeper_catch)
+                #if bowler is the catcher
+                elif 'c & b' in dismissal:
+                    comment = Randomize(commentary.commentary_return_catch)
                 else:
                     comment = Randomize(commentary.commentary_caught)
-
             elif 'b ' or 'lbw' in dismissal:
                 #reverse swing if > 30 overs
                 if 150 <= batting_team.total_balls <= 240 and bowler.attr.isspinner==False:

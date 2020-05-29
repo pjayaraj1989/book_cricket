@@ -150,6 +150,12 @@ class commentary():
                 'thats dead, dont look at the umpire!',
                 'thats a long appeal and... finally the finger is raised!']
 
+    commentary_return_catch = ['beautiful return catch!',
+                               'oh what a return catch!',
+                               'thats out, caught n bowled!',
+                               'what kind of reflexes by the bowler! Thats taken!',
+                               'hit it hard but taken by the bowler himself!']
+
     commentary_dot_ball = ['beautiful delivery, missed the stumps by inches!',
                         'well defended!',
                         'solid defence',
