@@ -242,13 +242,16 @@ def DisplayScore(team):
     PrintInColor(ch*15 + 'Batting Summary' + ch*15, team.color)
     print (ch*45)
     for p in team.team_array:
+        name = p.name
+        if p.attr.iscaptain == True:    name = name + '(c)'
+        if p.attr.iskeeper == True: name = name + '(wk)'
         if p.status is True:    #* if not out
             if p.balls == 0 and p.runs == 0:
-                print("{0}: DNB".format(p.name))
+                print("{0}: DNB".format(name))
             else:
-                print ('{0} {1} {2}* ({3})'.format(p.name, p.dismissal, str(p.runs), str(p.balls)))
+                print ('{0} {1} {2}* ({3})'.format(name, p.dismissal, str(p.runs), str(p.balls)))
         else:
-            print ('{0} {1} {2} ({3})'.format(p.name, p.dismissal, str(p.runs), str(p.balls)))
+            print ('{0} {1} {2} ({3})'.format(name, p.dismissal, str(p.runs), str(p.balls)))
     print ("Extras: " + str(team.extras))
     print (' ')
     PrintInColor('{0} {1}/{2} from ({3} overs)'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(BallsToOvers(team.total_balls))), team.color)
