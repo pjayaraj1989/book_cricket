@@ -94,7 +94,7 @@ class commentary():
                         'knocked his stumps over!',
                         'off stump out of the ground!',
                         'bowled him! You beauty!',
-                        'Kocked his middle stump out!... And there is a stare at the batsman!',
+                        'Knocked his middle stump out!... And there is a stare at the batsman!',
                         'Bowled him! And he is showing the batsman the way to the dressing room!',
                         'done him with a toe crushing yorker!',
                         'oh bowledimm!, an unplayable delivery!',]

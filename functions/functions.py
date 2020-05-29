@@ -197,7 +197,7 @@ def FindPlayerOfTheMatch(match):
         best_player = max(team_won.team_array, key=attrgetter('runs'))
         comment_to_print = 'took {0} ({1})'.format(str(best_player.runs), str(best_player.balls))
     #check if win margin is >50% , if so, give credit to bowlers, else batsmen
-    elif (team_won.total_score / team_lost.total_score  >= 2):
+    elif (float(team_won.total_score / team_lost.total_score)  >= 1.6):
         best_player = max(team_won.team_array, key=attrgetter('wkts'))
         comment_to_print = 'took {0} wkts'.format(str(best_player.wkts))
     else:
@@ -269,7 +269,7 @@ def DisplayScore(team):
     #partnerships
     PrintInColor("Partnerships:", Style.BRIGHT)
     for p in team.partnerships:
-        print('{0} - {1} : {2}'.format(p.batsman_onstrike.name, p.batsman_dismissed.name, str(p.runs)))
+        print('{0} - {1} :\t{2}'.format(p.batsman_onstrike.name, p.batsman_dismissed.name, str(p.runs)))
 
     print (ch*45)
 
@@ -445,13 +445,13 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 comment = Randomize(commentary.commentary_runout)
             elif 'st ' in dismissal:
                 comment = Randomize(commentary.commentary_stumped)
+            # if bowler is the catcher
+            elif 'c&b' in dismissal:
+                comment = Randomize(commentary.commentary_return_catch)
             elif 'c ' in dismissal and ' b ' in dismissal:
                 #see if the catcher is the keeper
                 if keeper.name in dismissal:
                     comment = Randomize(commentary.commentary_keeper_catch)
-                #if bowler is the catcher
-                elif 'c & b' in dismissal:
-                    comment = Randomize(commentary.commentary_return_catch)
                 else:
                     comment = Randomize(commentary.commentary_caught)
             elif 'b ' or 'lbw' in dismissal:
@@ -560,7 +560,7 @@ def DisplayBowlingStats(team):
             eco = float(bowler.runs_given / overs)
             eco = round(eco,2)
             bowler.eco = eco
-            print ("{0} Overs:{1} Maidens:{5} {2}/{3} Eco: {4}".format(bowler.name, 
+            print ("{0}\tOvr:{1} Mdn:{5} {2}/{3} Eco: {4}".format(bowler.name,
                                            str(overs),
                                            str(bowler.runs_given), 
                                            str(bowler.wkts),
