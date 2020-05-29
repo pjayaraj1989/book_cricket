@@ -5,7 +5,7 @@ extras = Player(name='Extra')
 
 dhawan=Player(name='S. Dhawan',attr=PlayerAttr(batting=8))
 rsharma=Player(name='R. Sharma', attr=PlayerAttr(batting=8))
-kohli=Player(name='V. Kohli',attr=PlayerAttr(batting=8, bowling=6))
+kohli=Player(name='V. Kohli',attr=PlayerAttr(batting=8))
 klrahul=Player(name='K. L. Rahul',attr=PlayerAttr(batting=7))
 dkarthik=Player(name='D. Karthik',attr=PlayerAttr(batting=6))
 dhoni=Player(name='M.S Dhoni',attr=PlayerAttr(batting=7,iskeeper=True))

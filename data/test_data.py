@@ -3,7 +3,7 @@ from data.players import*
 from colorama import Fore, Style, Back
 
 #set teams here
-ind_squad = [dhawan, rsharma, kohli, klrahul, dkarthik, dhoni, jadeja, ashwin, bkumar, shami, bumrah]
+ind_squad = [dhawan, rsharma, kohli, klrahul, hpandya, dhoni, jadeja, ashwin, bkumar, shami, bumrah]
 ind_squad[0].onstrike=True
 team_ind=Team(team_array=ind_squad,color=Fore.BLUE,
                 name="India",key='IND',captain=kohli,

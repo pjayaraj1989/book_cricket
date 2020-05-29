@@ -1,8 +1,8 @@
 
 #randomize
 def Randomize(list):
-    import secrets
-    op = secrets.choice(list)
+    import random
+    op = random.choice(list)
     return op
 
 #print in color
