@@ -124,7 +124,10 @@ def ValidateMatchTeams(match):
             #assign max overs for bowlers
             for bowler in t.bowlers:
                 bowler.max_overs = match.bowler_max_overs
-        
+    #ensure no common members in the teams
+    common_players=list(set(match.team1.team_array).intersection(match.team2.team_array))
+    if common_players != []:
+        Error_Exit("Common players in teams found! : {0}".format(','.join([p.name for p in common_players])))
     PrintInColor('Validated teams', Style.BRIGHT)
 
 #calculate match result
@@ -626,28 +629,6 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
     bowling_team.last_bowler=bowler
     ismaiden=True
     while(ball <= 6):
-        #if chasing and lost
-        if batting_team.batting_second is True and batting_team.total_balls >= (match.overs*6):
-                # update last partnership
-                UpdateLastPartnership(batting_team, pair)
-                match_status = False
-                PrintInColor("End of innings", Style.BRIGHT)
-                break
-
-        #check if target achieved chasing
-        if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
-            PrintInColor ("Match won!", Fore.GREEN)
-            match_status=False
-            UpdateLastPartnership(batting_team, pair)
-            input('press enter to continue...')
-            break
-        #if all out
-        if batting_team.wickets_fell == 10:
-            PrintInColor("All out!", Fore.RED)
-            match_status=False
-            input ('press enter to continue...')
-            break
-
         #towards the death overs, show a highlights
         towin=batting_team.target - batting_team.total_score 
         #calculate if score is close        
@@ -704,6 +685,30 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
                                           runs=last_partnership_runs)
                     batting_team.partnerships.append(last_partnership)
                 input('press enter to continue')
+                break
+
+            #batting second
+            # if chasing and lost
+            if batting_team.batting_second is True and batting_team.total_balls >= (match.overs * 6):
+                # update last partnership
+                UpdateLastPartnership(batting_team, pair)
+                match_status = False
+                PrintInColor("End of innings", Style.BRIGHT)
+                input('press enter to continue...')
+                break
+
+            # check if target achieved chasing
+            if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
+                PrintInColor("Match won!", Fore.GREEN)
+                match_status = False
+                UpdateLastPartnership(batting_team, pair)
+                input('press enter to continue...')
+                break
+            # if all out
+            if batting_team.wickets_fell == 10:
+                PrintInColor("All out!", Fore.RED)
+                match_status = False
+                input('press enter to continue...')
                 break
 
     if ismaiden == True:
