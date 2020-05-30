@@ -79,7 +79,7 @@ team_pak_classic=Team(team_array=pak_classic,color=Fore.GREEN,
                     name="Pakistan-Legends",key='PAK_CL', captain=waqar,
                     opening_pair=[pak_classic[0],pak_classic[1]])
 
-eng_classic = [trescothik,knight,vaughan,hussain,stewart,collingwood,flintoff,giles,gough,caddick,anderson]
+eng_classic = [trescothik,knight,vaughan,hussain,stewart,collingwood,flintoff,giles,hoggard,caddick,anderson]
 eng_classic[0].onstrike=True
 team_eng_classic = Team(team_array=eng_classic,color=Fore.LIGHTBLUE_EX,
                         name="England-Legends",key='ENG_CL',captain=hussain,

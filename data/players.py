@@ -163,7 +163,7 @@ stewart=Player(name='A. Stewart',attr=PlayerAttr(batting=7, iskeeper=True))
 collingwood=Player(name='P. Collingwood',attr=PlayerAttr(batting=7, bowling=7))
 flintoff=Player(name='A. Flintoff',attr=PlayerAttr(bowling=7,batting=6))
 giles=Player(name='A. Giles',attr=PlayerAttr(batting=6,bowling=7, isspinner=True))
-gough=Player(name='D. Gough',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+hoggard=Player(name='M. Hoggard',attr=PlayerAttr(bowling=8, isopeningbowler=True))
 caddick=Player(name='A. Caddick',attr=PlayerAttr(bowling=8, isopeningbowler=True))
 anderson=Player(name='J. Anderson',attr=PlayerAttr(bowling=9))
 
@@ -215,7 +215,7 @@ mccullum=Player(name='B. McCullum',attr=PlayerAttr(batting=7, iskeeper=True))
 harris=Player(name='C. Harris',attr=PlayerAttr(batting=6, bowling=7))
 vettori=Player(name='D. Vettori',attr=PlayerAttr(bowling=8, isspinner=True))
 adams=Player(name='A. Adams',attr=PlayerAttr(bowling=8))
-tuffey=Player(name='D. Tuffey',attr=PlayerAttr(bowling=9, isopeningbowler=True))
+tuffey=Player(name='D. Tuffey',attr=PlayerAttr(bowling=9, isopeningbowler=False))
 bond=Player(name='S. Bond',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 
 

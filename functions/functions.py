@@ -665,7 +665,8 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
         #generate run
         #if odi, else t20
         if match.overs == 50:
-            run = Randomize(resources.runs_odi)
+            from numpy.random import choice
+            run = choice(resources.runs_odi, 1, p=resources.prob_runs_odi, replace=False)[0]
         else:
             run = Randomize(resources.runs_t20)
 
