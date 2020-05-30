@@ -1,11 +1,11 @@
 
 from data.players import*
-from colorama import Fore, Style, Back
+from colorama import Fore
 
 #set teams here
 ind_squad = [dhawan, rsharma, kohli, klrahul, hpandya, dhoni, jadeja, ashwin, bkumar, shami, bumrah]
 ind_squad[0].onstrike=True
-team_ind=Team(team_array=ind_squad,color=Fore.BLUE,
+team_ind=Team(team_array=ind_squad,color=Fore.LIGHTBLUE_EX,
                 name="India",key='IND',captain=kohli,
                 opening_pair=[ind_squad[0],ind_squad[1]])
 
@@ -48,7 +48,7 @@ team_sa=Team(team_array=sa_squad,color=Fore.LIGHTGREEN_EX,
 
 sl_squad = [dimuth, kperera, thirimanne, kmendis, mathews, milinda, tperera, dsilva, udana, malinga, pradeep]
 sl_squad[0].onstrike=True
-team_sl=Team(team_array=sl_squad,color=Fore.LIGHTBLUE_EX,
+team_sl=Team(team_array=sl_squad,color=Fore.LIGHTMAGENTA_EX,
                     name="Sri Lanka",key='SL',captain=dimuth,
                     opening_pair=[sl_squad[0],sl_squad[1]])
 

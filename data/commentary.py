@@ -76,7 +76,9 @@ class commentary():
                                   'the skipper leading from the front here']
 
     #half the side is down
-    commentary_five_down = ['half the side is back in the pavilion!']
+    commentary_five_down = ['half the side is back in the pavilion!',
+                            '5 down and i am afraid the flood gates have opened!',
+                            'half down and the tail is exposed!']
 
     commentary_bowled = ['full and straight what a ball',
                         'what a yorker! he is on fire!',
@@ -127,10 +129,11 @@ class commentary():
                         'direct hit and gone!','what was the batsman thinking!?']
 
     commentary_stumped = ['swift work by the keeper!',
-                        'thats out stumped!',
-                        'stumped, no need to refer it!',
-                        'fast hands behind the stumps!',
-                        'lightning quick behind the stumps']
+                            'thats out! stumped!',
+                            'batsman misses it and swift work behind the stumps!',
+                            'stumped, no need to refer it!',
+                            'fast hands behind the stumps!',
+                            'lightning quick behind the stumps']
 
     commentary_caught = ['in the air.. and taken!',
                         'thats straight up in the air.. taken!',

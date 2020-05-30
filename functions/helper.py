@@ -1,4 +1,15 @@
 
+#venues
+class Venue():
+    def __init__(self, **kwargs):
+        name=run_prob=None
+        self.name=''
+        self.run_prob=[]
+        if kwargs is not None:
+            for k,v in kwargs.items():
+                if k=='name':   self.name=v
+                if k=='run_prob':   self.run_prob=v
+
 #player attributes
 class PlayerAttr():
     def __init__(self, **kwargs):

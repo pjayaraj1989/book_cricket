@@ -10,7 +10,11 @@ from functions.utilities import *
 def GetMatchInfo(team_keys):
     match=None
     #get venue randomly
-    venue=Randomize(resources.venues)
+    #check venues are valid run probs
+    for venue in resources.match_venues:
+        if sum(venue.run_prob) != 1:
+            Error_Exit("Error in venue! " + venue.name + " " + str(sum(venue.run_prob)))
+    venue=Randomize(resources.match_venues)
     intro=Randomize(commentary.intro_dialogues)
     import random
     commentator = random.sample(set(resources.commentators), 2)
@@ -46,7 +50,7 @@ def GetMatchInfo(team_keys):
         if t.key == t1:    team1=t
         if t.key == t2:    team2=t
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
-    PrintInColor('{4}, {0}, for the exciting {1} over match between {2} and {3}'.format(venue,
+    PrintInColor('{4}, {0}, for the exciting {1} over match between {2} and {3}'.format(venue.name,
                                                         str(overs),
                                                         team1.name,
                                                         team2.name,
@@ -663,11 +667,12 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             input('press enter to continue..')
 
         #generate run
-        #if odi, else t20
+        #if odi
         if match.overs == 50:
             from numpy.random import choice
-            run = choice(resources.runs_odi, 1, p=resources.prob_runs_odi, replace=False)[0]
+            run = choice([-1,0,1,2,3,4,5,6], 1, p=match.venue.run_prob, replace=False)[0]
         else:
+            #t20
             run = Randomize(resources.runs_t20)
 
         #check if maiden or not
