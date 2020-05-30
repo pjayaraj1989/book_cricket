@@ -27,7 +27,8 @@ if __name__ == "__main__":
     #show results
     result = CalculateResult(match)
     match.result = result
-    PrintResult(match.result)
+
+    MatchSummary(match)
 
     FindPlayerOfTheMatch(match)
     input('End of the Match.. Thanks for watching !!.. Press enter to exit')

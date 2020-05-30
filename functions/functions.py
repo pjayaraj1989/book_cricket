@@ -280,30 +280,45 @@ def DisplayScore(team):
 
     print (ch*45)
 
-#print score
-def PrintResult(result):
+#match summary
+def MatchSummary(match):
+    result = match.result
     PrintInColor('-'*10 + 'Match Summary' + '-'*10, Style.BRIGHT)
-    print('{0} vs {1}'.format(result.team1.name, result.team2.name))
-    print(result.team1.name + " " + 
-          str(result.team1.total_score) + "/" + 
+    print('{0} vs {1}, at {2}'.format(result.team1.name, result.team2.name, match.venue.name))
+    print(result.team1.name + " " +
+          str(result.team1.total_score) + "/" +
           str(result.team1.wickets_fell) + "(" +
           str(BallsToOvers(result.team1.total_balls)) + ")")
-    print(result.team2.name + " " + 
-          str(result.team2.total_score) + "/" + 
+    #see who all bowled
+    bowlers1 = [plr for plr in result.team1.team_array if plr.attr.bowling >= 6]
+    bowlers2 = [plr for plr in result.team2.team_array if plr.attr.bowling >= 6]
+    #print first three top scorers
+    most_runs = sorted(result.team1.team_array, key=lambda x: x.runs, reverse=True)
+    most_runs = most_runs[:2]
+    best_bowlers = sorted(bowlers2, key=lambda x: x.wkts, reverse=True)
+    best_bowlers = best_bowlers[:2]
+    for x in range(2):
+        if most_runs[x].status == True: runs = str(most_runs[x].runs) + '*'
+        else:   runs = str(most_runs[x].runs)
+        PrintInColor('{0} {1} ({2})\t{3} {4}/{5}'.format(most_runs[x].name, most_runs[x].runs, most_runs[x].balls,
+                                                              best_bowlers[x].name, best_bowlers[x].runs_given, best_bowlers[x].wkts),
+                        Style.BRIGHT)
+
+    print(result.team2.name + " " +
+          str(result.team2.total_score) + "/" +
           str(result.team2.wickets_fell) + "(" +
           str(BallsToOvers(result.team2.total_balls)) + ")")
-    PrintInColor(result.result_str, Fore.GREEN)
-    print ('Most runs: {0} {1} ({2})'.format(result.most_runs[0].name,
-                                        str(result.most_runs[0].runs),
-                                        str(result.most_runs[0].balls)))
-    #dont print this if most wkts is 0!
-    if result.most_wkts[0].wkts > 0:
-        print ('Most wkts: {0} {1}/{2}'.format(result.most_wkts[0].name,
-                                        str(result.most_wkts[0].runs_given),
-                                        str(result.most_wkts[0].wkts)))
-    print ('Best economy: {0} {1}'.format(result.besteco[0].name,
-                                        str(result.besteco[0].eco)))
-    print('-'*43)
+    most_runs = sorted(result.team2.team_array, key=lambda x: x.runs, reverse=True)
+    most_runs = most_runs[:2]
+    best_bowlers = sorted(bowlers1, key=lambda x: x.wkts, reverse=True)
+    best_bowlers = best_bowlers[:2]
+    for x in range(2):
+        if most_runs[x].status == True: runs = str(most_runs[x].runs) + '*'
+        else:   runs = str(most_runs[x].runs)
+        PrintInColor('{0} {1} ({2})\t{3} {4}/{5}'.format(most_runs[x].name, runs, most_runs[x].balls,
+                                                              best_bowlers[x].name, best_bowlers[x].runs_given, best_bowlers[x].wkts),
+                        Style.BRIGHT)
+    print('-' * 43)
     input('Press any key to exit..')
 
 #batsman out
