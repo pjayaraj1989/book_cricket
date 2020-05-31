@@ -12,12 +12,12 @@ if __name__ == "__main__":
     match=Toss(match)
     match.team1=match.batting_first
     match.team2=match.batting_second
-    
+
     #play one inns
     Play(match, match.team1, match.team2, match.team1.opening_pair, match.team2.bowlers)
-    DisplayScore(match.team1) 
+    DisplayScore(match.team1)
     DisplayBowlingStats(match.team2)
-    
+
     #play second inns with target
     match.team2.target = match.team1.total_score+1
     Play(match, match.team2, match.team1, match.team2.opening_pair, match.team1.bowlers)
