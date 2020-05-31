@@ -40,7 +40,7 @@ team_wi=Team(team_array=wi_squad,color=Fore.MAGENTA,
                     name="West Indies",key='WI',captain=holder,
                     opening_pair=[wi_squad[0],wi_squad[1]])
 
-sa_squad = [amla, dekock, markram, duplessis, vander, duminy, pretorius, phehlukwayo, rabada, ngidi, tahir]
+sa_squad = [amla, dekock, markram, duplessis, vander, duminy, pretorius, phehlukwayo, rabada, steyn, tahir]
 sa_squad[0].onstrike=True
 team_sa=Team(team_array=sa_squad,color=Fore.LIGHTGREEN_EX,
                     name="South Africa",key='SA',captain=duplessis,

@@ -286,14 +286,14 @@ def MatchSummary(match):
     ch='-'
     result = match.result
     PrintInColor('-'*10 + 'Match Summary' + '-'*10, Style.BRIGHT)
-    print('{0} vs {1}, at {2}'.format(result.team1.name, result.team2.name, match.venue.name))
+    PrintInColor('{0} vs {1}, at {2}'.format(result.team1.name, result.team2.name, match.venue.name), Style.BRIGHT)
     print(ch*45)
-    print(result.result_str)
+    PrintInColor(result.result_str, Style.BRIGHT)
     print(ch*45)
-    print(result.team1.key + " " +
+    PrintInColor(result.team1.key + " " +
           str(result.team1.total_score) + "/" +
           str(result.team1.wickets_fell) + "(" +
-          str(BallsToOvers(result.team1.total_balls)) + ")")
+          str(BallsToOvers(result.team1.total_balls)) + ")", Style.BRIGHT)
     #see who all bowled
     bowlers1 = [plr for plr in result.team1.team_array if plr.attr.bowling >= 6]
     bowlers2 = [plr for plr in result.team2.team_array if plr.attr.bowling >= 6]
@@ -310,10 +310,10 @@ def MatchSummary(match):
                         Style.BRIGHT)
 
     print(ch*45)
-    print(result.team2.key + " " +
+    PrintInColor(result.team2.key + " " +
           str(result.team2.total_score) + "/" +
           str(result.team2.wickets_fell) + "(" +
-          str(BallsToOvers(result.team2.total_balls)) + ")")
+          str(BallsToOvers(result.team2.total_balls)) + ")", Style.BRIGHT)
     most_runs = sorted(result.team2.team_array, key=lambda x: x.runs, reverse=True)
     most_runs = most_runs[:2]
     best_bowlers = sorted(bowlers1, key=lambda x: x.wkts, reverse=True)
