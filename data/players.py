@@ -220,4 +220,42 @@ adams=Player(name='A. Adams',attr=PlayerAttr(bowling=8))
 tuffey=Player(name='D. Tuffey',attr=PlayerAttr(bowling=9, isopeningbowler=False))
 bond=Player(name='S. Bond',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 
+#IPL2008 squads
+ppatel=Player(name='P.Patel', attr=PlayerAttr(batting=8, iskeeper=True))
+sraina=Player(name='S.Raina',attr=PlayerAttr(batting=8, bowling=6, isspinner=True))
+amorkel=Player(name='A.Morkel',attr=PlayerAttr(batting=7, bowling=7))
+lbalaji=Player(name='L.Balaji',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+mmorkel=Player(name='M.Morkel',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+kakmal=Player(name='K.Akmal',attr=PlayerAttr(batting=8, iskeeper=True))
+swatson=Player(name='S.Watson',attr=PlayerAttr(batting=7, bowling=7))
+ypathan=Player(name='Y.Pathan',attr=PlayerAttr(batting=7, bowling=6, isspinner=True))
+swarne=Player(name='S.Warne',attr=PlayerAttr(batting=7, bowling=9,isspinner=True))
+stanvir=Player(name='S.Tanvir',attr=PlayerAttr(batting=6, bowling=7,isopeningbowler=True))
+mpatel=Player(name='M.Patel',attr=PlayerAttr(bowling=8))
+jhopes=Player(name='J.Hopes', attr=PlayerAttr(batting=8, bowling=8))
+ipathan=Player(name='I.Pathan',attr=PlayerAttr(batting=8, bowling=8,isopeningbowler=True))
+pchawla=Player(name='P.Chawla',attr=PlayerAttr(batting=7, bowling=7,isspinner=True))
+rpowar=Player(name='R.Powar',attr=PlayerAttr(batting=7, bowling=6,isspinner=True))
+sreesanth=Player(name='S.Sreesanth',attr=PlayerAttr(bowling=7, isspinner=True))
+ggambhir=Player(name='G.Gambhir', attr=PlayerAttr(batting=8))
+tdilshan=Player(name='T.Dilshan',attr=PlayerAttr(batting=8, bowling=8,isspinner=True))
+fmaharoof=Player(name='F.Maharoof',attr=PlayerAttr(batting=7, bowling=7))
+amishra=Player(name='A.Mishra',attr=PlayerAttr(batting=7, bowling=6, isspinner=True))
+masif=Player(name='M.Asif',attr=PlayerAttr(batting=6, bowling=7,isopeningbowler=True))
+misbah=Player(name='M.Ul Haq',attr=PlayerAttr(batting=8))
+cwhite=Player(name='C.White',attr=PlayerAttr(batting=8, bowling=7))
+pkumar=Player(name='P.Kumar',attr=PlayerAttr(batting=7, bowling=6,isopeningbowler=True))
+ruthappa=Player(name='R.Uthappa', attr=PlayerAttr(batting=8))
+dsmith=Player(name='D.Smith',attr=PlayerAttr(batting=8))
+rpsingh=Player(name='R.P.Singh',attr=PlayerAttr(batting=7, bowling=7))
+mjohnson=Player(name='M.Johnson',attr=PlayerAttr(batting=7, bowling=8,isopeningbowler=True))
+dsmith=Player(name='D.Smith',attr=PlayerAttr(batting=8))
+mpandey=Player(name='M.Pandey',attr=PlayerAttr(batting=7, bowling=7))
+
+
+
+
+
+
+
 

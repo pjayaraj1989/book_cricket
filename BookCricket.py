@@ -3,7 +3,7 @@ from functions.functions import*
 
 if __name__ == "__main__":
     #input teams to play
-    match=GetMatchInfo(team_keys)
+    match=GetMatchInfo()
 
     #see if teams are valid
     ValidateMatchTeams(match)

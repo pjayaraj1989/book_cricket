@@ -7,7 +7,7 @@ from colorama import Fore,Style
 from functions.utilities import *
 
 #get match info
-def GetMatchInfo(team_keys):
+def GetMatchInfo():
     match=None
     #get venue randomly
     #check venues are valid run probs
@@ -20,10 +20,17 @@ def GetMatchInfo(team_keys):
     commentator = random.sample(set(resources.commentators), 2)
     umpire = Randomize(resources.umpires)
 
-    teams=team_keys
-
     #welcome text
     PrintInColor(commentary.intro_game, Style.BRIGHT)
+
+    #select option: International / Legends / IPL
+    opt = input("Select Mode: 1.International 2.Legends")
+    list_of_teams=[]
+    if opt.isdigit() == False or opt not in ['1','2']:  Error_Exit("Invalid choice")
+    if opt == '1':    list_of_teams = teams_int
+    elif opt=='2':    list_of_teams = teams_classic
+
+    teams = [l.key for l in list_of_teams]
 
     overs=input('Select overs\n')
     if overs.isdigit() == False:    Error_Exit("Invalid entry")
@@ -63,11 +70,44 @@ def GetMatchInfo(team_keys):
     match.umpire = umpire
     match.bowler_max_overs = bowler_max_overs
 
+    #display squad
+    DisplayPlayingXI(match)
+
     #Want to skip balls?
     opt = input('Do you want to play only highlights? Choose y for highlights, n for full match')
     if opt.lower() == 'y':
         match.autoplay=True
     return match
+
+#print playing XI
+def DisplayPlayingXI(match):
+    t1,t2=match.team1, match.team2
+    #assign captain roles
+    for t in [t1,t2]:
+        for player in t.team_array:
+            if player == t.captain:
+                player.attr.iscaptain=True
+
+    import time
+    # print the playing XI
+    print('Playing XI:')
+    data_to_print = []
+    data_to_print.append([t1.name,t2.name])
+    data_to_print.append([' ', ' '])
+    for x in range(11):
+        name1 = t1.team_array[x].name
+        name2 = t2.team_array[x].name
+        if t1.team_array[x].attr.iscaptain == True:
+            name1 = name1 + '(c)'
+        if t1.team_array[x].attr.iskeeper == True:
+            name1 = name1 + '(wk)'
+        if t2.team_array[x].attr.iscaptain == True:
+            name2 = name2 + '(c)'
+        if t2.team_array[x].attr.iskeeper == True:
+            name2 = name2 + '(wk)'
+        data_to_print.append([name1, name2])
+    #now print it
+    PrintListFormatted(data_to_print, 0.1)
 
 #toss
 def Toss (match):

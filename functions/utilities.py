@@ -5,6 +5,16 @@ def Randomize(list):
     op = random.choice(list)
     return op
 
+#print nested array in formatted way
+def PrintListFormatted(data_to_print, seconds):
+    # now print it
+    from colorama import Style
+    import time
+    col_width = max(len(word) for row in data_to_print for word in row) + 2
+    for row in data_to_print:
+        PrintInColor("".join(word.ljust(col_width) for word in row), Style.BRIGHT)
+        time.sleep(seconds)
+
 #print in color
 def PrintInColor(msg, color):
     import sys

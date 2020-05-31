@@ -109,6 +109,5 @@ team_nz_classic = Team(team_array=nz_classic,color=Fore.CYAN,
                        name="NewZealand-Legends",key='NZ_CL',captain=fleming,
                        opening_pair=[fleming,astle])
 
-list_of_teams = [team_aus, team_ind, team_eng, team_nz, team_pak, team_sa, team_wi, team_sl, team_ban,
-                 team_aus_classic, team_pak_classic, team_ind_classic, team_eng_classic, team_sri_classic, team_sa_classic, team_wi_classic, team_nz_classic]
-team_keys=[l.key for l in list_of_teams]
+teams_int = [team_aus, team_ind, team_eng, team_nz, team_pak, team_sa, team_wi, team_sl, team_ban]
+teams_classic = [team_aus_classic, team_pak_classic, team_ind_classic, team_eng_classic, team_sri_classic, team_sa_classic, team_wi_classic, team_nz_classic]
