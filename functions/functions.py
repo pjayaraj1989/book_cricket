@@ -26,6 +26,7 @@ def GetMatchInfo(team_keys):
     PrintInColor(commentary.intro_game, Style.BRIGHT)
 
     overs=input('Select overs\n')
+    if overs.isdigit() == False:    Error_Exit("Invalid entry")
     overs=int(overs)
     if overs > 50 or overs <= 0: Error_Exit('Invalid overs')
     #has to be a multiple of 5
@@ -212,7 +213,7 @@ def FindPlayerOfTheMatch(match):
         comment_to_print = 'took {0} ({1})'.format(str(best_player.runs), str(best_player.balls))
 
     match.result.mom = best_player
-    PrintInColor("Player of the match: {0}".format(best_player.name), team_won.color)
+    PrintInColor("Player of the match: {0}".format(best_player.name), Style.BRIGHT)
 
 #a pair face a delivery
 def PairFaceBall(pair, run):

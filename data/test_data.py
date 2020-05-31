@@ -60,7 +60,7 @@ team_ban=Team(team_array=ban_squad,color=Fore.LIGHTBLACK_EX,
 
 #classic teams
 #set teams here
-ind_classic = [sehwag, sachin, ganguly, dravid, yuvraj, kaif, mongia, harbhajan, zaheer, nehra, srinath]
+ind_classic = [sehwag, sachin, ganguly, dravid, yuvraj, kaif, mongia, harbhajan, agarkar, zaheer, nehra]
 ind_classic[0].onstrike=True
 team_ind_classic=Team(team_array=ind_classic,color=Fore.BLUE,
                 name="India-Legends",key='IND_CL',captain=ganguly,
