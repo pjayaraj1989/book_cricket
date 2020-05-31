@@ -28,7 +28,7 @@ def GetMatchInfo():
     list_of_teams=[]
     if opt.isdigit() == False or opt not in ['1','2']:  Error_Exit("Invalid choice")
     if opt == '1':    list_of_teams = teams_int
-    elif opt=='2':    list_of_teams = teams_classic
+    elif opt == '2':    list_of_teams = teams_classic
 
     teams = [l.key for l in list_of_teams]
 
@@ -87,8 +87,6 @@ def DisplayPlayingXI(match):
         for player in t.team_array:
             if player == t.captain:
                 player.attr.iscaptain=True
-
-    import time
     # print the playing XI
     print('Playing XI:')
     data_to_print = []
@@ -288,17 +286,22 @@ def DisplayScore(team):
     print(ch*45)
     PrintInColor(ch*15 + 'Batting Summary' + ch*15, team.color)
     print (ch*45)
+    #this should be a nested list of 3 elements
+    data_to_print = []
     for p in team.team_array:
         name = p.name
         if p.attr.iscaptain == True:    name = name + '(c)'
         if p.attr.iskeeper == True: name = name + '(wk)'
         if p.status is True:    #* if not out
             if p.balls == 0 and p.runs == 0:
-                print("{0}\tDNB".format(name))
+                data_to_print.append([name, 'DNB', ''])
             else:
-                print ('{0}\t{1}\t{2}* ({3})'.format(name, "not out", str(p.runs), str(p.balls)))
+                data_to_print.append([name, "not out", "{0}* ({1})".format(str(p.runs), str(p.balls))])
         else:
-            print ('{0}\t{1}\t{2} ({3})'.format(name, p.dismissal, str(p.runs), str(p.balls)))
+            data_to_print.append([name, p.dismissal, "{0} ({1})".format(str(p.runs), str(p.balls))])
+
+    PrintListFormatted(data_to_print, 0.01)
+
     print ("Extras: " + str(team.extras))
     print (' ')
     PrintInColor('{0} {1}/{2} from ({3} overs)'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(BallsToOvers(team.total_balls))), team.color)
@@ -330,10 +333,10 @@ def MatchSummary(match):
     print(ch*45)
     PrintInColor(result.result_str, Style.BRIGHT)
     print(ch*45)
-    PrintInColor(result.team1.key + " " +
-          str(result.team1.total_score) + "/" +
-          str(result.team1.wickets_fell) + "(" +
-          str(BallsToOvers(result.team1.total_balls)) + ")", Style.BRIGHT)
+    PrintInColor('{0} {1}/{2} ({3})'.format(result.team1.key,
+                                            str(result.team1.total_score),
+                                            str(result.team1.wickets_fell),
+                                            str(BallsToOvers(result.team1.total_balls))), Style.BRIGHT)
     #see who all bowled
     bowlers1 = [plr for plr in result.team1.team_array if plr.attr.bowling >= 6]
     bowlers2 = [plr for plr in result.team2.team_array if plr.attr.bowling >= 6]
@@ -342,18 +345,27 @@ def MatchSummary(match):
     most_runs = most_runs[:2]
     best_bowlers = sorted(bowlers2, key=lambda x: x.wkts, reverse=True)
     best_bowlers = best_bowlers[:2]
+    # must be a nested list of fixed size elements
+    data_to_print = []
     for x in range(2):
         if most_runs[x].status == True: runs = str(most_runs[x].runs) + '*'
         else:   runs = str(most_runs[x].runs)
-        PrintInColor('{0} {1} ({2})\t{3} {4}/{5}'.format(most_runs[x].name, most_runs[x].runs, most_runs[x].balls,
-                                                              best_bowlers[x].name, best_bowlers[x].runs_given, best_bowlers[x].wkts),
-                        Style.BRIGHT)
+        #print
+        data_to_print.append([most_runs[x].name,
+                              '{0}({1})'.format(runs, most_runs[x].balls),
+                              best_bowlers[x].name,
+                              '{0}/{1}'.format(best_bowlers[x].runs_given, best_bowlers[x].wkts)])
 
+    #print
+    PrintListFormatted(data_to_print, 0.01)
+    data_to_print = []
     print(ch*45)
-    PrintInColor(result.team2.key + " " +
-          str(result.team2.total_score) + "/" +
-          str(result.team2.wickets_fell) + "(" +
-          str(BallsToOvers(result.team2.total_balls)) + ")", Style.BRIGHT)
+
+    PrintInColor('{0} {1}/{2} ({3})'.format(result.team2.key,
+                                            str(result.team2.total_score),
+                                            str(result.team2.wickets_fell),
+                                            str(BallsToOvers(result.team2.total_balls))), Style.BRIGHT)
+
     most_runs = sorted(result.team2.team_array, key=lambda x: x.runs, reverse=True)
     most_runs = most_runs[:2]
     best_bowlers = sorted(bowlers1, key=lambda x: x.wkts, reverse=True)
@@ -361,9 +373,14 @@ def MatchSummary(match):
     for x in range(2):
         if most_runs[x].status == True: runs = str(most_runs[x].runs) + '*'
         else:   runs = str(most_runs[x].runs)
-        PrintInColor('{0} {1} ({2})\t{3} {4}/{5}'.format(most_runs[x].name, runs, most_runs[x].balls,
-                                                              best_bowlers[x].name, best_bowlers[x].runs_given, best_bowlers[x].wkts),
-                        Style.BRIGHT)
+
+        #print
+        data_to_print.append([most_runs[x].name,
+                              '{0}({1})'.format(runs, most_runs[x].balls),
+                              best_bowlers[x].name,
+                              '{0}/{1}'.format(best_bowlers[x].runs_given, best_bowlers[x].wkts)])
+
+    PrintListFormatted(data_to_print, 0.01)
     print('-' * 43)
     input('Press any key to exit..')
 
@@ -619,6 +636,8 @@ def DisplayBowlingStats(team):
     PrintInColor (char*15 + '-Bowling Stats-' + char*15, Style.BRIGHT)
     print (char*45)
     eco=0.0
+    #nested list of fixed size elements
+    data_to_print=[['Bowler', 'Ovr', 'Mdn', 'Runs', 'Wkts', 'Eco']]
     for bowler in bowlers:
         #dont print if he hasnt bowled
         if bowler.balls_bowled != 0:
@@ -628,12 +647,17 @@ def DisplayBowlingStats(team):
             eco = float(bowler.runs_given / overs)
             eco = round(eco,2)
             bowler.eco = eco
+            data_to_print.append([bowler.name, str(overs), str(bowler.maidens), str(bowler.runs_given), str(bowler.wkts), str(bowler.eco)])
+            '''
             print ("{0}\tOvr:{1} Mdn:{5} {2}/{3} Eco: {4}".format(bowler.name,
                                            str(overs),
                                            str(bowler.runs_given),
                                            str(bowler.wkts),
                                            str(bowler.eco),
                                            str(bowler.maidens)))
+            '''
+
+    PrintListFormatted(data_to_print, 0.01)
     print (char*45)
     input('press enter to continue..')
     team.bowlers = bowlers_updated
