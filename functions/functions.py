@@ -691,6 +691,9 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             #bowling list except the bowler who did last over and bowlers who finished their allotted overs
             temp = [x for x in bowlers if (x != bowling_team.last_bowler and x.balls_bowled < x.max_overs*6)]
 
+        #sort this based on skill
+        temp = sorted(temp, key=lambda x: x.attr.bowling, reverse=True)
+
         #if autoplay, let bowlers be chosen randomly
         if match.autoplay == True:
             bowler = Randomize(temp)
