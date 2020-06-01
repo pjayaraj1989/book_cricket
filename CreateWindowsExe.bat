@@ -1,1 +1,1 @@
-pyinstaller -F BookCricket.py --onedir --paths .\functions;.\data
+pyinstaller -F BookCricket.py --onedir --noconfirm --paths .\functions;.\data

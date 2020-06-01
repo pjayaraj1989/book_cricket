@@ -80,6 +80,9 @@ class commentary():
                             '5 down and i am afraid the flood gates have opened!',
                             'half down and the tail is exposed!']
 
+    #hit wkt
+    commentary_hit_wkt = ['gone! he has hit the stumps!']
+
     commentary_bowled = ['full and straight what a ball',
                         'what a yorker! he is on fire!',
                         'bowled himm!',
