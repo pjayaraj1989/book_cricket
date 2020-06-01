@@ -24,11 +24,12 @@ def GetMatchInfo():
     PrintInColor(commentary.intro_game, Style.BRIGHT)
 
     #select option: International / Legends / IPL
-    opt = input("Select Mode: 1.International 2.Legends")
+    opt = input("Select Mode: 1.International 2.Legends 3.All Stars")
     list_of_teams=[]
-    if opt.isdigit() == False or opt not in ['1','2']:  Error_Exit("Invalid choice")
+    if opt.isdigit() == False or opt not in ['1','2','3']:  Error_Exit("Invalid choice")
     if opt == '1':    list_of_teams = teams_int
     elif opt == '2':    list_of_teams = teams_classic
+    elif opt == '3':    list_of_teams = teams_all_time
 
     teams = [l.key for l in list_of_teams]
 
@@ -167,6 +168,12 @@ def ValidateMatchTeams(match):
     common_players=list(set(match.team1.team_array).intersection(match.team2.team_array))
     if common_players != []:
         Error_Exit("Common players in teams found! : {0}".format(','.join([p.name for p in common_players])))
+
+    #make first batsman on strike
+    for t in [match.team1, match.team2]:
+        t.opening_pair[0].onstrike=True
+        t.opening_pair[1].onstrike=False
+
     PrintInColor('Validated teams', Style.BRIGHT)
 
 #calculate match result
