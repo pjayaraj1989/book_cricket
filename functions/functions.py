@@ -711,6 +711,12 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
     bowling_team.last_bowler=bowler
     ismaiden=True
     while(ball <= 6):
+        #show last over or not
+        if over == overs-1 and ball == 6:
+            if batting_team.batting_second == True:
+                PrintInColor('Last ball of the match!', Style.BRIGHT)
+            else:
+                PrintInColor('Last ball of the innings!', Style.BRIGHT)
         #towards the death overs, show a highlights
         towin=batting_team.target - batting_team.total_score
         #calculate if score is close
@@ -844,6 +850,12 @@ def Play(match, batting_team, bowling_team, pair, bowlers):
                                                                  str(overs)), batting_team.color)
     #now run for each over
     for over in range(0,overs):
+        #check if last over
+        if over==overs-1:
+            if batting_team.batting_second == True:
+                PrintInColor('Last over of the match!', Style.BRIGHT)
+            else:
+                PrintInColor('Last over of the innings!', Style.BRIGHT)
         #show net rr required if batting second
         if batting_team.batting_second is True:
             nrr=GetRequiredRate(overs, batting_team)
