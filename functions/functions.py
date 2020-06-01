@@ -714,7 +714,6 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
     bowling_team.last_bowler=bowler
     ismaiden=True
     while(ball <= 6):
-        #show last over or not
         if over == overs-1 and ball == 6:
             if batting_team.batting_second == True:
                 PrintInColor('Last ball of the match!', Style.BRIGHT)
@@ -728,13 +727,18 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             PrintInColor ('To win: {0} from {1}'.format(str(towin),
                                                     str(overs*6 - batting_team.total_balls)), Style.BRIGHT)
             input('press enter to continue...')
+        if batting_team.batting_second and over == overs-1:
+            ShowHighlights(batting_team)
+            PrintInColor('To win: {0} from {1}'.format(str(towin),
+                                                       str(overs * 6 - batting_team.total_balls)), Style.BRIGHT)
+            input('press enter to continue...')
 
         print ("Over: {0}.{1}".format(str(over),str(ball)))
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         print ('{0} to {1}'.format(GetShortName(bowler.name), GetShortName(player_on_strike.name)))
         if match.autoplay == True:
             import time
-            time.sleep(2)
+            time.sleep(1)
         else:
             input('press enter to continue..')
 
@@ -857,6 +861,7 @@ def Play(match, batting_team, bowling_team, pair, bowlers):
         if over==overs-1:
             if batting_team.batting_second == True:
                 PrintInColor('Last over of the match!', Style.BRIGHT)
+
             else:
                 PrintInColor('Last over of the innings!', Style.BRIGHT)
         #show net rr required if batting second
