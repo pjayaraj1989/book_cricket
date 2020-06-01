@@ -5,6 +5,20 @@ def Randomize(list):
     op = random.choice(list)
     return op
 
+#get short name
+def GetShortName(name):
+	shortname=name
+	#get first part and make it initial
+	pieces = name.split(' ')
+	initials=' '
+	firstname,lastname = pieces[0],pieces[-1]
+	if '.' in firstname:
+		initials=firstname
+	else:
+		initials = firstname[0] + '.'
+	shortname = initials + ' ' + lastname
+	return shortname
+
 #print nested array in formatted way
 def PrintListFormatted(data_to_print, seconds):
     # now print it

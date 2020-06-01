@@ -296,7 +296,7 @@ def DisplayScore(team):
     #this should be a nested list of 3 elements
     data_to_print = []
     for p in team.team_array:
-        name = p.name
+        name = GetShortName(p.name)
         if p.attr.iscaptain == True:    name = name + '(c)'
         if p.attr.iskeeper == True: name = name + '(wk)'
         if p.status is True:    #* if not out
@@ -320,14 +320,14 @@ def DisplayScore(team):
         for f in team.fow:
             fow_array.append('{0}/{1} {2}({3})'.format(str(f.runs),
                                                        str(f.wkt),
-                                                       f.player_dismissed.name,
+                                                       GetShortName(f.player_dismissed.name),
                                                       str(BallsToOvers(f.total_balls))))
         fow_str = ', '.join(fow_array)
         PrintInColor(fow_str, team.color)
     #partnerships
     PrintInColor("Partnerships:", Style.BRIGHT)
     for p in team.partnerships:
-        print('{0} - {1} :\t{2}'.format(p.batsman_onstrike.name, p.batsman_dismissed.name, str(p.runs)))
+        print('{0} - {1} :\t{2}'.format(GetShortName(p.batsman_onstrike.name), GetShortName(p.batsman_dismissed.name), str(p.runs)))
 
     print (ch*45)
 
@@ -358,9 +358,9 @@ def MatchSummary(match):
         if most_runs[x].status == True: runs = str(most_runs[x].runs) + '*'
         else:   runs = str(most_runs[x].runs)
         #print
-        data_to_print.append([most_runs[x].name,
+        data_to_print.append([GetShortName(most_runs[x].name),
                               '{0}({1})'.format(runs, most_runs[x].balls),
-                              best_bowlers[x].name,
+                              GetShortName(best_bowlers[x].name),
                               '{0}/{1}'.format(best_bowlers[x].runs_given, best_bowlers[x].wkts)])
 
     #print
@@ -382,9 +382,9 @@ def MatchSummary(match):
         else:   runs = str(most_runs[x].runs)
 
         #print
-        data_to_print.append([most_runs[x].name,
+        data_to_print.append([GetShortName(most_runs[x].name),
                               '{0}({1})'.format(runs, most_runs[x].balls),
-                              best_bowlers[x].name,
+                              GetShortName(best_bowlers[x].name),
                               '{0}/{1}'.format(best_bowlers[x].runs_given, best_bowlers[x].wkts)])
 
     PrintListFormatted(data_to_print, 0.01)
@@ -425,18 +425,18 @@ def GenerateDismissal(bowler, bowling_team):
         dismissal_types = ['c','runout','lbw','b','c&b']
     dismissal=Randomize(dismissal_types)
     if dismissal == 'lbw' or dismissal == 'b':
-        dismissal_str = '{0} {1}'.format(dismissal,bowler.name)
+        dismissal_str = '{0} {1}'.format(dismissal,GetShortName(bowler.name))
     elif dismissal == 'c&b':
-        dismissal_str = '{0} {1}'.format(dismissal, bowler.name)
+        dismissal_str = '{0} {1}'.format(dismissal, GetShortName(bowler.name))
     elif dismissal == 'st':
-        dismissal_str = 'st {0} b {1}'.format(keeper.name, bowler.name)
+        dismissal_str = 'st {0} b {1}'.format(GetShortName(keeper.name), GetShortName(bowler.name))
     elif dismissal == 'c':
         fielders = fielders + [keeper]
         fielder=Randomize(fielders)
-        dismissal_str = '{0} {1} b {2}'.format(dismissal, fielder.name, bowler.name)
+        dismissal_str = '{0} {1} b {2}'.format(dismissal, GetShortName(fielder.name), GetShortName(bowler.name))
     elif dismissal == 'runout':
         fielder=Randomize(fielders)
-        dismissal_str = 'runout {0}'.format(fielder.name)
+        dismissal_str = 'runout {0}'.format(GetShortName(fielder.name))
     else:
         None
     return dismissal_str
@@ -489,7 +489,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 PrintInColor(Randomize(commentary.commentary_captain_out), bowling_team.color)
 
             player_onstrike = next((x for x in pair if x.status == True), None)
-            PrintInColor ("OUT ! {0} {1} {2} ({3}) SR: {4}".format(player_dismissed.name,
+            PrintInColor ("OUT ! {0} {1} {2} ({3}) SR: {4}".format(GetShortName(player_dismissed.name),
                                                player_dismissed.dismissal,
                                                str(player_dismissed.runs),
                                                str(player_dismissed.balls),
@@ -654,15 +654,7 @@ def DisplayBowlingStats(team):
             eco = float(bowler.runs_given / overs)
             eco = round(eco,2)
             bowler.eco = eco
-            data_to_print.append([bowler.name, str(overs), str(bowler.maidens), str(bowler.runs_given), str(bowler.wkts), str(bowler.eco)])
-            '''
-            print ("{0}\tOvr:{1} Mdn:{5} {2}/{3} Eco: {4}".format(bowler.name,
-                                           str(overs),
-                                           str(bowler.runs_given),
-                                           str(bowler.wkts),
-                                           str(bowler.eco),
-                                           str(bowler.maidens)))
-            '''
+            data_to_print.append([GetShortName(bowler.name), str(overs), str(bowler.maidens), str(bowler.runs_given), str(bowler.wkts), str(bowler.eco)])
 
     PrintListFormatted(data_to_print, 0.01)
     print (char*45)
@@ -706,8 +698,8 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             bowler = Randomize(temp)
         #esle pick bowler
         else:
-            choice = input('Choose next bowler from: {0} [Press Enter to auto-select]'.format(' / '.join([x.name for x in temp])))
-            bowler = next((x for x in temp if choice.lower() in x.name.lower()), None)
+            choice = input('Choose next bowler from: {0} [Press Enter to auto-select]'.format(' / '.join([GetShortName(x.name) for x in temp])))
+            bowler = next((x for x in temp if choice.lower() in GetShortName(x.name).lower()), None)
             if bowler is None:
                 bowler = Randomize(temp)
 
@@ -732,7 +724,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
 
         print ("Over: {0}.{1}".format(str(over),str(ball)))
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
-        print ('{0} to {1}'.format(bowler.name, player_on_strike.name))
+        print ('{0} to {1}'.format(GetShortName(bowler.name), GetShortName(player_on_strike.name)))
         if match.autoplay == True:
             import time
             time.sleep(2)
@@ -863,7 +855,7 @@ def Play(match, batting_team, bowling_team, pair, bowlers):
         status=PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match)
         #show batting stats
         for p in pair:
-            PrintInColor('{0} {1} ({2})'.format(p.name, str(p.runs), str(p.balls)), Style.BRIGHT)
+            PrintInColor('{0} {1} ({2})'.format(GetShortName(p.name), str(p.runs), str(p.balls)), Style.BRIGHT)
         ShowHighlights(batting_team)
         if status is False:
             break
