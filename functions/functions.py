@@ -413,29 +413,27 @@ def BatsmanOut(pair, dismissal):
 def GenerateDismissal(bowler, bowling_team):
     dismissal_str=None
     keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
-    #now get a list without keeper and bolwer
-    fielders = [x for x in bowling_team.team_array if x != bowler and x != keeper]
-    fielder=Randomize(fielders)
+    #now get a list of fielders
+    fielder=Randomize(bowling_team.team_array)
 
     #list of mode of dismissals
     #stumped only for a spinner
     if bowler.attr.isspinner == True:
-        dismissal_types = ['c','st','runout','lbw','b', 'c&b']
+        dismissal_types = ['c','st','runout','lbw','b']
     else:
-        dismissal_types = ['c','runout','lbw','b','c&b']
+        dismissal_types = ['c','runout','lbw','b']
+
     dismissal=Randomize(dismissal_types)
+
     if dismissal == 'lbw' or dismissal == 'b':
         dismissal_str = '{0} {1}'.format(dismissal,GetShortName(bowler.name))
-    elif dismissal == 'c&b':
-        dismissal_str = '{0} {1}'.format(dismissal, GetShortName(bowler.name))
     elif dismissal == 'st':
         dismissal_str = 'st {0} b {1}'.format(GetShortName(keeper.name), GetShortName(bowler.name))
     elif dismissal == 'c':
-        fielders = fielders + [keeper]
-        fielder=Randomize(fielders)
-        dismissal_str = '{0} {1} b {2}'.format(dismissal, GetShortName(fielder.name), GetShortName(bowler.name))
+        #check if catcher is the bowler
+        if fielder == bowler:   dismissal_str = 'c&b {0}'.format(bowler.name)
+        else:   dismissal_str = '{0} {1} b {2}'.format(dismissal, GetShortName(fielder.name), GetShortName(bowler.name))
     elif dismissal == 'runout':
-        fielder=Randomize(fielders)
         dismissal_str = 'runout {0}'.format(GetShortName(fielder.name))
     else:
         None
