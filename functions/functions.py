@@ -174,6 +174,13 @@ def ValidateMatchTeams(match):
         t.opening_pair[0].onstrike=True
         t.opening_pair[1].onstrike=False
 
+    #check if players have numbers, else assign randomly
+    for t in [match.team1, match.team2]:
+        for player in t.team_array:
+            if player.no == None:
+                import random
+                player.no = random.choice(list(range(100)))
+
     PrintInColor('Validated teams', Style.BRIGHT)
 
 #calculate match result
@@ -699,8 +706,10 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             bowler = Randomize(temp)
         #esle pick bowler
         else:
-            choice = input('Choose next bowler from: {0} [Press Enter to auto-select]'.format(' / '.join([GetShortName(x.name) for x in temp])))
-            bowler = next((x for x in temp if choice.lower() in GetShortName(x.name).lower()), None)
+            choice = input('Choose next bowler from: {0} [Press Enter to auto-select]'.format(' / '.join([str(x.no) + '.' + GetShortName(x.name) for x in temp])))
+            bowler = next((x for x in temp if (str(choice) == str(x.no)
+                                               or choice.lower() in GetShortName(x.name).lower()) ),
+                          None)
             if bowler is None:
                 bowler = Randomize(temp)
 

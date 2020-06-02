@@ -61,22 +61,32 @@ class commentary():
                         'singles and doubles will surely irritate the fielding captain']
 
     #four first  ball
-    commentary_firstball_four = ['what a way to start the innings!']
+    commentary_firstball_four = ['what a way to start the innings!',
+                                 'glorious start to the innings!',
+                                 'he starts with a bang! no pressure at all!',
+                                 'explosive start! bowler is stunned!',
+                                 'thats how you start an innings! pressure straightway on the bowler now!']
     commentary_firstball_six = ['six of the first ball!',
+                                'explosive start! bowler is stunned!',
                                 'first ball and its dispatched! Beware bowlers!',
+                                'bang! he has smashed the first ball out of here!',
+                                'thats how you start an innings! pressure straightway on the bowler now!'
                                 'thats hit off the first ball!.. ']
 
     #captain out
     commentary_captain_out = ['got rid of the skipper!',
+                              'the captain goes!',
                               'thats the end of the captain!',
                               'yes! the skippers is gone!']
     #captain leading
     commentary_captain_leading = ['captain leading from the front',
                                   'captain courageous!',
+                                  'he is a perfect example of a brave leader!',
                                   'the skipper leading from the front here']
 
     #half the side is down
     commentary_five_down = ['half the side is back in the pavilion!',
+                            'job half done!.. 5 wkts down!',
                             '5 down and i am afraid the flood gates have opened!',
                             'half down and the tail is exposed!']
 
@@ -86,6 +96,7 @@ class commentary():
     commentary_bowled = ['full and straight what a ball',
                         'what a yorker! he is on fire!',
                         'bowled himm!',
+                         'got him! and the bowler lets out a roar!',
                          'perfect length, that has hit the top of off-stump!',
                         'Middle stump out of here',
                         'inside edge and bowled!',
@@ -110,25 +121,33 @@ class commentary():
 
     commentary_reverse = ['Oh thats reversed!',
                           'he gets it to reverse!',
-                          'magnificent reverse swinging delivery',
+                          'reverse swinging delivery !',
+                          'magnificent reverse swinging delivery!',
                           'brilliant reverse swinger this!']
 
     commentary_swing = ['Terrific inswinger!',
                         'superb inswinger!',
+                        'he has this ability to swing the ball both ways!',
+                        'thats quick and it swung a long way!!',
+                        'oh that swung a long way!',
                         'brilliant outswinger!',
                         'unbelievable swing!']
 
     commentary_turn = ['that ball turned a long way!',
                        'oh that spun a long way!',
                        'terrific spin bowling this!',
+                       'terrific spin! the batsman cant believe it!',
+                       'oh it turned a long way! surprised even the bowler!',
+                       'what a turn! the batsman is stunned!',
                        'what a turn! it has stunned the batsman!',]
 
     commentary_runout = ['what a terrible mix up!',
-                        'this is bizzare!',
+                        'this is bizzare!.. terrible miscommunication',
                          'dead accurate throw from the fielder!',
                          'magnificent fielding.. brilliant throw!',
                         'he is coming back for the second, direct hit and gone!',
                         'that was a horrible call!',
+                         'there was no run there! this is bizzare!'
                         'direct hit and gone!','what was the batsman thinking!?']
 
     commentary_stumped = ['swift work by the keeper!',
@@ -150,6 +169,9 @@ class commentary():
 
     commentary_lbw = ['big appeal.. and the finger goes up!',
                 'thats in line and umpire says out',
+                'thats plumb! given out!',
+                'ohh that looks close, and the finger is raised!',
+                'trapped him in front! ',
                 'missing leg? No! thats out',
                 'oh thats a harsh decision',
                 'given out, batsman is not happy at all',
