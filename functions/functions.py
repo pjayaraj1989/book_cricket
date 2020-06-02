@@ -731,16 +731,12 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
         #towards the death overs, show a highlights
         towin=batting_team.target - batting_team.total_score
         #calculate if score is close
-        if batting_team.batting_second and towin <= 20:
-            ShowHighlights(batting_team)
-            PrintInColor ('To win: {0} from {1}'.format(str(towin),
+        if batting_team.batting_second:
+            if towin <= 20 or over == overs-1:
+                ShowHighlights(batting_team)
+                PrintInColor ('To win: {0} from {1}'.format(str(towin),
                                                     str(overs*6 - batting_team.total_balls)), Style.BRIGHT)
-            input('press enter to continue...')
-        if batting_team.batting_second and over == overs-1:
-            ShowHighlights(batting_team)
-            PrintInColor('To win: {0} from {1}'.format(str(towin),
-                                                       str(overs * 6 - batting_team.total_balls)), Style.BRIGHT)
-            input('press enter to continue...')
+                input('press enter to continue...')
 
         print ("Over: {0}.{1}".format(str(over),str(ball)))
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
