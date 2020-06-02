@@ -20,13 +20,16 @@ def GetShortName(name):
 	return shortname
 
 #print nested array in formatted way
-def PrintListFormatted(data_to_print, seconds):
+def PrintListFormatted(data_to_print, seconds, logger):
     # now print it
     from colorama import Style
     import time
     col_width = max(len(word) for row in data_to_print for word in row) + 1
     for row in data_to_print:
-        PrintInColor("".join(word.ljust(col_width) for word in row), Style.BRIGHT)
+        msg = "".join(word.ljust(col_width) for word in row)
+        PrintInColor(msg, Style.BRIGHT)
+        if logger is not None:
+            logger.info(msg)
         time.sleep(seconds)
 
 #print in color

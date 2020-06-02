@@ -80,9 +80,10 @@ class Player():
 #match details
 class Match():
     def __init__(self, **kwargs):
-        team1=team2=overs=result=venue=batting_first=batting_second=bowler_max_overs=autoplay=None
+        team1=team2=overs=result=venue=batting_first=batting_second=bowler_max_overs=autoplay=logger=None
         #initialize default values
         self.overs=0
+        self.logger=None
         self.result=None
         self.team1=None
         self.team2=None
@@ -95,7 +96,8 @@ class Match():
         self.autoplay=False
         if kwargs is not None:
             for k,v in kwargs.items():
-                if k=='team1':  self.team1=kwargs[k]                
+                if k=='team1':  self.team1=kwargs[k]
+                if k=='logger': self.logger=kwargs[k]
                 if k=='team2':  self.team2=kwargs[k]               
                 if k=='overs':  self.overs=kwargs[k]                
                 if k=='result': self.result=kwargs[k]

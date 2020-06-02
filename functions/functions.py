@@ -106,7 +106,7 @@ def DisplayPlayingXI(match):
             name2 = name2 + '(wk)'
         data_to_print.append([name1, name2])
     #now print it
-    PrintListFormatted(data_to_print, 0.1)
+    PrintListFormatted(data_to_print, 0.1, None)
 
 #toss
 def Toss (match):
@@ -265,7 +265,10 @@ def FindPlayerOfTheMatch(match):
         comment_to_print = 'took {0} ({1})'.format(str(best_player.runs), str(best_player.balls))
 
     match.result.mom = best_player
-    PrintInColor("Player of the match: {0}".format(best_player.name), Style.BRIGHT)
+
+    msg = "Player of the match: {0}".format(best_player.name)
+    PrintInColor(msg, Style.BRIGHT)
+    match.logger.info(msg)
 
 #a pair face a delivery
 def PairFaceBall(pair, run):
@@ -314,7 +317,7 @@ def DisplayScore(team):
         else:
             data_to_print.append([name, p.dismissal, "{0} ({1})".format(str(p.runs), str(p.balls))])
 
-    PrintListFormatted(data_to_print, 0.01)
+    PrintListFormatted(data_to_print, 0.01, None)
 
     print ("Extras: " + str(team.extras))
     print (' ')
@@ -340,17 +343,36 @@ def DisplayScore(team):
 
 #match summary
 def MatchSummary(match):
+    logger=match.logger
     ch='-'
     result = match.result
-    PrintInColor('-'*10 + 'Match Summary' + '-'*10, Style.BRIGHT)
-    PrintInColor('{0} vs {1}, at {2}'.format(result.team1.name, result.team2.name, match.venue.name), Style.BRIGHT)
+
+    msg = '-'*10 + 'Match Summary' + '-'*10
+    PrintInColor(msg, Style.BRIGHT)
+    logger.info(msg)
+
+    msg = '{0} vs {1}, at {2}'.format(result.team1.name, result.team2.name, match.venue.name)
+    PrintInColor(msg, Style.BRIGHT)
+    logger.info(msg)
+
+    msg = ch*45
     print(ch*45)
-    PrintInColor(result.result_str, Style.BRIGHT)
+    logger.info(msg)
+
+    msg = result.result_str
+    PrintInColor(msg, Style.BRIGHT)
+    logger.info(msg)
+
     print(ch*45)
-    PrintInColor('{0} {1}/{2} ({3})'.format(result.team1.key,
+    logger.info(ch*45)
+
+    msg = '{0} {1}/{2} ({3})'.format(result.team1.key,
                                             str(result.team1.total_score),
                                             str(result.team1.wickets_fell),
-                                            str(BallsToOvers(result.team1.total_balls))), Style.BRIGHT)
+                                            str(BallsToOvers(result.team1.total_balls)))
+    PrintInColor(msg, Style.BRIGHT)
+    logger.info(msg)
+
     #see who all bowled
     bowlers1 = [plr for plr in result.team1.team_array if plr.attr.bowling >= 6]
     bowlers2 = [plr for plr in result.team2.team_array if plr.attr.bowling >= 6]
@@ -371,14 +393,18 @@ def MatchSummary(match):
                               '{0}/{1}'.format(best_bowlers[x].runs_given, best_bowlers[x].wkts)])
 
     #print
-    PrintListFormatted(data_to_print, 0.01)
+    PrintListFormatted(data_to_print, 0.01, logger)
+
     data_to_print = []
     print(ch*45)
+    logger.info(ch*45)
 
-    PrintInColor('{0} {1}/{2} ({3})'.format(result.team2.key,
+    msg = '{0} {1}/{2} ({3})'.format(result.team2.key,
                                             str(result.team2.total_score),
                                             str(result.team2.wickets_fell),
-                                            str(BallsToOvers(result.team2.total_balls))), Style.BRIGHT)
+                                            str(BallsToOvers(result.team2.total_balls)))
+    PrintInColor(msg, Style.BRIGHT)
+    logger.info(msg)
 
     most_runs = sorted(result.team2.team_array, key=lambda x: x.runs, reverse=True)
     most_runs = most_runs[:2]
@@ -394,8 +420,9 @@ def MatchSummary(match):
                               GetShortName(best_bowlers[x].name),
                               '{0}/{1}'.format(best_bowlers[x].runs_given, best_bowlers[x].wkts)])
 
-    PrintListFormatted(data_to_print, 0.01)
+    PrintListFormatted(data_to_print, 0.01, logger)
     print('-' * 43)
+    logger.info('-' * 43)
     input('Press any key to exit..')
 
 #batsman out
@@ -661,7 +688,7 @@ def DisplayBowlingStats(team):
             bowler.eco = eco
             data_to_print.append([GetShortName(bowler.name), str(overs), str(bowler.maidens), str(bowler.runs_given), str(bowler.wkts), str(bowler.eco)])
 
-    PrintListFormatted(data_to_print, 0.01)
+    PrintListFormatted(data_to_print, 0.01, None)
     print (char*45)
     input('press enter to continue..')
     team.bowlers = bowlers_updated
