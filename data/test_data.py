@@ -53,54 +53,54 @@ team_ban=Team(team_array=ban_squad,color=Fore.LIGHTBLACK_EX,
 #set teams here
 ind_classic = [sehwag, sachin, ganguly, dravid, yuvraj, kaif, mongia, harbhajan, agarkar, zaheer, nehra]
 team_ind_classic=Team(team_array=ind_classic,color=Fore.BLUE,
-                name="India-Legends",key='IND_CL',captain=ganguly,
+                name="India-Legends",key='IND',captain=ganguly,
                 opening_pair=[ind_classic[0],ind_classic[1]])
 
 #has to be odd numbered
 aus_classic = [gilchrist, hayden, ponting, martyn, symonds, bevan, lehmann, bichel,hogg,lee, mcgrath]
 team_aus_classic=Team(team_array=aus_classic,color=Fore.YELLOW,
-                    name="Australia-Legends",key='AUS_CL', captain=ponting,
+                    name="Australia-Legends",key='AUS', captain=ponting,
                     opening_pair=[aus_classic[0],aus_classic[1]])
 
 pak_classic = [anwar, tumer, yousuf, younis, inzamam, afridi, razzaq, saqlain,akram,waqar,akhtar]
 team_pak_classic=Team(team_array=pak_classic,color=Fore.GREEN,
-                    name="Pakistan-Legends",key='PAK_CL', captain=waqar,
+                    name="Pakistan-Legends",key='PAK', captain=waqar,
                     opening_pair=[pak_classic[0],pak_classic[1]])
 
 eng_classic = [trescothik,knight,vaughan,hussain,stewart,collingwood,flintoff,giles,hoggard,caddick,anderson]
 team_eng_classic = Team(team_array=eng_classic,color=Fore.LIGHTBLUE_EX,
-                        name="England-Legends",key='ENG_CL',captain=hussain,
+                        name="England-Legends",key='ENG',captain=hussain,
                         opening_pair=[trescothik,knight])
 
 sri_classic = [atapattu,jayasuriya,adesilva,sangakkara,jayawardene,arnold,samaraweera,vaas,fernando,gunaratne,murali]
 team_sri_classic = Team(team_array=sri_classic,color=Fore.MAGENTA,
-                        name="SriLanka-Legends",key='SL_CL',captain=jayasuriya,
+                        name="SriLanka-Legends",key='SL',captain=jayasuriya,
                         opening_pair=[jayasuriya,atapattu])
 
 sa_classic = [gsmith,gibbs,kirsten,kallis,dippenaar,boucher,pollock,klusener,hall,ntini,donald]
 team_sa_classic = Team(team_array=sa_classic,color=Fore.LIGHTGREEN_EX,
-                       name="SouthAfrica-Legends",key='SA_CL',captain=pollock,
+                       name="SouthAfrica-Legends",key='SA',captain=pollock,
                        opening_pair=[gsmith,gibbs])
 
 wi_classic = [gayle,hinds,lara,sarwan,chanderpaul,hooper,powell,jacobs,dillon,drakes,collins]
 team_wi_classic = Team(team_array=wi_classic,color=Fore.LIGHTMAGENTA_EX,
-                       name="WestIndies-Legends",key='WI_CL',captain=hooper,
+                       name="WestIndies-Legends",key='WI',captain=hooper,
                        opening_pair=[gayle,hinds])
 
 nz_classic = [fleming,astle,mcmillan,styris,cairns,mccullum,harris,vettori,adams,tuffey,bond]
 team_nz_classic = Team(team_array=nz_classic,color=Fore.CYAN,
-                       name="NewZealand-Legends",key='NZ_CL',captain=fleming,
+                       name="NewZealand-Legends",key='NZ',captain=fleming,
                        opening_pair=[fleming,astle])
 
 #all time XI
 sachin_xi = [hayden, sachin, lara, jayawardene, hooper, boucher, klusener, pollock, kumble, murali, mcgrath]
-team_sachin_xi = Team(team_array = sachin_xi,color=Fore.CYAN, name="SachinXI",key='SACHIN',captain=sachin,opening_pair=[hayden, sachin])
+team_sachin_xi = Team(team_array = sachin_xi,color=Fore.CYAN, name="SachinTendulkarXI",key='ST',captain=sachin,opening_pair=[hayden, sachin])
 
 ponting_xi = [ganguly, jayasuriya, gibbs, ponting, sangakkara, kallis, symonds, warne, zaheer, lee, donald]
-team_ponting_xi = Team(team_array=ponting_xi,color=Fore.YELLOW, name="PontingXI",key='PONTING', captain=ponting, opening_pair=[ganguly, jayasuriya])
+team_ponting_xi = Team(team_array=ponting_xi,color=Fore.YELLOW, name="RickyPontingXI",key='RP', captain=ponting, opening_pair=[ganguly, jayasuriya])
 
 waugh_xi = [sehwag, gilchrist, chanderpaul, swaugh, bevan, flintoff, vettori, harbhajan, mjohnson, akram, akhtar]
-team_waugh_xi = Team(team_array=waugh_xi,color=Fore.GREEN, name="WaughXI", key='WAUGH', captain=swaugh, opening_pair=[sehwag, gilchrist])
+team_waugh_xi = Team(team_array=waugh_xi,color=Fore.GREEN, name="SteveWaughXI", key='SW', captain=swaugh, opening_pair=[sehwag, gilchrist])
 
 #LIST OF TEAMS
 teams_int = [team_aus, team_ind, team_eng, team_nz, team_pak, team_sa, team_wi, team_sl, team_ban]
