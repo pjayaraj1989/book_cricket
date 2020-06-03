@@ -10,7 +10,6 @@ from functions.utilities import *
 def GetMatchInfo():
     match=None
     #get venue randomly
-    #check venues are valid run probs
     for venue in resources.match_venues:
         if sum(venue.run_prob) != 1:
             Error_Exit("Error in venue! " + venue.name + " " + str(sum(venue.run_prob)))
@@ -36,6 +35,7 @@ def GetMatchInfo():
     overs=input('Select overs\n')
     if overs.isdigit() == False:    Error_Exit("Invalid entry")
     overs=int(overs)
+    #overs should be max 50
     if overs > 50 or overs <= 0: Error_Exit('Invalid overs')
     #has to be a multiple of 5
     if overs%5 != 0:    Error_Exit('Overs should be a multiple of 5')
@@ -58,6 +58,8 @@ def GetMatchInfo():
     for t in list_of_teams:
         if t.key == t1:    team1=t
         if t.key == t2:    team2=t
+
+    #initialize match with teams, overs
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
     PrintInColor('{4}, {0}, for the exciting {1} over match between {2} and {3}'.format(venue.name,
                                                         str(overs),
@@ -67,13 +69,14 @@ def GetMatchInfo():
     print ('In the commentary box, myself {0} with {1}'.format(commentator[0],commentator[1]))
     print ('Umpire: {0}'.format(umpire))
     input('press enter to continue..')
+
+    #assign match properties
     match.venue = venue
     match.umpire = umpire
     match.bowler_max_overs = bowler_max_overs
 
     #display squad
     DisplayPlayingXI(match)
-
     #Want to skip balls?
     opt = input('Do you want to play only highlights? Choose y for highlights, n for full match')
     if opt.lower() == 'y':
@@ -114,9 +117,9 @@ def Toss (match):
     if match.team1.captain is None or match.team2.captain is None:
         Error_Exit('No captains assigned!')
     print ('We have the captains {0}({1}) and {2}({3}) in the middle'.format(match.team1.captain.name,
-                                                                            match.team1.name,
-                                                                        match.team2.captain.name,
-                                                                        match.team2.name))
+                                                                                match.team1.name,
+                                                                                match.team2.captain.name,
+                                                                                match.team2.name))
     #assign captain attribute to the players
     match.team1.captain.attr.iscaptain = True
     match.team2.captain.attr.iscaptain = True
@@ -129,17 +132,18 @@ def Toss (match):
     coin=Randomize([1,2])
     coin=int(coin)
     if coin == call:
-        PrintInColor('{0} won the toss, batting first'.format(match.team1.captain.name), match.team1.color)
+        PrintInColor('{0} won the toss, batting first'.format(match.team1.captain.name),
+                     match.team1.color)
         match.team1.batting_second=False
         match.team2.batting_second=True
     else:
-        PrintInColor('{0} won the toss, batting first'.format(match.team2.captain.name), match.team2.color)
+        PrintInColor('{0} won the toss, batting first'.format(match.team2.captain.name),
+                     match.team2.color)
         match.team2.batting_second=False
         match.team1.batting_second=True
     #now find out who is batting first
     batting_first = next((x for x in [match.team1, match.team2] if x.batting_second == False), None)
     batting_second = next((x for x in [match.team1, match.team2] if x.batting_second == True), None)
-
     match.batting_first = batting_first
     match.batting_second = batting_second
     return match
@@ -231,13 +235,11 @@ def FindBestPlayers(result, bowlers_list):
     if len(most_runs) >= 3:
         most_runs = most_runs[:3]    #we need only top 3 scorers
     result.most_runs = most_runs
-
     #find most wkts
     most_wkts = sorted(bowlers_list, key=lambda x: x.wkts, reverse=True)
     if len(most_wkts) >= 3:
         most_wkts = most_wkts[:3]    #we need only top 3 scorers
     result.most_wkts = most_wkts
-
     #find best eco bowler
     best_eco = sorted(bowlers_list, key=lambda x: x.eco, reverse=False)
     if len(best_eco) >= 3:
@@ -252,17 +254,15 @@ def FindPlayerOfTheMatch(match):
     team_won = max([match.team1,match.team2], key=attrgetter('total_score'))
     team_lost = min([match.team1,match.team2], key=attrgetter('total_score'))
     best_player = None
+
     #if scores tied, select randomly
     if team_won.total_score == team_lost.total_score:
         best_player = max(team_won.team_array, key=attrgetter('runs'))
-        comment_to_print = 'took {0} ({1})'.format(str(best_player.runs), str(best_player.balls))
     #check if win margin is >50% , if so, give credit to bowlers, else batsmen
-    elif (float(team_won.total_score / team_lost.total_score)  >= 1.6):
+    elif (float(team_won.total_score / team_lost.total_score)  >= 1.2):
         best_player = max(team_won.team_array, key=attrgetter('wkts'))
-        comment_to_print = 'took {0} wkts'.format(str(best_player.wkts))
     else:
         best_player = max(team_won.team_array, key=attrgetter('runs'))
-        comment_to_print = 'took {0} ({1})'.format(str(best_player.runs), str(best_player.balls))
 
     match.result.mom = best_player
 
@@ -321,10 +321,14 @@ def DisplayScore(team):
 
     print ("Extras: " + str(team.extras))
     print (' ')
-    PrintInColor('{0} {1}/{2} from ({3} overs)'.format(team.name.upper(), str(team.total_score), str(team.wickets_fell), str(BallsToOvers(team.total_balls))), team.color)
+    PrintInColor('{0} {1}/{2} from ({3} overs)'.format(team.name.upper(),
+                                                       str(team.total_score),
+                                                       str(team.wickets_fell),
+                                                       str(BallsToOvers(team.total_balls))),
+                 team.color)
     #show FOW
     if team.wickets_fell != 0:
-        PrintInColor('FOW:', Style.BRIGHT)
+        PrintInColor('F.O.W:', Style.BRIGHT)
         #get fow_array
         fow_array = []
         for f in team.fow:
@@ -337,7 +341,9 @@ def DisplayScore(team):
     #partnerships
     PrintInColor("Partnerships:", Style.BRIGHT)
     for p in team.partnerships:
-        print('{0} - {1} :\t{2}'.format(GetShortName(p.batsman_onstrike.name), GetShortName(p.batsman_dismissed.name), str(p.runs)))
+        print('{0} - {1} :\t{2}'.format(GetShortName(p.batsman_onstrike.name),
+                                        GetShortName(p.batsman_dismissed.name),
+                                        str(p.runs)))
 
     print (ch*45)
 
@@ -347,7 +353,7 @@ def MatchSummary(match):
     ch='-'
     result = match.result
 
-    msg = '-'*10 + 'Match Summary' + '-'*10
+    msg = ch*10 + 'Match Summary' + ch*10
     PrintInColor(msg, Style.BRIGHT)
     logger.info(msg)
 
@@ -449,19 +455,18 @@ def GenerateDismissal(bowler, bowling_team):
     keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
     #now get a list of fielders
     fielder=Randomize(bowling_team.team_array)
-
     #list of mode of dismissals
-    #stumped only for a spinner
     if bowler.attr.isspinner == True:
         dismissal_types = ['c','st','runout','lbw','b']
     else:
         dismissal_types = ['c','runout','lbw','b']
-
+    #generate dismissal
     dismissal=Randomize(dismissal_types)
-
+    #generate dismissal string
     if dismissal == 'lbw' or dismissal == 'b':
         dismissal_str = '{0} {1}'.format(dismissal,GetShortName(bowler.name))
     elif dismissal == 'st':
+        #stumped
         dismissal_str = 'st {0} b {1}'.format(GetShortName(keeper.name), GetShortName(bowler.name))
     elif dismissal == 'c':
         #check if catcher is the bowler
@@ -473,12 +478,13 @@ def GenerateDismissal(bowler, bowling_team):
         None
     return dismissal_str
 
-#display temporary stat
+#display temporary stats
 def ShowHighlights(batting_team):
     PrintInColor('{0} {1} / {2} ({3} Overs)'.format(batting_team.name,
                                                str(batting_team.total_score),
                                                str(batting_team.wickets_fell),
-                                               str( BallsToOvers(batting_team.total_balls))), Style.BRIGHT)
+                                               str( BallsToOvers(batting_team.total_balls))),
+                 Style.BRIGHT)
 
 #check for N consecutive elements in a list
 def CheckForConsecutiveBalls(bowler, element):
@@ -492,6 +498,126 @@ def CheckForConsecutiveBalls(bowler, element):
             break
     return result
 
+#update dismissal
+def UpdateDismissal(bowler, bowling_team, batting_team, pair):
+    keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
+    on_strike = next((x for x in pair if x.onstrike == True), None)
+    dismissal = GenerateDismissal(bowler, bowling_team)
+    if not 'runout' in dismissal:
+        # add this to bowlers history
+        bowler.ball_history.append('Wkt')
+        bowler.wkts += 1
+    elif 'runout' in dismissal:
+        bowler.ball_history.append('RO')
+    # update wkts, balls, etc
+    bowler.balls_bowled += 1
+    batting_team.wickets_fell += 1
+    batting_team.total_balls += 1
+    pair = BatsmanOut(pair, dismissal)
+    player_dismissed = next((x for x in pair if x.status == False), None)
+    player_onstrike = next((x for x in pair if x.status == True), None)
+    # check if player dismissed is captain
+    if player_dismissed.attr.iscaptain == True:
+        PrintInColor(Randomize(commentary.commentary_captain_out), bowling_team.color)
+    PrintInColor("OUT ! {0} {1} {2} ({3}) SR: {4}".format(GetShortName(player_dismissed.name),
+                                                          player_dismissed.dismissal,
+                                                          str(player_dismissed.runs),
+                                                          str(player_dismissed.balls),
+                                                          str(player_dismissed.strikerate)), Fore.RED)
+    # detect a hat-trick!
+    isHattrick = CheckForConsecutiveBalls(bowler, 'Wkt')
+    if isHattrick == True:
+        bowler.hattricks += 1
+        PrintInColor(Randomize(commentary.commentary_hattrick), bowling_team.color)
+        input('press enter to continue..')
+    # check if bowler got 5 wkts
+    if bowler.wkts == 5:
+        PrintInColor('Thats 5 Wickets for {0} !'.format(bowler.name), bowling_team.color)
+        PrintInColor(Randomize(commentary.commentary_fifer), bowling_team.color)
+        input('press enter to continue..')
+    # update fall of wicket
+    fow_info = Fow(wkt=batting_team.wickets_fell,
+                    runs=batting_team.total_score,
+                    total_balls=batting_team.total_balls,
+                    player_onstrike=player_onstrike,
+                    player_dismissed=player_dismissed,)
+    #update fall of wkts
+    batting_team.fow.append(fow_info)
+    # check if 5 wkts gone
+    if batting_team.wickets_fell == 5:
+        PrintInColor(Randomize(commentary.commentary_five_down), bowling_team.color)
+
+    #get partnership details
+    #1st wkt partnership
+    if batting_team.wickets_fell == 1:
+        partnership_runs = batting_team.fow[0].runs
+    else:
+        partnership_runs = batting_team.fow[batting_team.wickets_fell-1].runs - batting_team.fow[batting_team.wickets_fell - 2].runs
+    partnership = Partnership(batsman_dismissed=fow_info.player_dismissed,
+                              batsman_onstrike=fow_info.player_onstrike,
+                              runs=partnership_runs)
+    # update batting team partnership details
+    batting_team.partnerships.append(partnership)
+    # commentary
+    if 'runout' in dismissal:
+        comment = Randomize(commentary.commentary_runout)
+    elif 'st ' in dismissal:
+        comment = Randomize(commentary.commentary_stumped)
+    # if bowler is the catcher
+    elif 'c&b' in dismissal:
+        comment = Randomize(commentary.commentary_return_catch)
+    elif 'c ' in dismissal and ' b ' in dismissal:
+        # see if the catcher is the keeper
+        if keeper.name in dismissal:
+            comment = Randomize(commentary.commentary_keeper_catch)
+        else:
+            comment = Randomize(commentary.commentary_caught)
+    elif 'b ' or 'lbw' in dismissal:
+        # reverse swing if > 30 overs
+        if 150 <= batting_team.total_balls <= 240 and bowler.attr.isspinner == False:
+            PrintInColor(Randomize(commentary.commentary_reverse), Style.BRIGHT)
+        # initial swing
+        if batting_team.total_balls < 24 and bowler.attr.isspinner == False:
+            PrintInColor(Randomize(commentary.commentary_swing), Style.BRIGHT)
+        # turn
+        if bowler.attr.isspinner == True:
+            PrintInColor(Randomize(commentary.commentary_turn), Style.BRIGHT)
+        # if lbw
+        if 'lbw' in dismissal:
+            comment = Randomize(commentary.commentary_lbw)
+        else:
+            comment = Randomize(commentary.commentary_bowled)
+    else:
+        None
+    #comment dismissal
+    PrintInColor(comment, Style.BRIGHT)
+    # if its a great knock, say this
+    if player_dismissed.runs > 50:
+        PrintInColor(Randomize(commentary.commentary_out_fifty), Style.BRIGHT)
+    # if duck
+    if player_dismissed.runs == 0:
+        PrintInColor(Randomize(commentary.commentary_out_duck), Style.BRIGHT)
+    # out first ball
+    if player_dismissed.balls == 1:
+        PrintInColor(Randomize(commentary.commentary_out_first_ball), Style.BRIGHT)
+    # if partnership is great
+    if partnership.runs > 50:
+        PrintInColor(Randomize(commentary.commentary_partnership_milestone), Style.BRIGHT)
+
+    # calculate the situation
+    towin = batting_team.target - batting_team.total_score
+    if batting_team.batting_second and batting_team.wickets_fell >= 8:
+        PrintInColor(Randomize(commentary.commentary_goingtolose), Style.BRIGHT)
+    #show score
+    ShowHighlights(batting_team)
+    input('press enter to continue..')
+    if batting_team.wickets_fell < 10:
+        ind = pair.index(player_dismissed)
+        pair[ind] = batting_team.team_array[batting_team.wickets_fell + 1]
+        pair[ind].onstrike = True
+        PrintInColor("New Batsman: " + pair[ind].name, batting_team.color)
+    return
+
 #play a ball
 def Ball(run, pair, bowler, batting_team, bowling_team):
     #get keeper
@@ -500,170 +626,47 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
     on_strike = next((x for x in pair if x.onstrike == True), None)
     #if out
     if run == -1:
-            dismissal = GenerateDismissal(bowler, bowling_team)
-            if not 'runout' in dismissal:
-                # add this to bowlers history
-                bowler.ball_history.append('Wkt')
-                bowler.wkts += 1
-            elif 'runout' in dismissal:
-                bowler.ball_history.append('RO')
-
-            #update wkts, balls, etc
-            bowler.balls_bowled += 1
-            batting_team.wickets_fell += 1
-            batting_team.total_balls += 1
-
-            pair=BatsmanOut(pair, dismissal)
-
-            player_dismissed = next((x for x in pair if x.status == False), None)
-            #check if player dismissed is captain
-            if player_dismissed.attr.iscaptain == True:
-                PrintInColor(Randomize(commentary.commentary_captain_out), bowling_team.color)
-
-            player_onstrike = next((x for x in pair if x.status == True), None)
-            PrintInColor ("OUT ! {0} {1} {2} ({3}) SR: {4}".format(GetShortName(player_dismissed.name),
-                                               player_dismissed.dismissal,
-                                               str(player_dismissed.runs),
-                                               str(player_dismissed.balls),
-                                               str(player_dismissed.strikerate)), Fore.RED)
-
-            #detect a hat-trick!
-            isHattrick = CheckForConsecutiveBalls(bowler, 'Wkt')
-            if isHattrick == True:
-                bowler.hattricks += 1
-                PrintInColor(Randomize(commentary.commentary_hattrick), bowling_team.color)
-
-            #check if bowler got 5 wkts
-            if bowler.wkts == 5:
-                PrintInColor('Thats 5 Wickets for {0} !'.format(bowler.name), bowling_team.color)
-                PrintInColor(Randomize(commentary.commentary_fifer), bowling_team.color)
-                input('press enter to continue..')
-
-            #update fall of wicket
-            fow_info = Fow(wkt=batting_team.wickets_fell,
-                           runs=batting_team.total_score,
-                           total_balls=batting_team.total_balls,
-                           player_onstrike=player_onstrike,
-                           player_dismissed=player_dismissed,)
-            batting_team.fow.append(fow_info)
-
-            #check if 5 wkts gone
-            if batting_team.wickets_fell == 5:
-                PrintInColor(Randomize(commentary.commentary_five_down), bowling_team.color)
-
-            #get partnership details
-            #1st wkt partnership
-            if batting_team.wickets_fell == 1:
-                partnership_runs = batting_team.fow[0].runs
-            else:
-                partnership_runs = batting_team.fow[batting_team.wickets_fell-1].runs - batting_team.fow[batting_team.wickets_fell - 2].runs
-
-            partnership = Partnership(batsman_dismissed=fow_info.player_dismissed,
-                                      batsman_onstrike=fow_info.player_onstrike,
-                                      runs=partnership_runs)
-            #update batting team partnership details
-            batting_team.partnerships.append(partnership)
-
-            #commentary
-            if 'runout' in dismissal:
-                comment = Randomize(commentary.commentary_runout)
-            elif 'st ' in dismissal:
-                comment = Randomize(commentary.commentary_stumped)
-            # if bowler is the catcher
-            elif 'c&b' in dismissal:
-                comment = Randomize(commentary.commentary_return_catch)
-            elif 'c ' in dismissal and ' b ' in dismissal:
-                #see if the catcher is the keeper
-                if keeper.name in dismissal:
-                    comment = Randomize(commentary.commentary_keeper_catch)
-                else:
-                    comment = Randomize(commentary.commentary_caught)
-            elif 'b ' or 'lbw' in dismissal:
-                #reverse swing if > 30 overs
-                if 150 <= batting_team.total_balls <= 240 and bowler.attr.isspinner==False:
-                    PrintInColor(Randomize(commentary.commentary_reverse), Style.BRIGHT)
-                #initial swing
-                if batting_team.total_balls < 24 and bowler.attr.isspinner==False:
-                    PrintInColor(Randomize(commentary.commentary_swing), Style.BRIGHT)
-                #turn
-                if bowler.attr.isspinner==True:
-                    PrintInColor(Randomize(commentary.commentary_turn), Style.BRIGHT)
-                #if lbw
-                if 'lbw' in dismissal:  comment = Randomize(commentary.commentary_lbw)
-                else:   comment = Randomize(commentary.commentary_bowled)
-            else:
-                None
-
-            #comment dismissal
-            PrintInColor(comment, Style.BRIGHT)
-
-            #if its a great knock, say this
-            if player_dismissed.runs > 50:
-                PrintInColor(Randomize(commentary.commentary_out_fifty), Style.BRIGHT)
-            #if duck
-            if player_dismissed.runs == 0:
-                PrintInColor(Randomize(commentary.commentary_out_duck), Style.BRIGHT)
-            #out first ball
-            if player_dismissed.balls == 1:
-                PrintInColor (Randomize(commentary.commentary_out_first_ball), Style.BRIGHT)
-            # if partnership is great
-            if partnership.runs > 50:
-                PrintInColor(Randomize(commentary.commentary_partnership_milestone), Style.BRIGHT)
-
-            # calculate the situation
-            towin = batting_team.target - batting_team.total_score
-            if batting_team.batting_second and batting_team.wickets_fell >= 8:
-                PrintInColor(Randomize(commentary.commentary_goingtolose), Style.BRIGHT)
-
-            #show score
-            ShowHighlights(batting_team)
-
-            input('press enter to continue..')
-
-            if batting_team.wickets_fell < 10:
-                ind=pair.index(player_dismissed)
-                pair[ind] = batting_team.team_array[batting_team.wickets_fell + 1]
-                pair[ind].onstrike=True
-                PrintInColor ("New Batsman: " + pair[ind].name, batting_team.color)
+        UpdateDismissal(bowler, bowling_team, batting_team, pair)
+    #runs other than dismissal
     else:
-            #appropriate commentary for 4s and 6s
-            if run == 4:
-                field = Randomize(resources.fields[4])
-                comment=Randomize(commentary.commentary_four)
-                PrintInColor (field + " FOUR! " + comment, Fore.GREEN)
-                #check if first ball hit for a boundary
-                if on_strike.balls == 0:
-                    PrintInColor(Randomize(commentary.commentary_firstball_four), Fore.GREEN)
-                if CheckForConsecutiveBalls(bowler, 4) == True:
-                    PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
-            elif run == 6:
-                #check uf furst ball is hit
-                if on_strike.balls == 0:
-                    PrintInColor(Randomize(commentary.commentary_firstball_six), Fore.GREEN)
-                if CheckForConsecutiveBalls(bowler, 6) == True:
-                    PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
-                field = Randomize(resources.fields[6])
-                comment=Randomize(commentary.commentary_six)
-                PrintInColor (field + " SIX! " + comment, Fore.GREEN)
-            elif run == 0:
-                comment=Randomize(commentary.commentary_dot_ball)
-                print ('{0}, No Run'.format(comment))
-            else:
-                field = Randomize(resources.fields["ground_shot"])
-                comment=Randomize(commentary.commentary_ground_shot)
-                print ('{0},{1} {2} run'.format(comment, field, str(run)))
-
-            bowler.balls_bowled += 1
-            bowler.runs_given += run
-            PairFaceBall(pair, run)
-            batting_team.total_balls += 1
-            batting_team.total_score += run
-
-            # add this to bowlers history
-            bowler.ball_history.append(run)
-
-            #check for milestones
-            CheckMilestone(pair, batting_team)
+        #appropriate commentary for 4s and 6s
+        if run == 4:
+            field = Randomize(resources.fields[4])
+            comment=Randomize(commentary.commentary_four)
+            PrintInColor (field + " FOUR! " + comment, Fore.GREEN)
+            #check if first ball hit for a boundary
+            if on_strike.balls == 0:
+                PrintInColor(Randomize(commentary.commentary_firstball_four), Fore.GREEN)
+            if CheckForConsecutiveBalls(bowler, 4) == True:
+                PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
+        elif run == 6:
+            #check uf furst ball is hit
+            if on_strike.balls == 0:
+                PrintInColor(Randomize(commentary.commentary_firstball_six), Fore.GREEN)
+            if CheckForConsecutiveBalls(bowler, 6) == True:
+                PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
+            field = Randomize(resources.fields[6])
+            comment=Randomize(commentary.commentary_six)
+            PrintInColor (field + " SIX! " + comment, Fore.GREEN)
+        #dot ball
+        elif run == 0:
+            comment=Randomize(commentary.commentary_dot_ball)
+            print ('{0}, No Run'.format(comment))
+        #ones and twos and threes
+        else:
+            field = Randomize(resources.fields["ground_shot"])
+            comment=Randomize(commentary.commentary_ground_shot)
+            print ('{0},{1} {2} run'.format(comment, field, str(run)))
+        #update balls runs
+        bowler.balls_bowled += 1
+        bowler.runs_given += run
+        PairFaceBall(pair, run)
+        batting_team.total_balls += 1
+        batting_team.total_score += run
+        # add this to bowlers history
+        bowler.ball_history.append(run)
+        #check for milestones
+        CheckMilestone(pair, batting_team)
 
 #print bowlers stats
 def DisplayBowlingStats(team):
@@ -780,8 +783,6 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
         if match.overs == 50:
             run = choice([-1,0,1,2,3,4,5,6], 1, p=match.venue.run_prob, replace=False)[0]
         else:
-            #t20
-            #run = Randomize(resources.runs_t20)
             run = choice([-1,0,1,2,3,4,5,6], 1, p=resources.t20_run_prob, replace=False)[0]
 
         #check if maiden or not
@@ -809,8 +810,8 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
                     last_fow = batting_team.fow[-1].runs
                     last_partnership_runs = batting_team.total_score - last_fow
                     last_partnership = Partnership(batsman_dismissed=pair[0],
-                                          batsman_onstrike=pair[1],
-                                          runs=last_partnership_runs)
+                                                    batsman_onstrike=pair[1],
+                                                    runs=last_partnership_runs)
                     batting_team.partnerships.append(last_partnership)
                 input('press enter to continue')
                 break
