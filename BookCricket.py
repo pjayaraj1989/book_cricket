@@ -10,7 +10,7 @@ if __name__ == "__main__":
     ScriptPath = os.path.dirname(os.path.abspath(__file__))
     log_file = 'log_{0}_v_{1}_{2}_{3}_ovrs.log'.format(match.team1.name,
                                                    match.team2.name,
-                                                   match.venue.name,
+                                                   match.venue.name.replace(' ','_'),
                                                    str(match.overs))
     log = os.path.join(ScriptPath,'logs',log_file)
     if os.path.isfile(log): os.remove(log)
