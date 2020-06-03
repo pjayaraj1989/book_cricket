@@ -30,13 +30,13 @@ if __name__ == "__main__":
     match.team2=match.batting_second
     #play one inns
     Play(match, match.team1, match.team2, match.team1.opening_pair, match.team2.bowlers)
-    DisplayScore(match.team1)
-    DisplayBowlingStats(match.team2)
+    DisplayScore(match, match.team1)
+    DisplayBowlingStats(match, match.team2)
     #play second inns with target
     match.team2.target = match.team1.total_score+1
     Play(match, match.team2, match.team1, match.team2.opening_pair, match.team1.bowlers)
-    DisplayScore(match.team2)
-    DisplayBowlingStats(match.team1)
+    DisplayScore(match, match.team2)
+    DisplayBowlingStats(match, match.team1)
     #show results
     result = CalculateResult(match)
     match.result = result

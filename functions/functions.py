@@ -113,6 +113,7 @@ def DisplayPlayingXI(match):
 
 #toss
 def Toss (match):
+    logger = match.logger
     print('Toss..')
     if match.team1.captain is None or match.team2.captain is None:
         Error_Exit('No captains assigned!')
@@ -132,13 +133,15 @@ def Toss (match):
     coin=Randomize([1,2])
     coin=int(coin)
     if coin == call:
-        PrintInColor('{0} won the toss, batting first'.format(match.team1.captain.name),
-                     match.team1.color)
+        msg = '{0} won the toss, elected to bat first'.format(match.team1.captain.name)
+        PrintInColor(msg, match.team1.color)
+        logger.info(msg)
         match.team1.batting_second=False
         match.team2.batting_second=True
     else:
-        PrintInColor('{0} won the toss, batting first'.format(match.team2.captain.name),
-                     match.team2.color)
+        msg = '{0} won the toss, elected to bat first'.format(match.team2.captain.name)
+        PrintInColor(msg, match.team2.color)
+        logger.info(msg)
         match.team2.batting_second=False
         match.team1.batting_second=True
     #now find out who is batting first
@@ -298,11 +301,18 @@ def GetRequiredRate(totalovers, team):
     return nrr
 
 #batting summary - scoreboard
-def DisplayScore(team):
-    ch='-'
+def DisplayScore(match, team):
+    logger=match.logger
+    ch = '-'
     print(ch*45)
-    PrintInColor(ch*15 + 'Batting Summary' + ch*15, team.color)
-    print (ch*45)
+    logger.info(ch*45)
+
+    msg = ch*15 + 'Batting Summary' + ch*15
+    PrintInColor(msg, team.color)
+    logger.info(msg)
+    print(ch*45)
+    logger.info(ch*45)
+
     #this should be a nested list of 3 elements
     data_to_print = []
     for p in team.team_array:
@@ -317,18 +327,24 @@ def DisplayScore(team):
         else:
             data_to_print.append([name, p.dismissal, "{0} ({1})".format(str(p.runs), str(p.balls))])
 
-    PrintListFormatted(data_to_print, 0.01, None)
+    PrintListFormatted(data_to_print, 0.01, logger)
 
-    print ("Extras: " + str(team.extras))
+    msg = "Extras: " + str(team.extras)
+    logger.info (msg)
     print (' ')
-    PrintInColor('{0} {1}/{2} from ({3} overs)'.format(team.name.upper(),
+    logger.info(' ')
+
+    msg = '{0} {1}/{2} from ({3} overs)'.format(team.name.upper(),
                                                        str(team.total_score),
                                                        str(team.wickets_fell),
-                                                       str(BallsToOvers(team.total_balls))),
-                 team.color)
+                                                       str(BallsToOvers(team.total_balls)))
+    PrintInColor(msg, team.color)
+    logger.info(msg)
+
     #show FOW
     if team.wickets_fell != 0:
-        PrintInColor('F.O.W:', Style.BRIGHT)
+        PrintInColor('FOW:', Style.BRIGHT)
+        logger.info('FOW:')
         #get fow_array
         fow_array = []
         for f in team.fow:
@@ -338,14 +354,21 @@ def DisplayScore(team):
                                                       str(BallsToOvers(f.total_balls))))
         fow_str = ', '.join(fow_array)
         PrintInColor(fow_str, team.color)
+        logger.info(fow_str)
+
     #partnerships
-    PrintInColor("Partnerships:", Style.BRIGHT)
+    msg = "Partnerships:"
+    PrintInColor(msg, Style.BRIGHT)
+    logger.info(msg)
     for p in team.partnerships:
-        print('{0} - {1} :\t{2}'.format(GetShortName(p.batsman_onstrike.name),
+        msg = '{0} - {1} :\t{2}'.format(GetShortName(p.batsman_onstrike.name),
                                         GetShortName(p.batsman_dismissed.name),
-                                        str(p.runs)))
+                                        str(p.runs))
+        print(msg)
+        logger.info(msg)
 
     print (ch*45)
+    logger.info(ch*45)
 
 #match summary
 def MatchSummary(match):
@@ -669,17 +692,23 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
         CheckMilestone(pair, batting_team)
 
 #print bowlers stats
-def DisplayBowlingStats(team):
+def DisplayBowlingStats(match, team):
+    logger = match.logger
     bowlers=team.bowlers
     #here, remove the bowlers who didnt bowl
     bowlers_updated=[]
     char='-'
     print (char*45)
-    PrintInColor (char*15 + '-Bowling Stats-' + char*15, Style.BRIGHT)
+    logger.info(char*45)
+
+    msg = char*15 + '-Bowling Stats-' + char*15
+    PrintInColor (msg, Style.BRIGHT)
+    logger.info(msg)
     print (char*45)
+    logger.info(char*45)
     eco=0.0
     #nested list of fixed size elements
-    data_to_print=[['Bowler', 'Ovr', 'Mdn', 'Runs', 'Wkts', 'Eco']]
+    data_to_print=[['Bowler', 'Ovrs', 'Mdns', 'Runs', 'Wkts', 'Eco']]
     for bowler in bowlers:
         #dont print if he hasnt bowled
         if bowler.balls_bowled != 0:
@@ -691,8 +720,9 @@ def DisplayBowlingStats(team):
             bowler.eco = eco
             data_to_print.append([GetShortName(bowler.name), str(overs), str(bowler.maidens), str(bowler.runs_given), str(bowler.wkts), str(bowler.eco)])
 
-    PrintListFormatted(data_to_print, 0.01, None)
+    PrintListFormatted(data_to_print, 0.01, logger)
     print (char*45)
+    logger.info(char*45)
     input('press enter to continue..')
     team.bowlers = bowlers_updated
 
