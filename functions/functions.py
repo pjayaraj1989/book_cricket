@@ -776,12 +776,13 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
 
         #generate run
         #if odi
+        from numpy.random import choice
         if match.overs == 50:
-            from numpy.random import choice
             run = choice([-1,0,1,2,3,4,5,6], 1, p=match.venue.run_prob, replace=False)[0]
         else:
             #t20
-            run = Randomize(resources.runs_t20)
+            #run = Randomize(resources.runs_t20)
+            run = choice([-1,0,1,2,3,4,5,6], 1, p=resources.t20_run_prob, replace=False)[0]
 
         #check if maiden or not
         if run != 0 or run != -1:

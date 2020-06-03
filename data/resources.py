@@ -1,7 +1,6 @@
-#venues
 from functions.helper import Venue
 
-#weightage for runs -1,0,1,2,3,4,5,6
+#weightage for runs in the order -1,0,1,2,3,4,5,6
 venue_lords=Venue(name="Lords", run_prob=[0.03, 0.36, 0.27, 0.11, 0.1, 0.01 , 0.11, 0.01])
 venue_mcg=Venue(name="The MCG", run_prob=[0.03, 0.36, 0.27, 0.11, 0.1, 0.01 , 0.11, 0.01])
 venue_perth=Venue(name="The WACA, Perth", run_prob=[0.06, 0.33, 0.27, 0.11, 0.1, 0.01 , 0.11, 0.01])
@@ -19,45 +18,54 @@ class resources():
     match_venues = [venue_lords,venue_barbados,venue_colombo,venue_joburg,venue_bangalore,
                     venue_centurion,venue_edgbaston, venue_mcg, venue_mumbai,venue_perth, venue_scg]
 
-    runs_t20 = [0,0,6,0,0,3,1,1,6,1,4,1,-1,1,4,1,2,5]
+    #prob distribution for t20 match
+    t20_run_prob = [0.05, 0.34, 0.27, 0.07, 0.1, 0.11 , 0.01, 0.05]
 
     commentators = ['Harsha Bhogle',
-                'Ramiz Raja',
-                'Tony Greig',
-                'Ian Smith',
-                'Sunil Gavaskar',
-                'Sanjay Manjrekar',
-                'Ravi Shastri',
-                'Richie Benaud',
-                'Phil Tufnel',
-                'Pommie Mbangwa',
-                'Nasser Hussain']
+                    'Ramiz Raja',
+                    'Tony Greig',
+                    'Ian Smith',
+                    'Sunil Gavaskar',
+                    'Sanjay Manjrekar',
+                    'Ravi Shastri',
+                    'Richie Benaud',
+                    'Phil Tufnel',
+                    'Pommie Mbangwa',
+                    'Nasser Hussain']
 
-    umpires = ['Kumar Dharmasena',
-                'Ian Gould',
-                'Asad Rauf',
-                'Aleem Dar',
-                'Nitin Menon',
-                'Marais Erasmus',
-                'Richard Kettleborough',
-                'Nigel Llong',
-                'Paul Reiffel',
-                'Richard Illingworth',
-                'Simon Tauffel',
-                'S Ravi',
-                'Billy Bowden',]
+    umpires = ['Kumar Dharmasena (SriLanka)',
+                'Ian Gould (England)',
+                'Asad Rauf (Pakistan)',
+                'Aleem Dar (Pakistan)',
+                'Nitin Menon (India)',
+                'Marais Erasmus (SouthAfrica)',
+                'Richard Kettleborough (England)',
+                'Nigel Llong (England)',
+                'Paul Reiffel (Australia)',
+                'Rudi Koertzen (SouthAfrica)',
+                'Richard Illingworth (England)',
+                'Simon Tauffel (Australia)',
+                'S. Ravi (India)',
+                'Steve Davis (Australia)',
+                'Joel Wilson (WestIndies)',
+                'Mark Benson (England)',
+                'Bruce Oxenford (Australia)',
+                'Billy Doctrove (WestIndies)',
+                'Billy Bowden (NewZealand)',]
 
     #fielders
-    fields = {  4 : ['over first slip!',
+    fields = {  4 : ['thats gone over first slip!',
                      'through the covers',
                      'punched off the backfoot',
                      'driven off the front foot',
                      'advances down the ground',
                      'driven through extra cover',
                      'reverse sweep',
-                     'moved across the line and steers it through fine leg',
+                     'wristy flick, well steered into the legside',
+                     'punched it through the gap! unbelievable timing!',
+                     'moved across the line and steered it through fine leg',
                      'lofted in the air',
-                     'cut through point',
+                     'cut hard through point',
                      'flicks it towards the leg side',
                      'solidly played through extra cover',
                      'square cut over the point fielder',
@@ -81,6 +89,10 @@ class resources():
                     'driven nicely through midwicket',
                     'hit that hard through point',
                     'steered it towards fine leg',
+                    'well timed it into the leg side ',
+                    'steered expertly into the gap!',
+                    'advances and drives it straight!',
+                    'punched through extra cover',
                     'runs it down the third man',],
     }
 
