@@ -90,6 +90,12 @@ class commentary():
                             '5 down and i am afraid the flood gates have opened!',
                             'half down and the tail is exposed!']
 
+    #commentary last man
+    commentary_lastman = ['last man coming out to bat!',
+                          '9 down, last wicket coming out to bat',
+                          'now they will be trying to mop up the tail!',
+                          'tail ender coming out into the middle!']
+
     #hit wkt
     commentary_hit_wkt = ['gone! he has hit the stumps!']
 
