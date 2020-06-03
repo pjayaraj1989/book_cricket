@@ -19,7 +19,7 @@ class resources():
                     venue_centurion,venue_edgbaston, venue_mcg, venue_mumbai,venue_perth, venue_scg]
 
     #prob distribution for t20 match
-    t20_run_prob = [0.05, 0.34, 0.27, 0.07, 0.1, 0.11 , 0.01, 0.05]
+    t20_run_prob = [0.08, 0.37, 0.27, 0.07, 0.1, 0.05 , 0.01, 0.05]
 
     commentators = ['Harsha Bhogle',
                     'Ramiz Raja',
