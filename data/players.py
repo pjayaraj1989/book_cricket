@@ -126,7 +126,7 @@ kaif=Player(name='Mohammad Kaif',attr=PlayerAttr(batting=7))
 laxman=Player(name='V.V.S. Laxman',attr=PlayerAttr(batting=7))
 mongia=Player(name='Dinesh Mongia',attr=PlayerAttr(bowling=6,batting=6, isspinner=True))
 harbhajan=Player(name='Harbhajan Singh',attr=PlayerAttr(bowling=8,isspinner=True))
-zaheer=Player(name='Zaheer Khan',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+zaheer=Player(name='Zaheer Khan',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 nehra=Player(name='Ashish Nehra',attr=PlayerAttr(bowling=8), no=64)
 agarkar=Player(name='Ajit Agarkar',attr=PlayerAttr(bowling=8, isopeningbowler=False))
 srinath=Player(name='Javagal Srinath',attr=PlayerAttr(bowling=9, isopeningbowler=True))
@@ -146,7 +146,7 @@ bichel=Player(name='Andy Bichel',attr=PlayerAttr(bowling=8))
 lee=Player(name='Brett Lee',attr=PlayerAttr(bowling=9))
 mcgrath=Player(name='Glenn McGrath',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 swaugh=Player(name='Steve Waugh',attr=PlayerAttr(batting=6, bowling=8))
-mjohnson=Player(name='Mitchell Johnson',attr=PlayerAttr(batting=7, bowling=8,isopeningbowler=True))
+mjohnson=Player(name='Mitchell Johnson',attr=PlayerAttr(batting=7, bowling=9,isopeningbowler=True))
 
 
 #classic pak
@@ -159,8 +159,8 @@ inzamam=Player(name='Inzamam Ul-Haq',attr=PlayerAttr(batting=7))
 afridi=Player(name='Shahid Afridi',attr=PlayerAttr(batting=7, bowling=7, isspinner=True))
 razzaq=Player(name='Abdur Razzaq',attr=PlayerAttr(bowling=6,batting=6))
 saqlain=Player(name='Saqlain Mushtaq',attr=PlayerAttr(batting=6,bowling=7,isspinner=True))
-akram=Player(name='Wasim Akram',attr=PlayerAttr(bowling=8, isopeningbowler=True))
-waqar=Player(name='Waqar Younis',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+akram=Player(name='Wasim Akram',attr=PlayerAttr(bowling=9, isopeningbowler=True))
+waqar=Player(name='Waqar Younis',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 akhtar=Player(name='Shoaib Akhtar',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 
 #classic england
@@ -172,8 +172,8 @@ stewart=Player(name='Alec Stewart',attr=PlayerAttr(batting=7, iskeeper=True))
 collingwood=Player(name='Paul Collingwood',attr=PlayerAttr(batting=7, bowling=7))
 flintoff=Player(name='Andrew Flintoff',attr=PlayerAttr(bowling=8,batting=6))
 giles=Player(name='Ashley Giles',attr=PlayerAttr(batting=6,bowling=7, isspinner=True))
-hoggard=Player(name='Matthew Hoggard',attr=PlayerAttr(bowling=8, isopeningbowler=True))
-caddick=Player(name='Andy Caddick',attr=PlayerAttr(bowling=8, isopeningbowler=True))
+hoggard=Player(name='Matthew Hoggard',attr=PlayerAttr(bowling=9, isopeningbowler=True))
+caddick=Player(name='Andy Caddick',attr=PlayerAttr(bowling=9, isopeningbowler=True))
 anderson=Player(name='James Anderson',attr=PlayerAttr(bowling=9))
 
 #classic srilanka
@@ -186,7 +186,7 @@ arnold=Player(name='Russel Arnold',attr=PlayerAttr(batting=7, bowling=7, isspinn
 samaraweera=Player(name='Thilan Samaraweera',attr=PlayerAttr(bowling=6,batting=6, isspinner=True))
 vaas=Player(name='Chaminda Vaas',attr=PlayerAttr(batting=6,bowling=9, isopeningbowler=True))
 fernando=Player(name='Dilhara Fernando',attr=PlayerAttr(bowling=8))
-gunaratne=Player(name='Pulasti Gunaratne',attr=PlayerAttr(bowling=8))
+zoysa=Player(name='Nuwan Zoysa',attr=PlayerAttr(bowling=8))
 murali=Player(name='Muttiah Muralitharan',attr=PlayerAttr(bowling=8, isspinner=True))
 
 #classic SA

@@ -72,7 +72,7 @@ team_eng_classic = Team(team_array=eng_classic,color=Fore.LIGHTBLUE_EX,
                         name="England-Legends",key='ENG',captain=hussain,
                         opening_pair=[trescothik,knight])
 
-sri_classic = [atapattu,jayasuriya,adesilva,sangakkara,jayawardene,arnold,samaraweera,vaas,fernando,gunaratne,murali]
+sri_classic = [atapattu,jayasuriya,adesilva,sangakkara,jayawardene,arnold,samaraweera,vaas,fernando,zoysa,murali]
 team_sri_classic = Team(team_array=sri_classic,color=Fore.MAGENTA,
                         name="SriLanka-Legends",key='SL',captain=jayasuriya,
                         opening_pair=[jayasuriya,atapattu])
@@ -93,7 +93,7 @@ team_nz_classic = Team(team_array=nz_classic,color=Fore.CYAN,
                        opening_pair=[fleming,astle])
 
 #all time XI
-sachin_xi = [hayden, sachin, lara, jayawardene, hooper, boucher, klusener, pollock, kumble, murali, mcgrath]
+sachin_xi = [hayden, sachin, lara, jayawardene, hooper, boucher, klusener, pollock, vaas, murali, mcgrath]
 team_sachin_xi = Team(team_array = sachin_xi,color=Fore.CYAN, name="SachinTendulkarXI",key='ST',captain=sachin,opening_pair=[hayden, sachin])
 
 ponting_xi = [ganguly, jayasuriya, gibbs, ponting, sangakkara, kallis, symonds, warne, zaheer, lee, donald]
