@@ -452,7 +452,7 @@ def MatchSummary(match):
     PrintListFormatted(data_to_print, 0.01, logger)
     print('-' * 43)
     logger.info('-' * 43)
-    input('Press any key to exit..')
+    input('Press Enter to continue..')
 
 #batsman out
 def BatsmanOut(pair, dismissal):
