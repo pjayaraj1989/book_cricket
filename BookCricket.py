@@ -11,7 +11,10 @@ def PlayMatch():
                                                        match.team2.name,
                                                        match.venue.name.replace(' ', '_'),
                                                        str(match.overs))
-    log = os.path.join(ScriptPath, 'logs', log_file)
+    log_folder = os.path.join(ScriptPath, 'logs')
+    if not os.path.exists(log_folder):
+        os.makedirs(log_folder)
+    log = os.path.join(log_folder,log_file)
     if os.path.isfile(log): os.remove(log)
     import logging
     logger = logging.getLogger(__name__)
