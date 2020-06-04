@@ -47,12 +47,6 @@ def PlayMatch():
     handler.close()
 
 if __name__ == "__main__":
-    while True:
-        PlayMatch()
-        restart = input("Would you like to restart this program? y/n")
-        if restart == "yes" or restart == "y":
-            continue
-        elif restart == "n" or restart == "no":
-            print("Thanks for playing, goodbye!")
-            break
+    PlayMatch()
+    print("Thanks for playing, goodbye!")
 
