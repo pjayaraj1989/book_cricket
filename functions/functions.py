@@ -330,6 +330,7 @@ def DisplayScore(match, team):
     PrintListFormatted(data_to_print, 0.01, logger)
 
     msg = "Extras: " + str(team.extras)
+    print(msg)
     logger.info (msg)
     print (' ')
     logger.info(' ')
@@ -626,6 +627,9 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair):
         None
     #comment dismissal
     PrintInColor(comment, Style.BRIGHT)
+    #if he missed a fifty or century
+    if 90 <= player_dismissed.runs < 100:
+        PrintInColor(Randomize(commentary.commentary_nineties), Style.BRIGHT)
     # if its a great knock, say this
     if player_dismissed.runs > 50:
         PrintInColor(Randomize(commentary.commentary_out_fifty), Style.BRIGHT)

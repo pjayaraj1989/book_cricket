@@ -220,6 +220,12 @@ class commentary():
                                     'Thats a slow walk back when youre out first ball!',
                                     'He is out without disturbing the scoreboard!',]
 
+    commentary_nineties = ['Oh he will be so dissapointed! Gone in the nineties!'
+                           'missed a deserving century!',
+                           'gone in the nervous nineties! he will be so dissapointed here!',
+                           'needless shot! lost a brilliant century!',
+                           'oh missed a well deserving ton!']
+
     commentary_out_duck = ['The batsman will be so dissapointed.. he is gone for nothing!',
                            'gone for a duck! His nightmare continues!',
                            'thats his second duck in a row in this season!',
