@@ -35,7 +35,7 @@ class PlayerAttr():
 #player details
 class Player():
     def __init__(self, **kwargs):
-        attr=onstrike=runs=fours=sixes=no=balls=name=status=wkts=balls_bowled=runs_given=hattricks=ball_history=dismissal=maidens=eco=fifty=hundred=strikerate=max_overs=None
+        attr=onstrike=runs=fours=sixes=singles=doubles=threes=no=balls=name=status=wkts=balls_bowled=runs_given=hattricks=ball_history=dismissal=maidens=eco=fifty=hundred=strikerate=max_overs=None
         self.attr=None
         self.no=None
         self.onstrike=None
@@ -57,6 +57,9 @@ class Player():
         self.hattricks=0
         self.fours=0
         self.sixes=0
+        self.singles=0
+        self.doubles=0
+        self.threes=0
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='no': self.no=v
@@ -80,6 +83,9 @@ class Player():
                 if k=='hattricks':  self.hattricks=v
                 if k=='fours':  self.fours=v
                 if k=='sixes':  self.sixes=v
+                if k=='singles':    self.singles=v
+                if k=='doubles':    self.doubles=v
+                if k=='threes': self.threes=v
 
 #match details
 class Match():

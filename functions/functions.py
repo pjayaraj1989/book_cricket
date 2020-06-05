@@ -539,14 +539,26 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair):
     pair = BatsmanOut(pair, dismissal)
     player_dismissed = next((x for x in pair if x.status == False), None)
     player_onstrike = next((x for x in pair if x.status == True), None)
+
     # check if player dismissed is captain
     if player_dismissed.attr.iscaptain == True:
         PrintInColor(Randomize(commentary.commentary_captain_out), bowling_team.color)
+
     PrintInColor("OUT ! {0} {1} {2} ({3}) SR: {4}".format(GetShortName(player_dismissed.name),
                                                           player_dismissed.dismissal,
                                                           str(player_dismissed.runs),
                                                           str(player_dismissed.balls),
-                                                          str(player_dismissed.strikerate)), Fore.RED)
+                                                          str(player_dismissed.strikerate)),
+                 Fore.RED)
+
+    #show 4s, 6s
+    PrintInColor("4s:{0}, 6s:{1}, 1s:{2}, 2s:{3} 3s:{4}".format(str(player_dismissed.fours),
+                                               str(player_dismissed.sixes),
+                                                str(player_dismissed.singles),
+                                                str(player_dismissed.doubles),
+                                                str(player_dismissed.threes)),
+                 Style.BRIGHT)
+
     # detect a hat-trick!
     isHattrick = CheckForConsecutiveBalls(bowler, 'Wkt')
     if isHattrick == True:
@@ -689,6 +701,10 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             field = Randomize(resources.fields["ground_shot"])
             comment=Randomize(commentary.commentary_ground_shot)
             print ('{0},{1} {2} run'.format(comment, field, str(run)))
+            #update 1s and 2s
+            if run == 1:    on_strike.singles += 1
+            elif run == 2:  on_strike.doubles += 1
+            elif run == 3:  on_strike.threes += 1
         #update balls runs
         bowler.balls_bowled += 1
         bowler.runs_given += run
