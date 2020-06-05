@@ -667,6 +667,8 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
                 PrintInColor(Randomize(commentary.commentary_firstball_four), Fore.GREEN)
             if CheckForConsecutiveBalls(bowler, 4) == True:
                 PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
+            #inc numbers of 4s
+            on_strike.fours += 1
         elif run == 6:
             #check uf furst ball is hit
             if on_strike.balls == 0:
@@ -676,6 +678,8 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             field = Randomize(resources.fields[6])
             comment=Randomize(commentary.commentary_six)
             PrintInColor (field + " SIX! " + comment, Fore.GREEN)
+            #inc nuber of 6s
+            on_strike.sixes += 1
         #dot ball
         elif run == 0:
             comment=Randomize(commentary.commentary_dot_ball)
@@ -888,6 +892,7 @@ def CheckMilestone(pair, batting_team):
             comment=Randomize(commentary.commentary_milestone)
             p.fifty += 1
             PrintInColor("50 for {0}!".format(p.name), batting_team.color)
+            PrintInColor("{0} fours and {1} sixes".format(str(p.fours), str(p.sixes)), Style.BRIGHT)
             #check if captain
             if p.attr.iscaptain == True:
                 PrintInColor(Randomize(commentary.commentary_captain_leading), batting_team.color)
@@ -899,6 +904,7 @@ def CheckMilestone(pair, batting_team):
             p.hundred += 1
             p.fifty += 1
             PrintInColor("100 for {0}!".format(p.name),  batting_team.color)
+            PrintInColor("{0} fours and {1} sixes".format(str(p.fours), str(p.sixes)), Style.BRIGHT)
             #check if captain
             if p.attr.iscaptain == True:
                 PrintInColor(Randomize(commentary.commentary_captain_leading), batting_team.color)
@@ -909,6 +915,7 @@ def CheckMilestone(pair, batting_team):
             comment=Randomize(commentary.commentary_milestone)
             p.hundred += 1
             PrintInColor("200 for {0}! What a superman!".format(p.name),  batting_team.color)
+            PrintInColor("{0} fours and {1} sixes".format(str(p.fours), str(p.sixes)), Style.BRIGHT)
             #check if captain
             if p.attr.iscaptain == True:
                 PrintInColor(Randomize(commentary.commentary_captain_leading), batting_team.color)
