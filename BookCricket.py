@@ -48,5 +48,4 @@ def PlayMatch():
 
 if __name__ == "__main__":
     PlayMatch()
-    print("Thanks for playing, goodbye!")
-
+    input("Thanks for playing, goodbye!")
