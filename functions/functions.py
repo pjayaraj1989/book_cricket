@@ -292,7 +292,7 @@ def FindPlayerOfTheMatch(match):
     #if a player is found in both top batsmen and bowler list he is my MOM
     common_players = None
     common_players = list(set(best_bowlers).intersection(best_batsmen))
-    if len(common_players) is not 0:    best_player = common_players[0]
+    if len(common_players) != 0:    best_player = common_players[0]
 
     match.result.mom = best_player
 
