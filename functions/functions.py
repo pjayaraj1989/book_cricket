@@ -32,7 +32,7 @@ def GetMatchInfo():
 
     teams = [l.key for l in list_of_teams]
 
-    overs=input('Select overs\n')
+    overs=input('Select overs (multiple of 5)\n')
     if overs.isdigit() == False:    Error_Exit("Invalid entry")
     overs=int(overs)
     #overs should be max 50
