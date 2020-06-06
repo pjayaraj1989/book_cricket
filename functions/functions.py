@@ -257,15 +257,42 @@ def FindPlayerOfTheMatch(match):
     team_won = max([match.team1,match.team2], key=attrgetter('total_score'))
     team_lost = min([match.team1,match.team2], key=attrgetter('total_score'))
     best_player = None
+    best_batsman = None
+    best_bowler = None
+
+    #find best batsman, bowler from winning team
+    #always two batsmen will play
+    best_batsmen = sorted(team_won.team_array, key=attrgetter('runs'), reverse=True)
+    best_bowlers = sorted(team_won.bowlers, key=attrgetter('wkts'), reverse=True)
+
+    #now process these lists
+    #if both have same runs, pick who is not out
+    if len(best_batsmen) > 2:
+        best_batsmen = best_batsmen[:2]
+        if best_batsmen[0].runs == best_batsmen[1].runs:
+            best_batsman = [plr for plr in best_batsmen if plr.status == True][0]
+        else:   best_batsman = best_batsmen[0]
+
+    #if same no of wkts, check eco
+    if len(best_bowlers) > 2:
+        best_bowlers = best_bowlers[:2]
+        if best_bowlers[0].wkts == best_bowlers[1].wkts:
+            best_bowler = sorted(best_bowlers, key=attrgetter('eco'), reverse=False)[0]
+        else:   best_bowler = best_bowlers[0]
 
     #if scores tied, select randomly
     if team_won.total_score == team_lost.total_score:
         best_player = max(team_won.team_array, key=attrgetter('runs'))
     #check if win margin is >50% , if so, give credit to bowlers, else batsmen
     elif (float(team_won.total_score / team_lost.total_score)  >= 1.2):
-        best_player = max(team_won.team_array, key=attrgetter('wkts'))
+        best_player = best_bowler
     else:
-        best_player = max(team_won.team_array, key=attrgetter('runs'))
+        best_player = best_batsman
+
+    #if a player is found in both top batsmen and bowler list he is my MOM
+    common_players = None
+    common_players = list(set(best_bowlers).intersection(best_batsmen))
+    if len(common_players) is not 0:    best_player = common_players[0]
 
     match.result.mom = best_player
 
