@@ -126,9 +126,11 @@ def Toss (match):
     match.team2.captain.attr.iscaptain = True
 
     print ('{0} is gonna flip the coin'.format(match.team2.captain.name))
+    opts = ['1','2']
     call=input('{0}, Heads or tails? 1.Heads 2.Tails\n'.format(match.team1.captain.name))
-    if call == '' or None:
-        Error_Exit("Invalid choice!")
+    if call == '' or call not in opts:
+        call = Randomize(opts)
+        print("Invalid choice!..autoselected")
     call=int(call)
     coin=Randomize([1,2])
     coin=int(coin)
@@ -197,6 +199,10 @@ def CalculateResult(match):
     bowlers_t1=match.team1.bowlers
     bowlers_t2=match.team2.bowlers
 
+    #from the bowlers list, get rid of those who didnt bowl at all
+    bowlers_t1 = [plr for plr in bowlers_t1 if plr.balls_bowled > 0]
+    bowlers_t2 = [plr for plr in bowlers_t2 if plr.balls_bowled > 0]
+
     result = Result(team1=team1, team2=team2)
     #see who won
     loser=None
@@ -220,19 +226,23 @@ def CalculateResult(match):
         if result.winner.batting_second == True:
             win_margin = 10 - result.winner.wickets_fell
             if win_margin != 0:
-                result.result_str += " by {0} wickets".format(str(win_margin))
+                result.result_str += " by {0} wicket(s) with {1} ball(s) left".format(str(win_margin),
+                                                                                    str(match.overs*6 - result.winner.total_balls))
         elif result.winner.batting_second == False:
             win_margin = abs(result.winner.total_score - loser.total_score)
             if win_margin != 0:
-                result.result_str += " by {0} runs".format(str(win_margin))
+                result.result_str += " by {0} run(s)".format(str(win_margin))
     #only bowlers who bowled
-    bowlers_list = bowlers_t1 + bowlers_t2
-    result=FindBestPlayers(result, bowlers_list)
-    return result
+    #bowlers_list = bowlers_t1 + bowlers_t2
+    #result=FindBestPlayers(result, bowlers_list)
+    match.result = result
 
 #find best player
-def FindBestPlayers(result, bowlers_list):
+def FindBestPlayers(match):
+    result = match.result
     total_players = result.team1.team_array + result.team2.team_array
+    bowlers_list = match.team1.bowlers + match.team2.bowlers
+
     #find best batsman
     most_runs = sorted(total_players, key=lambda x: x.runs, reverse=True)
     if len(most_runs) >= 3:
@@ -295,7 +305,6 @@ def FindPlayerOfTheMatch(match):
     if len(common_players) != 0:    best_player = common_players[0]
 
     match.result.mom = best_player
-
     msg = "Player of the match: {0}".format(best_player.name)
     PrintInColor(msg, Style.BRIGHT)
     match.logger.info(msg)
@@ -310,7 +319,7 @@ def PairFaceBall(pair, run):
     elif ind == 1:  alt_ind=0
     pair[ind].runs += run
     pair[ind].balls += 1
-    #now if runs is 1/3
+    #now if runs is 1 / 3
     if (run % 2 != 0):
         pair[ind].onstrike = False
         pair[alt_ind].onstrike = True
@@ -972,8 +981,11 @@ def CheckMilestone(pair, batting_team):
             None
 
 #play!
-def Play(match, batting_team, bowling_team, pair, bowlers):
+def Play(match, batting_team, bowling_team):
     overs=match.overs
+    pair = batting_team.opening_pair
+    bowlers = bowling_team.bowlers
+
     if batting_team.batting_second is True:
         PrintInColor('Target for {0}: {1} from {2} overs'.format(batting_team.name,
                                                                  str(batting_team.target),
