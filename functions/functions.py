@@ -18,27 +18,41 @@ def GetMatchInfo():
     import random
     commentator = random.sample(set(resources.commentators), 2)
     umpire = Randomize(resources.umpires)
-
     #welcome text
     PrintInColor(commentary.intro_game, Style.BRIGHT)
-
-    #select option: International / Legends / IPL
-    opt = input("Select Mode: 1.International 2.Legends 3.All Stars")
-    list_of_teams=[]
-    if opt.isdigit() == False or opt not in ['1','2','3']:  Error_Exit("Invalid choice")
-    if opt == '1':    list_of_teams = teams_int
-    elif opt == '2':    list_of_teams = teams_classic
-    elif opt == '3':    list_of_teams = teams_all_time
-
+    #no of tries
+    n = 3
+    list_of_teams = []
+    while n > 0:
+        opt = input("Select Mode: 1.International 2.Legends 3.All Stars")
+        if opt == '1':
+            list_of_teams = teams_int
+            break
+        elif opt == '2':
+            list_of_teams = teams_classic
+            break
+        elif opt == '3':
+            list_of_teams = teams_all_time
+            break
+        else:
+            n -= 1
+            if n == 0:
+                Error_Exit("exiting!")
+            else:
+                print ('Invalid choice! Try again')
+                continue
+    #list of teams
     teams = [l.key for l in list_of_teams]
-
+    #select overs
     overs=input('Select overs (multiple of 5)\n')
-    if overs.isdigit() == False:    Error_Exit("Invalid entry")
+    if (overs.isdigit() == False) or \
+            (int(overs)%5 != 0) or \
+            (int(overs) > 50) or \
+            (int(overs) <= 0):
+        overs = 5
+        print("Invalid entry, default {0} overs selected".format(overs))
+
     overs=int(overs)
-    #overs should be max 50
-    if overs > 50 or overs <= 0: Error_Exit('Invalid overs')
-    #has to be a multiple of 5
-    if overs%5 != 0:    Error_Exit('Overs should be a multiple of 5')
 
     #max overs alloted for each bowler
     bowler_max_overs = overs / 5
@@ -61,8 +75,12 @@ def GetMatchInfo():
 
     #initialize match with teams, overs
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
-    PrintInColor('{4}, {0}, for the exciting {1} over match between {2} and {3}'.format(venue.name,
-                                                        str(overs),
+    temp = ' '
+    if overs == 50: temp = 'ODI'
+    elif overs == 20:   temp = 'T20'
+    else:   temp = str(overs) + ' over'
+    PrintInColor('{4}, {0}, for the exciting {1} match between {2} and {3}'.format(venue.name,
+                                                        temp,
                                                         team1.name,
                                                         team2.name,
                                                        intro), Fore.CYAN)
