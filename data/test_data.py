@@ -102,7 +102,20 @@ team_ponting_xi = Team(team_array=ponting_xi,color=Fore.YELLOW, name="RickyPonti
 waugh_xi = [sehwag, gilchrist, chanderpaul, swaugh, bevan, flintoff, vettori, harbhajan, mjohnson, akram, akhtar]
 team_waugh_xi = Team(team_array=waugh_xi,color=Fore.GREEN, name="SteveWaughXI", key='SW', captain=swaugh, opening_pair=[sehwag, gilchrist])
 
+#2008 teams
+ind_08 = [ruthappa,sachin,ggambhir,yuvraj,rsharma,dhoni,ipathan,harbhajan,pkumar,pchawla,sreesanth]
+team_ind_08 = Team(team_array = ind_08, color=Fore.LIGHTCYAN_EX, name="India",key="IND",captain=dhoni,opening_pair=[ruthappa,sachin])
+
+aus_08 = [gilchrist,hayden,ponting, mclarke, symonds, mhussey, jhopes, lee, mjohnson, bracken, sclark]
+team_aus_08 = Team(team_array = aus_08, color=Fore.LIGHTYELLOW_EX, name="Australia",key="AUS",captain=ponting,opening_pair=[gilchrist,hayden])
+
+sl_08 = [tdilshan, jayasuriya, sangakkara, jayawardene, csilva, ckapugedera, fmaharoof, vaas, kulasekara, malinga, murali]
+team_sl_08 = Team(team_array = sl_08, color=Fore.LIGHTMAGENTA_EX, name="SriLanka", key="SL", captain=jayawardene, opening_pair=[tdilshan,jayasuriya])
+
 #LIST OF TEAMS
 teams_int = [team_aus, team_ind, team_eng, team_nz, team_pak, team_sa, team_wi, team_sl, team_ban]
 teams_classic = [team_aus_classic, team_pak_classic, team_ind_classic, team_eng_classic, team_sri_classic, team_sa_classic, team_wi_classic, team_nz_classic]
 teams_all_time = [team_sachin_xi, team_ponting_xi, team_waugh_xi]
+
+#On request: 2008 CB series
+teams_2008 = [team_ind_08, team_aus_08, team_sl_08]

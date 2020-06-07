@@ -24,7 +24,7 @@ def GetMatchInfo():
     n = 3
     list_of_teams = []
     while n > 0:
-        opt = input("Select Mode: 1.International 2.Legends 3.All Stars")
+        opt = input("Select Mode: 1.International 2.Legends 3.All Stars 4.2008")
         if opt == '1':
             list_of_teams = teams_int
             break
@@ -33,6 +33,9 @@ def GetMatchInfo():
             break
         elif opt == '3':
             list_of_teams = teams_all_time
+            break
+        elif opt == '4':
+            list_of_teams = teams_2008
             break
         else:
             n -= 1
