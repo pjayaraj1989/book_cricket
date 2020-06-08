@@ -253,9 +253,6 @@ def CalculateResult(match):
             win_margin = abs(result.winner.total_score - loser.total_score)
             if win_margin != 0:
                 result.result_str += " by {0} run(s)".format(str(win_margin))
-    #only bowlers who bowled
-    #bowlers_list = bowlers_t1 + bowlers_t2
-    #result=FindBestPlayers(result, bowlers_list)
     match.result = result
 
 #find best player
@@ -837,38 +834,43 @@ def UpdateLastPartnership(batting_team,pair):
     else:
         None
 
-#play an over
-def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
-    match_status = True
-    #if first over, opening bowler does it
+#assign bowler
+def AssignBowler(match, bowling_team):
+    bowlers = bowling_team.bowlers
+    # if first over, opening bowler does it
     if bowling_team.last_bowler is None:
         bowler = next((x for x in bowlers if x.attr.isopeningbowler == True), None)
     else:
         if bowling_team.last_bowler in bowlers:
-            #bowling list except the bowler who did last over and bowlers who finished their allotted overs
-            temp = [x for x in bowlers if (x != bowling_team.last_bowler and x.balls_bowled < x.max_overs*6)]
-
-        #sort this based on skill
-        temp = sorted(temp, key=lambda x: x.attr.bowling, reverse=True)
-
-        #if autoplay, let bowlers be chosen randomly
-        if match.autoplay == True:
-            bowler = Randomize(temp)
-        #esle pick bowler
-        else:
-            choice = input('Choose next bowler from: {0} [Press Enter to auto-select]'.format(' / '.join([str(x.no) + '.' + GetShortName(x.name) for x in temp])))
-            bowler = next((x for x in temp if (str(choice) == str(x.no)
-                                               or choice.lower() in GetShortName(x.name).lower()) ),
-                          None)
-            if bowler is None:
+            # bowling list except the bowler who did last over and bowlers who finished their allotted overs
+            temp = [x for x in bowlers if (x != bowling_team.last_bowler and x.balls_bowled < x.max_overs * 6)]
+            # sort this based on skill
+            temp = sorted(temp, key=lambda x: x.attr.bowling, reverse=True)
+            # if autoplay, let bowlers be chosen randomly
+            if match.autoplay == True:
                 bowler = Randomize(temp)
+            # esle pick bowler
+            else:
+                choice = input('Pick next bowler: {0} [Press Enter to auto-select]'.format(
+                                ' / '.join([str(x.no) + '.' + GetShortName(x.name) for x in temp])))
+                bowler = next((x for x in temp if (str(choice) == str(x.no)
+                                               or choice.lower() in GetShortName(x.name).lower())),
+                            None)
+                if bowler is None:
+                    bowler = Randomize(temp)
 
+    return bowler
+
+#play an over
+def PlayOver(over, overs, batting_team, bowling_team, pair, match):
+    match_status = True
+    #get bowler
+    bowler = AssignBowler(match, bowling_team)
     PrintInColor("New bowler: {0} {1}/{2} ({3})".format(bowler.name,
                                                         str(bowler.runs_given),
                                                         str(bowler.wkts),
                                                         str(BallsToOvers(bowler.balls_bowled))),
-                                bowling_team.color)
-
+                 bowling_team.color)
     ball=1
     bowling_team.last_bowler=bowler
     ismaiden=True
@@ -966,7 +968,6 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
 
 #check for milestones
 def CheckMilestone(pair, batting_team):
-    import random
     for p in pair:
         #first fifty
         if p.runs >= 50 and p.fifty == 0:
@@ -1030,7 +1031,7 @@ def Play(match, batting_team, bowling_team):
             PrintInColor('Reqd Run Rate: {0} per over'.format(str(nrr)), Style.BRIGHT)
 
         #play an over
-        status=PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match)
+        status=PlayOver(over, overs, batting_team, bowling_team, pair, match)
         #show batting stats
         for p in pair:
             PrintInColor('{0} {1} ({2})'.format(GetShortName(p.name), str(p.runs), str(p.balls)), Style.BRIGHT)
