@@ -285,8 +285,13 @@ def FindBestPlayers(match):
 def FindPlayerOfTheMatch(match):
     #find which team won
     from operator import attrgetter
-    team_won = max([match.team1,match.team2], key=attrgetter('total_score'))
-    team_lost = min([match.team1,match.team2], key=attrgetter('total_score'))
+    if match.team1.total_score == match.team2.total_score:
+        #if tied, randomly select a team
+        team_won, team_lost = (match.team1,match.team2)
+    else:
+        team_won = max([match.team1,match.team2], key=attrgetter('total_score'))
+        team_lost = min([match.team1,match.team2], key=attrgetter('total_score'))
+
     best_player = None
     best_batsman = None
     best_bowler = None
@@ -835,7 +840,6 @@ def UpdateLastPartnership(batting_team,pair):
 #play an over
 def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
     match_status = True
-    import random
     #if first over, opening bowler does it
     if bowling_team.last_bowler is None:
         bowler = next((x for x in bowlers if x.attr.isopeningbowler == True), None)
@@ -902,13 +906,13 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, bowlers, match):
             run = choice([-1,0,1,2,3,4,5,6], 1, p=resources.t20_run_prob, replace=False)[0]
 
         #check if maiden or not
-        if run != 0 or run != -1:
+        #if run > 0, change this flag
+        if run not in [-1,0]:
             ismaiden=False
         #check if extra
         if run == 5:
             # add this to bowlers history
             bowler.ball_history.append('WD')
-            ismaiden=False
             comment = Randomize(commentary.commentary_wide)
             PrintInColor ("WIDE...!", Style.BRIGHT)
             PrintInColor (comment, Style.BRIGHT)
