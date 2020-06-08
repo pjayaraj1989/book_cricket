@@ -185,8 +185,8 @@ def ValidateMatchTeams(match):
         #check if they have keeper
         if [plr for plr in t.team_array if plr.attr.iskeeper == True] is None or []:
             Error_Exit('No keeper found in team {0}'.format(t.name))
-        #get bowlers must be at least 5 of them
-        bowlers = [plr for plr in t.team_array if plr.attr.bowling >= 6]
+        #get bowlers who has bowling attribute
+        bowlers = [plr for plr in t.team_array if plr.attr.bowling > 0]
         if len(bowlers) < 6:
             Error_Exit('Team {0} should have 6 bowlers in the playing XI'.format(t.name) )
         else:
