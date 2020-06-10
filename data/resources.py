@@ -23,12 +23,22 @@ class resources():
 
     #color maps
     from colorama import Fore
-    color_map = {"cyan":Fore.LIGHTCYAN_EX,
-                 "blue":Fore.LIGHTBLUE_EX,
-                 "green":Fore.LIGHTGREEN_EX,
-                 "magenta":Fore.LIGHTMAGENTA_EX,
-                 "grey":Fore.LIGHTBLACK_EX,
-                 "yellow":Fore.LIGHTYELLOW_EX}
+    color_map = {"lcyan":Fore.LIGHTCYAN_EX,
+                 "lblue":Fore.LIGHTBLUE_EX,
+                 "lgreen":Fore.LIGHTGREEN_EX,
+                 "lyellow": Fore.LIGHTYELLOW_EX,
+                 "lmagenta": Fore.LIGHTMAGENTA_EX,
+                 "lred": Fore.LIGHTRED_EX,
+                 "grey": Fore.LIGHTBLACK_EX,
+                 "green":Fore.GREEN,
+                 "blue":Fore.BLUE,
+                 "cyan":Fore.CYAN,
+                 "magenta":Fore.MAGENTA,
+                 "yellow":Fore.YELLOW,
+                 "red":Fore.RED,
+                 "black":Fore.BLACK,
+
+                 }
 
     commentators = ['Harsha Bhogle',
                     'Ramiz Raja',
