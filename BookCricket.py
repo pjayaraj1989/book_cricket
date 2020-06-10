@@ -5,7 +5,18 @@ def PlayMatch():
     import os
     ScriptPath = os.path.dirname(os.path.abspath(__file__))
     # input teams to play
-    team_data = os.path.join(ScriptPath,'data','players.json')
+    data_path = os.path.join(ScriptPath,'data')
+    #now get the json files available
+    json_files = [f for f in os.listdir(data_path) if f.endswith('.json') == True]
+    leagues = [l.lstrip('teams_').strip('.json') for l in json_files]
+
+    league = ''
+    opt = input("Choose league from: " + ' / '.join(leagues))
+    for l in leagues:
+        if opt in l:    league = l
+
+    data_file = [l for l in json_files if league in l][0]
+    team_data = os.path.join(data_path,data_file)
     teams = ReadTeams(team_data)
 
     match = GetMatchInfo(teams)

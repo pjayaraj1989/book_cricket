@@ -6,6 +6,39 @@ from data.players import *
 from colorama import Fore,Style
 from functions.utilities import *
 
+#choose from options
+def ChooseFromOptions(list_of_options):
+    option_selected=None
+
+    '''
+    #no of tries
+    n = 3
+    list_of_teams = []
+    while n > 0:
+        opt = input("Select Mode: 1.International 2.Legends 3.All Stars 4.2008")
+        if opt == '1':
+            list_of_teams = teams_int
+            break
+        elif opt == '2':
+            list_of_teams = teams_classic
+            break
+        elif opt == '3':
+            list_of_teams = teams_all_time
+            break
+        elif opt == '4':
+            list_of_teams = teams_2008
+            break
+        else:
+            n -= 1
+            if n == 0:
+                Error_Exit("exiting!")
+            else:
+                print ('Invalid choice! Try again')
+                continue
+    #list of teams
+    teams = [l.key for l in list_of_teams]
+    '''
+
 #read teams and players
 def ReadTeams(json_file):
     Teams_List = []
@@ -49,36 +82,6 @@ def GetMatchInfo(list_of_teams):
     umpire = Randomize(resources.umpires)
     #welcome text
     PrintInColor(commentary.intro_game, Style.BRIGHT)
-
-    '''
-    #no of tries
-    n = 3
-    list_of_teams = []
-    while n > 0:
-        opt = input("Select Mode: 1.International 2.Legends 3.All Stars 4.2008")
-        if opt == '1':
-            list_of_teams = teams_int
-            break
-        elif opt == '2':
-            list_of_teams = teams_classic
-            break
-        elif opt == '3':
-            list_of_teams = teams_all_time
-            break
-        elif opt == '4':
-            list_of_teams = teams_2008
-            break
-        else:
-            n -= 1
-            if n == 0:
-                Error_Exit("exiting!")
-            else:
-                print ('Invalid choice! Try again')
-                continue
-    #list of teams
-    teams = [l.key for l in list_of_teams]
-    '''
-
     teams = [l.key for l in list_of_teams]
     #select overs
     overs=input('Select overs (multiple of 5)\n')
@@ -497,8 +500,8 @@ def MatchSummary(match):
     logger.info(msg)
 
     #see who all bowled
-    bowlers1 = [plr for plr in result.team1.team_array if plr.attr.bowling >= 6]
-    bowlers2 = [plr for plr in result.team2.team_array if plr.attr.bowling >= 6]
+    bowlers1 = [plr for plr in result.team1.team_array if plr.balls_bowled > 0]
+    bowlers2 = [plr for plr in result.team2.team_array if plr.balls_bowled > 0]
     #print first three top scorers
     most_runs = sorted(result.team1.team_array, key=lambda x: x.runs, reverse=True)
     most_runs = most_runs[:2]
