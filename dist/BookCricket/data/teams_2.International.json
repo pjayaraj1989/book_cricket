@@ -18,6 +18,114 @@
       "color": "cyan"
     },
 
+	"NewZealand": {
+      "players": [
+        {"name": "Martin Guptill","batting": 8,"bowling": 4,"opener1":  1},
+        {"name": "Colin Munro","batting": 8,"bowling": 4,"opener2": 1 },
+        {"name": "Kane Williamson","batting": 8,"bowling": 6, "spinner": 1, "captain": 1},
+        {"name": "Ross Taylor","batting": 8},
+        {"name": "Tom Latham","batting": 8,"keeper": 1},
+        {"name": "Jimmy Neesham","batting": 7,"bowling": 7},
+        {"name": "Colin deGrandhomme","batting": 7,"bowling": 7},
+        {"name": "Mitchell Santner","batting": 6,"bowling": 8,"spinner": 1},
+        {"name": "Matt Henry","batting": 6,"bowling": 9},
+        {"name": "Tim Southee", "batting": 5,"bowling": 9},
+        {"name": "Trent Boult","batting": 5,"bowling": 9, "openingbowler": 1}
+      ],
+      "key": "NZ",
+      "color": "grey"
+    },
+
+	"SouthAfrica": {
+      "players": [
+        {"name": "Hashim Amla","batting": 8,"bowling": 4,"opener1":  1},
+        {"name": "Quinton deKock","batting": 8,"keeper": 1},
+        {"name": "Aiden Markram","batting": 8,"bowling": 6},
+        {"name": "Faf duPlessis","batting": 8, "captain":1},
+        {"name": "Rossie vanDerDussen","batting": 8,"bowling":5},
+        {"name": "J.P Duminy","batting": 7,"bowling": 7, "spinner":1},
+        {"name": "Dwayne Pretorius","batting": 7,"bowling": 7},
+        {"name": "Andile Phehlukwayo","batting": 6,"bowling": 7},
+        {"name": "Kagiso Rabada","batting": 6,"bowling": 9, "openingbowler":1},
+        {"name": "Dale Steyn", "batting": 5,"bowling": 9},
+        {"name": "Imran Tahir","batting": 5,"bowling": 9, "spinner":1}
+      ],
+      "key": "SA",
+      "color": "lgreen"
+    },
+
+	"Pakistan": {
+      "players": [
+        {"name": "Imam UlHaq","batting": 8,"bowling": 4,"opener1":  1},
+        {"name": "Faqar Zaman","batting": 8},
+        {"name": "Babar Azam","batting": 8,"bowling": 5},
+        {"name": "Harris Sohail","batting": 8, "bowling":4},
+        {"name": "Sarfraz Ahmed","batting": 8,"keeper":1,"captain":1},
+        {"name": "Mohammad Hafeez","batting": 7,"bowling": 7, "spinner":1},
+        {"name": "Imad Wasim","batting": 7,"bowling": 7, "spinner":1},
+        {"name": "Shadab Khan","batting": 6,"bowling": 7, "spinner":1},
+        {"name": "Shaheen Afridi","batting": 6,"bowling": 9},
+        {"name": "Wahab Riaz", "batting": 5,"bowling": 9},
+        {"name": "Mohammad Amir","batting": 5,"bowling": 9, "openingbowler":1}
+      ],
+      "key": "PAK",
+      "color": "green"
+    },
+
+	"WestIndies": {
+      "players": [
+        {"name": "Chris Gayle","batting": 8,"bowling": 7,"opener1":  1,"spinner":1},
+        {"name": "Shai Hope","batting": 8, "keeper":1},
+        {"name": "Darren Bravo","batting": 8,"bowling": 5,"spinner":1},
+        {"name": "Nicholas Pooran","batting": 8, "bowling":4,"spinner":1},
+        {"name": "Shimron Hetmeyer","batting": 8},
+        {"name": "Andre Russel","batting": 7,"bowling": 7},
+        {"name": "Jason Holder","batting": 7,"bowling": 8, "captain":1},
+        {"name": "Carlos Brathwaite","batting": 6,"bowling": 8},
+        {"name": "Ashley Nurse","batting": 6,"bowling": 7,"spinner":1},
+        {"name": "Sheldon Cottrell", "batting": 5,"bowling": 9, "openingbowler":1},
+        {"name": "Oshane Thomas","batting": 5,"bowling": 9}
+      ],
+      "key": "WI",
+      "color": "magenta"
+    },
+
+	"SriLanka": {
+      "players": [
+        {"name": "Dimuth Karunarathne","batting": 8,"bowling": 5,"opener1":  1,"spinner":1,"captain":1},
+        {"name": "Kushal Perera","batting": 8, "keeper":1},
+        {"name": "Lahiru Thirimanne","batting": 8,"bowling": 5,"spinner":1},
+        {"name": "Kusal Mendis","batting": 8, "bowling":4,"spinner":1},
+        {"name": "Angelo Matthews","batting": 8, "bowling":7},
+        {"name": "Milinda Siriwardena","batting": 7,"bowling": 4,"spinner":1},
+        {"name": "Thisara Perera","batting": 7,"bowling": 7},
+        {"name": "Dhananjaya deSilva","batting": 6,"bowling": 7,"spinner":1},
+        {"name": "Isuru Udana","batting": 6,"bowling": 7},
+        {"name": "Lasith Malinga", "batting": 5,"bowling": 9, "openingbowler":1},
+        {"name": "Nuwan Pradeep","batting": 5,"bowling": 8}
+      ],
+      "key": "SL",
+      "color": "lmagenta"
+    },
+
+	"Bangladesh": {
+      "players": [
+        {"name": "Tamim Iqbal","batting": 8,"bowling": 4,"opener1":  1},
+        {"name": "Soumya Sarkar","batting": 8, "bowling":7},
+        {"name": "Shakib Al-Hasan","batting": 8,"bowling": 7,"spinner":1},
+        {"name": "Mushfiqur Rahim","batting": 8, "keeper":1},
+        {"name": "Liton Das","batting": 8, "bowling":7},
+        {"name": "Rahim Mahmudullah","batting": 7,"bowling": 4,"spinner":1},
+        {"name": "Sabbir Rahman","batting": 7,"bowling": 7},
+        {"name": "Mehidy Hasan","batting": 6,"bowling": 7,"spinner":1},
+        {"name": "Mashrafe Mortaza","batting": 6,"bowling": 8, "captain":1},
+        {"name": "Rubel Hossain", "batting": 5,"bowling": 9},
+        {"name": "Mustafizur Rahman","batting": 5,"bowling": 9, "openingbowler":1}
+      ],
+      "key": "BAN",
+      "color": "grey"
+    },
+
     "Australia": {
       "players": [
         {"name": "David Warner","batting": 8,"bowling": 4,"opener1":  1},
