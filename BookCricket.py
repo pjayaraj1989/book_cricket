@@ -2,11 +2,14 @@
 from functions.functions import*
 
 def PlayMatch():
-    # input teams to play
-    match = GetMatchInfo()
-    # logging
     import os
     ScriptPath = os.path.dirname(os.path.abspath(__file__))
+    # input teams to play
+    team_data = os.path.join(ScriptPath,'data','players.json')
+    teams = ReadTeams(team_data)
+
+    match = GetMatchInfo(teams)
+    # logging
     log_file = 'log_{0}_v_{1}_{2}_{3}_ovrs.log'.format(match.team1.name,
                                                        match.team2.name,
                                                        match.venue.name.replace(' ', '_'),

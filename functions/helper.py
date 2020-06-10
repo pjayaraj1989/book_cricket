@@ -15,7 +15,7 @@ class PlayerAttr():
     def __init__(self, **kwargs):
         batting=bowling=iscaptain=iskeeper=isopeningbowler=isspinner=ispacer=None
         #init default
-        self.batting=0
+        self.batting=1
         self.bowling=0
         self.iskeeper=False
         self.iscaptain=False
@@ -36,9 +36,9 @@ class PlayerAttr():
 class Player():
     def __init__(self, **kwargs):
         attr=onstrike=runs=fours=sixes=singles=doubles=threes=no=balls=name=status=wkts=balls_bowled=runs_given=hattricks=ball_history=dismissal=maidens=eco=fifty=hundred=strikerate=max_overs=None
-        self.attr=None
+        self.attr=PlayerAttr()
         self.no=None
-        self.onstrike=None
+        self.onstrike=False
         self.runs=0
         self.balls=0
         self.wkts=0
@@ -156,7 +156,7 @@ class Team():
     def __init__(self, **kwargs):
         team_array=total_score=innings_over=won=batting_second=target=name=wickets_fell=partnerships=total_balls=opening_pair=extras=key=last_bowler=bowlers=fow=captain=nrr=color=None
         #initialize default values
-        self.team_array=None
+        self.team_array=[]
         self.total_score=0
         self.innings_over=False
         self.batting_second=False
@@ -165,10 +165,10 @@ class Team():
         self.key=""
         self.wickets_fell=0
         self.total_balls=0
-        self.opening_pair=None
+        self.opening_pair=[]
         self.extras=0
         self.last_bowler=None
-        self.bowlers=None
+        self.bowlers=[]
         #this will be a list of FOW objects
         self.fow=[]
         #array of partnerships objs

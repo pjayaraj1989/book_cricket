@@ -21,6 +21,15 @@ class resources():
     #prob distribution for t20 match
     t20_run_prob = [0.08, 0.37, 0.32, 0.07, 0.05, 0.05 , 0.01, 0.05]
 
+    #color maps
+    from colorama import Fore
+    color_map = {"cyan":Fore.LIGHTCYAN_EX,
+                 "blue":Fore.LIGHTBLUE_EX,
+                 "green":Fore.LIGHTGREEN_EX,
+                 "magenta":Fore.LIGHTMAGENTA_EX,
+                 "grey":Fore.LIGHTBLACK_EX,
+                 "yellow":Fore.LIGHTYELLOW_EX}
+
     commentators = ['Harsha Bhogle',
                     'Ramiz Raja',
                     'Tony Greig',
