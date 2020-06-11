@@ -7,19 +7,21 @@ def PlayMatch():
     # input teams to play
     data_path = os.path.join(ScriptPath,'data')
     #now get the json files available
-    json_files = [f for f in os.listdir(data_path) if f.endswith('.json') == True]
+    json_files = [f for f in os.listdir(data_path) if (f.startswith('teams_') and f.endswith('.json') == True)]
     leagues = [l.lstrip('teams_').strip('.json') for l in json_files]
-
     league = ''
     opt = input("Choose league from: " + ' / '.join(leagues))
     for l in leagues:
         if opt in l:    league = l
-
     data_file = [l for l in json_files if league in l][0]
     team_data = os.path.join(data_path,data_file)
     teams = ReadTeams(team_data)
 
-    match = GetMatchInfo(teams)
+    #now read venue data
+    venue_data = os.path.join(data_path,'venue_data.json')
+    venue = GetVenue(venue_data)
+
+    match = GetMatchInfo(teams, venue)
     # logging
     log_file = 'log_{0}_v_{1}_{2}_{3}_ovrs.log'.format(match.team1.name,
                                                        match.team2.name,

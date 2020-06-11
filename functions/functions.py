@@ -39,6 +39,24 @@ def ChooseFromOptions(list_of_options):
     teams = [l.key for l in list_of_teams]
     '''
 
+#read venue data
+def GetVenue(venue_data):
+    venue_obj = None
+    import  json
+    f=open(venue_data)
+    data = json.load(f)
+    countries = {}
+    if data is not None:    countries = data['Venues']
+    #now get venues for each countries
+    import random
+    country = random.choice(list(countries.keys()))
+    print("Selected country: " + country)
+    #now get venues in this
+    venue = random.choice(countries[country]['places'])
+    print ("Selected venue: " + venue['name'])
+    venue_obj = Venue(name=venue['name'],run_prob=venue['run_prob'])
+    return venue_obj
+
 #read teams and players
 def ReadTeams(json_file):
     Teams_List = []
@@ -69,13 +87,8 @@ def ReadTeams(json_file):
     return (Teams_List)
 
 #get match info
-def GetMatchInfo(list_of_teams):
+def GetMatchInfo(list_of_teams, venue):
     match=None
-    #get venue randomly
-    for venue in resources.match_venues:
-        if sum(venue.run_prob) != 1:
-            Error_Exit("Error in venue! " + venue.name + " " + str(sum(venue.run_prob)))
-    venue=Randomize(resources.match_venues)
     intro=Randomize(commentary.intro_dialogues)
     import random
     commentator = random.sample(set(resources.commentators), 2)
