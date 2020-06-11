@@ -1,0 +1,40 @@
+{
+  "Teams": {
+    "India-WC": {
+      "players": [
+        {"name": "Virender Sehwag","batting": 8,"bowling": 5,"opener1":  1},
+        {"name": "Sachin Tendulkar", "batting": 10, "bowling": 6, "opener2": 1},
+        {"name": "Gautam Gambhir", "batting": 8,"bowling": 1,"spinner": 1},
+        {"name": "Virat Kohli", "batting": 7,"bowling" : 3},
+        {"name": "Yuvraj Singh","batting": 8,"bowling": 7,"spinner": 1},
+        {"name": "M.S Dhoni","batting": 8,"keeper" : 1,"captain": 1},
+        {"name": "Suresh Raina","batting": 7,"bowling": 6,"spinner": 1},
+        {"name": "Harbhajan Singh","batting": 5,"bowling": 8,"spinner": 1},
+        {"name": "Zaheer Khan","batting": 6, "bowling": 9,"openingbowler": 1},
+        {"name": "Santhakumaran Sreesanth","batting": 3,"bowling": 7},
+        {"name": "Ashish Nehra","batting": 4,"bowling": 8}
+      ],
+      "key": "IND",
+      "color": "cyan"
+    },
+
+    "Sri Lanka-WC": {
+      "players": [
+        {"name": "Upul Tharanga","batting": 7,"bowling": 1,"opener1":  1},
+        {"name": "Thilakaratne Dilshan","batting": 8, "bowling": 6 , "opener2": 1},
+        {"name": "Kumar Sangakkara", "batting": 9,"keeper": 1 ,"captain": 1},
+        {"name": "Mahela Jayawardene","batting": 9, "bowling": 2 },
+        {"name": "Thilan Samaraweera","batting": 7,"bowling": 5,"spinner": 1 },
+        {"name": "Chamara Kapugedera", "batting": 7, "bowling": 3},
+        {"name": "Thisara Perera","batting": 7, "bowling": 6},
+        {"name": "Nuwan Kulasekara","batting": 5,"bowling": 8, "openingbowler": 1 },
+        {"name": "Rangana Herath", "batting": 4,"bowling": 8, "spinner": 1},
+        {"name": "Lasith Malinga", "batting": 4,"bowling": 9},
+        {"name": "Muttiah Muralitharan","batting": 4,"bowling": 9,"spinner": 1}
+      ],
+      "key": "SL",
+      "color": "lmagenta"
+    }
+  }
+}
+
