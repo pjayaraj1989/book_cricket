@@ -1,9 +1,8 @@
 
-from data.test_data import*
 from data.resources import*
 from data.commentary import*
-from data.players import *
 from colorama import Fore,Style
+from functions.helper import*
 from functions.utilities import *
 
 #choose from options
@@ -57,7 +56,7 @@ def GetVenue(venue_data):
     venue_obj = Venue(name=venue['name'],run_prob=venue['run_prob'])
     return venue_obj
 
-#read teams and players
+#read teams and
 def ReadTeams(json_file):
     Teams_List = []
     import json
