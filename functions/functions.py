@@ -950,12 +950,8 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
             input('press enter to continue..')
 
         #generate run
-        #if odi
         from numpy.random import choice
-        if match.overs == 50:
-            run = choice([-1,0,1,2,3,4,5,6], 1, p=match.venue.run_prob, replace=False)[0]
-        else:
-            run = choice([-1,0,1,2,3,4,5,6], 1, p=resources.t20_run_prob, replace=False)[0]
+        run = choice([-1,0,1,2,3,4,5,6], 1, p=match.venue.run_prob, replace=False)[0]
 
         #check if maiden or not
         #if run > 0, change this flag
