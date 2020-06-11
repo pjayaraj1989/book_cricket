@@ -1,26 +1,5 @@
-from functions.helper import Venue
-
-#weightage for runs in the order -1,0,1,2,3,4,5,6
-venue_lords=Venue(name="Lords", run_prob=[0.03, 0.36, 0.32, 0.11, 0.05, 0.01, 0.11, 0.01])
-venue_mcg=Venue(name="The MCG", run_prob=[0.03, 0.36, 0.32, 0.11, 0.05, 0.01, 0.11, 0.01])
-venue_perth=Venue(name="The WACA, Perth", run_prob=[0.06, 0.33, 0.32, 0.11, 0.05, 0.01 , 0.11, 0.01])
-venue_mumbai=Venue(name="The Wankhede Stadium, Mumbai", run_prob=[0.03, 0.36, 0.32, 0.11, 0.05, 0.01 , 0.11, 0.01])
-venue_colombo=Venue(name="R. Premadasa Stadium, Colombo", run_prob=[0.03, 0.36, 0.32, 0.11, 0.05, 0.01 , 0.11, 0.01])
-venue_scg=Venue(name="The Sydney Cricket Ground", run_prob=[0.03, 0.22, 0.32, 0.18, 0.05, 0.05 , 0.11, 0.04])
-venue_joburg=Venue(name="the Wanderers, Johannesburg", run_prob=[0.03, 0.36, 0.32, 0.11, 0.05, 0.01 , 0.11, 0.01])
-venue_centurion=Venue(name="The Super Sport park, Centurion", run_prob=[0.03, 0.36, 0.32, 0.11, 0.05, 0.01 , 0.11, 0.01])
-venue_barbados=Venue(name="The Kensington Oval, Bridgetown", run_prob=[0.05, 0.34, 0.32, 0.11, 0.05, 0.01 , 0.11, 0.01])
-venue_edgbaston=Venue(name="The Edgbaston", run_prob=[0.03, 0.36, 0.32, 0.11, 0.05, 0.01 , 0.11, 0.01])
-venue_kolkata=Venue(name="The Eden Gardens, Kolkata", run_prob=[0.03, 0.36, 0.32, 0.11, 0.05, 0.01 , 0.11, 0.01])
-venue_bangalore=Venue(name="M. Chinnaswamy Stadium, Bengaluru", run_prob=[0.03, 0.36, 0.32, 0.11, 0.05, 0.01 , 0.11, 0.01])
 
 class resources():
-    match_venues = [venue_lords,venue_barbados,venue_colombo,venue_joburg,venue_bangalore,
-                    venue_centurion,venue_edgbaston, venue_mcg, venue_mumbai,venue_perth, venue_scg]
-
-    #prob distribution for t20 match
-    t20_run_prob = [0.08, 0.37, 0.32, 0.07, 0.05, 0.05 , 0.01, 0.05]
-
     #color maps
     from colorama import Fore
     color_map = {"lcyan":Fore.LIGHTCYAN_EX,
@@ -37,7 +16,6 @@ class resources():
                  "yellow":Fore.YELLOW,
                  "red":Fore.RED,
                  "black":Fore.BLACK,
-
                  }
 
     commentators = ['Harsha Bhogle',
