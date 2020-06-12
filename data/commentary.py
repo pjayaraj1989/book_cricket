@@ -9,6 +9,17 @@ class commentary():
                     'Electrifying atmosphere here at',
                     'Warm welcome to everybody to ']
 
+    commentary_less_req_rate = ['looks easily gettable for them',
+                                'not a big task for them at all!',
+                                'target looks easy but they are going to face some quality bowling attack!'
+                                'looks like an easy target for them!']
+
+    commentary_high_req_rate = ['reqd rate is really high for them!',
+                                'this is gonna be a tough chase for them!',
+                                'a big target and they will be facing a tough bowling attack too!',
+                                'a himalayan task ahead for them! need to bat really well!',
+                                'thats a big task ahead for them!']
+
     commentary_six = ['thats in the stands! ',
                       'he goes bang ! Thats a big one!',
                       'smashed it out of the park!',

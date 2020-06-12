@@ -15,7 +15,7 @@
         {"name": "Glenn McGrath","batting": 5,"bowling": 9}
       ],
       "key": "ST",
-      "color": "cyan"
+      "color": "lcyan"
     },
 
     "RickyPontingXI": {
@@ -33,7 +33,7 @@
         {"name": "Allan Donald", "batting": 5,"bowling": 9}
       ],
       "key": "RP",
-      "color": "yellow"
+      "color": "lyellow"
     },
 
     "SteveWaughXI": {
@@ -51,7 +51,7 @@
         {"name": "Shoaib Akhtar","batting": 5,"bowling": 9}
       ],
       "key": "SW",
-      "color": "green"
+      "color": "lgreen"
     }
   }
 }

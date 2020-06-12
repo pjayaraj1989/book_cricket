@@ -1,5 +1,7 @@
 import random
-from colorama import Style, AnsiToWin32, init
+
+import colorama
+from colorama import Style, AnsiToWin32, init, Fore
 import time
 import sys
 import os
@@ -12,7 +14,7 @@ def ChooseFromOptions(options, msg):
     for x in range(len(options)):
         options_dict[str(x)] = options[x]
     msg = ''
-    for k, v in options_dict.items():    msg += '{0}.{1},'.format(k, v)
+    for k, v in options_dict.items():    msg += '{0}.{1} '.format(k, v)
     keys = list(options_dict.keys())
     n = 3
     while n > 0:

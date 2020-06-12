@@ -62,8 +62,7 @@ def GetMatchInfo(list_of_teams, venue):
     intro=Randomize(commentary.intro_dialogues)
     commentator = random.sample(set(resources.commentators), 2)
     umpire = Randomize(resources.umpires)
-    #welcome text
-    PrintInColor(commentary.intro_game, Style.BRIGHT)
+
     teams = [l.key for l in list_of_teams]
     #select overs
     overs=input('Select overs (multiple of 5)\n')
@@ -1025,13 +1024,19 @@ def Play(match, batting_team, bowling_team):
         PrintInColor('Target for {0}: {1} from {2} overs'.format(batting_team.name,
                                                                  str(batting_team.target),
                                                                  str(overs)), batting_team.color)
+        #check if required rate
+        nrr = GetRequiredRate(match.overs, batting_team)
+        print("Reqd. run rate: {0}".format(str(nrr)))
+        if nrr > 10.0:    comment = Randomize(commentary.commentary_high_req_rate)
+        elif nrr < 6.0: comment = Randomize(commentary.commentary_less_req_rate)
+        PrintInColor(comment, Style.BRIGHT)
+
     #now run for each over
     for over in range(0,overs):
         #check if last over
         if over==overs-1:
             if batting_team.batting_second == True:
                 PrintInColor('Last over of the match!', Style.BRIGHT)
-
             else:
                 PrintInColor('Last over of the innings!', Style.BRIGHT)
         #show net rr required if batting second

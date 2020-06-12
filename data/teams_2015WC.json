@@ -15,7 +15,7 @@
         {"name": "Umesh Yadav","batting": 5,"bowling": 9, "openingbowler": 1}
       ],
       "key": "IND",
-      "color": "cyan"
+      "color": "lcyan"
     },
 
 	"NewZealand": {
@@ -159,7 +159,7 @@
         {"name": "Josh Hazlewood","batting": 5, "bowling": 9}
       ],
       "key": "AUS",
-      "color": "yellow"
+      "color": "lyellow"
     },
 
     "England": {
@@ -177,7 +177,7 @@
         {"name": "Stuart Broad", "batting": 5, "bowling": 9}
       ],
       "key": "ENG",
-      "color": "blue"
+      "color": "lblue"
     }
   }
 }
