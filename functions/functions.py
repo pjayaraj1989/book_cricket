@@ -1,20 +1,23 @@
 
 from data.resources import*
 from data.commentary import*
-from colorama import Fore,Style
+from colorama import Fore
 from functions.helper import*
 from functions.utilities import *
+from operator import attrgetter
+from numpy.random import choice
+import json
+import random
+import time
 
 #read venue data
 def GetVenue(venue_data):
     venue_obj = None
-    import  json
     f=open(venue_data)
     data = json.load(f)
     countries = {}
     if data is not None:    countries = data['Venues']
     #now get venues for each countries
-    import random
     country = ChooseFromOptions(list(countries.keys()), "Select Venue")
     #now get venues in this
     venue = random.choice(countries[country]['places'])
@@ -28,7 +31,6 @@ def GetVenue(venue_data):
 #read teams and
 def ReadTeams(json_file):
     Teams_List = []
-    import json
     f=open(json_file)
     data = json.load(f)
     if data is not None:
@@ -58,7 +60,6 @@ def ReadTeams(json_file):
 def GetMatchInfo(list_of_teams, venue):
     match=None
     intro=Randomize(commentary.intro_dialogues)
-    import random
     commentator = random.sample(set(resources.commentators), 2)
     umpire = Randomize(resources.umpires)
     #welcome text
@@ -219,7 +220,6 @@ def ValidateMatchTeams(match):
     for t in [match.team1, match.team2]:
         for player in t.team_array:
             if player.no == None:
-                import random
                 player.no = random.choice(list(range(100)))
 
     PrintInColor('Validated teams', Style.BRIGHT)
@@ -292,7 +292,6 @@ def FindBestPlayers(match):
 #Man of the match
 def FindPlayerOfTheMatch(match):
     #find which team won
-    from operator import attrgetter
     if match.team1.total_score == match.team2.total_score:
         #if tied, randomly select a team
         team_won, team_lost = (match.team1,match.team2)
@@ -905,13 +904,11 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         print ('{0} to {1}'.format(GetShortName(bowler.name), GetShortName(player_on_strike.name)))
         if match.autoplay == True:
-            import time
             time.sleep(1)
         else:
             input('press enter to continue..')
 
         #generate run
-        from numpy.random import choice
         prob = []
         if match.overs == 50:
             prob = match.venue.run_prob

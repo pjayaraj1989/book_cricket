@@ -1,8 +1,9 @@
 #! /usr/bin/env python3
 from functions.functions import*
+import logging
+import os
 
 def PlayMatch():
-    import os
     ScriptPath = os.path.dirname(os.path.abspath(__file__))
     # input teams to play
     data_path = os.path.join(ScriptPath,'data')
@@ -29,7 +30,6 @@ def PlayMatch():
         os.makedirs(log_folder)
     log = os.path.join(log_folder,log_file)
     if os.path.isfile(log): os.remove(log)
-    import logging
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
     handler = logging.FileHandler(log)
