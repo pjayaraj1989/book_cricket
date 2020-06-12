@@ -20,6 +20,9 @@ def GetVenue(venue_data):
     venue = random.choice(countries[country]['places'])
     print ("Selected Stadium: " + venue['name'])
     venue_obj = Venue(name=venue['name'],run_prob=venue['run_prob'])
+    #populate run_prob_t20
+    run_prob_t20 = data['run_prob_t20']
+    venue_obj.run_prob_t20 = run_prob_t20
     return venue_obj
 
 #read teams and
@@ -909,7 +912,12 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
 
         #generate run
         from numpy.random import choice
-        run = choice([-1,0,1,2,3,4,5,6], 1, p=match.venue.run_prob, replace=False)[0]
+        prob = []
+        if match.overs == 50:
+            prob = match.venue.run_prob
+        else:
+            prob = match.venue.run_prob_t20
+        run = choice([-1,0,1,2,3,4,5,6], 1, p=prob, replace=False)[0]
 
         #check if maiden or not
         #if run > 0, change this flag

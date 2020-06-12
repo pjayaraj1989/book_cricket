@@ -2,13 +2,15 @@
 #venues
 class Venue():
     def __init__(self, **kwargs):
-        name=run_prob=None
+        name=run_prob=run_prob_t20=None
         self.name=''
         self.run_prob=[]
+        self.run_prob_t20=[]
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='name':   self.name=v
                 if k=='run_prob':   self.run_prob=v
+                if k=='run_prob_t20':   self.run_prob_t20=v
 
 #player attributes
 class PlayerAttr():
