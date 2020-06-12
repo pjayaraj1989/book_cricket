@@ -5,39 +5,6 @@ from colorama import Fore,Style
 from functions.helper import*
 from functions.utilities import *
 
-#choose from options
-def ChooseFromOptions(list_of_options):
-    option_selected=None
-
-    '''
-    #no of tries
-    n = 3
-    list_of_teams = []
-    while n > 0:
-        opt = input("Select Mode: 1.International 2.Legends 3.All Stars 4.2008")
-        if opt == '1':
-            list_of_teams = teams_int
-            break
-        elif opt == '2':
-            list_of_teams = teams_classic
-            break
-        elif opt == '3':
-            list_of_teams = teams_all_time
-            break
-        elif opt == '4':
-            list_of_teams = teams_2008
-            break
-        else:
-            n -= 1
-            if n == 0:
-                Error_Exit("exiting!")
-            else:
-                print ('Invalid choice! Try again')
-                continue
-    #list of teams
-    teams = [l.key for l in list_of_teams]
-    '''
-
 #read venue data
 def GetVenue(venue_data):
     venue_obj = None
@@ -48,11 +15,10 @@ def GetVenue(venue_data):
     if data is not None:    countries = data['Venues']
     #now get venues for each countries
     import random
-    country = random.choice(list(countries.keys()))
-    print("Selected country: " + country)
+    country = ChooseFromOptions(list(countries.keys()), "Select Venue")
     #now get venues in this
     venue = random.choice(countries[country]['places'])
-    print ("Selected venue: " + venue['name'])
+    print ("Selected Stadium: " + venue['name'])
     venue_obj = Venue(name=venue['name'],run_prob=venue['run_prob'])
     return venue_obj
 
@@ -105,21 +71,14 @@ def GetMatchInfo(list_of_teams, venue):
         print("Invalid entry, default {0} overs selected".format(overs))
 
     overs=int(overs)
-
     #max overs alloted for each bowler
     bowler_max_overs = overs / 5
 
     #input teams
-    t1=input('Select your team from : {0}\n'.format('/'.join(teams)))
-    t1=t1.upper()
-    if t1 not in teams: Error_Exit('Invalid team')
-    else:
-        print ('Selected ' + t1)
-        teams.remove(t1)
-        t2=input('Select opponent team from : {0}\n'.format('/'.join(teams)))
-        t2=t2.upper()
-        if not t2 in teams: Error_Exit('Invalid team')
-        else:   print('Selected {0} and {1}'.format(t1,t2))
+    t1 = ChooseFromOptions(teams, "Select your team")
+    teams.remove(t1)
+    t2 = ChooseFromOptions(teams, 'Select opponent')
+    print('Selected {0} and {1}'.format(t1,t2))
     #find teams from user input
     for t in list_of_teams:
         if t.key == t1:    team1=t
@@ -148,7 +107,7 @@ def GetMatchInfo(list_of_teams, venue):
     #display squad
     DisplayPlayingXI(match)
     #Want to skip balls?
-    opt = input('Do you want to play only highlights? Choose y for highlights, n for full match')
+    opt=ChooseFromOptions(['y','n'], "Do you want to play only highlights? y/n?")
     if opt.lower() == 'y':
         match.autoplay=True
     return match

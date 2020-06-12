@@ -9,10 +9,7 @@ def PlayMatch():
     #now get the json files available
     json_files = [f for f in os.listdir(data_path) if (f.startswith('teams_') and f.endswith('.json') == True)]
     leagues = [l.lstrip('teams_').strip('.json') for l in json_files]
-    league = ''
-    opt = input("Choose league from: " + ' / '.join(leagues))
-    for l in leagues:
-        if opt in l:    league = l
+    league = ChooseFromOptions(leagues, "Choose league")
     data_file = [l for l in json_files if league in l][0]
     team_data = os.path.join(data_path,data_file)
     teams = ReadTeams(team_data)

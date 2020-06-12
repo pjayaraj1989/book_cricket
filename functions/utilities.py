@@ -1,4 +1,33 @@
 
+#choose from options a list
+def ChooseFromOptions(options, msg):
+    print (msg)
+    option_selected = None
+    options_dict = {}
+    for x in range(len(options)):
+        options_dict[str(x)] = options[x]
+    msg = ''
+    for k, v in options_dict.items():    msg += '{0}.{1},'.format(k, v)
+    keys = list(options_dict.keys())
+    n = 3
+    while n > 0:
+        opt = input("Select from : {0}".format(msg))
+        if opt not in keys:
+            n -= 1
+            if n == 0:
+                Error_Exit("exiting!")
+            else:
+                print('Invalid choice! Try again')
+                continue
+        else:
+            for k, v in options_dict.items():
+                if opt == k:
+                    option_selected = v
+                    print("Selected : " + v)
+                    break
+        break
+    return option_selected
+
 #randomize
 def Randomize(list):
     import random
