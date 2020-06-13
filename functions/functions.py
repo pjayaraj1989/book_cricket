@@ -883,7 +883,8 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
             if towin <= 20 or over == overs-1:
                 ShowHighlights(batting_team)
                 PrintInColor ('To win: {0} from {1}'.format(str(towin),
-                                                    str(overs*6 - batting_team.total_balls)), Style.BRIGHT)
+                                                    str(overs*6 - batting_team.total_balls)),
+                              Style.BRIGHT)
                 input('press enter to continue...')
 
         print ("Over: {0}.{1}".format(str(over),str(ball)))
@@ -939,20 +940,20 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
                 # update last partnership
                 UpdateLastPartnership(batting_team, pair)
                 match_status = False
-                PrintInColor("End of innings", Style.BRIGHT)
+                PrintInColor(Randomize(commentary.commentary_lost_chasing), Style.BRIGHT)
                 input('press enter to continue...')
                 break
 
             # check if target achieved chasing
             if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
-                PrintInColor("Match won!", Fore.GREEN)
+                PrintInColor(Randomize(commentary.commentary_match_won), Fore.GREEN)
                 match_status = False
                 UpdateLastPartnership(batting_team, pair)
                 input('press enter to continue...')
                 break
             # if all out
             if batting_team.wickets_fell == 10:
-                PrintInColor("All out!", Fore.RED)
+                PrintInColor(Randomize(commentary.commentary_all_out), Fore.RED)
                 match_status = False
                 input('press enter to continue...')
                 break
@@ -1022,9 +1023,9 @@ def Play(match, batting_team, bowling_team):
         #check if last over
         if over==overs-1:
             if batting_team.batting_second == True:
-                PrintInColor('Last over of the match!', Style.BRIGHT)
+                PrintInColor(Randomize(commentary.commentary_last_over_match), Style.BRIGHT)
             else:
-                PrintInColor('Last over of the innings!', Style.BRIGHT)
+                PrintInColor(Randomize(commentary.commentary_last_over_innings), Style.BRIGHT)
         #show net rr required if batting second
         if batting_team.batting_second is True:
             nrr=GetRequiredRate(overs, batting_team)
