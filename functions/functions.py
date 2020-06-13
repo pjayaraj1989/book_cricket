@@ -95,7 +95,7 @@ def GetMatchInfo(list_of_teams, venue):
                                                         temp,
                                                         team1.name,
                                                         team2.name,
-                                                       intro), Fore.CYAN)
+                                                       intro), Fore.LIGHTCYAN_EX)
     print ('In the commentary box, myself {0} with {1}'.format(commentator[0],commentator[1]))
     print ('Umpire: {0}'.format(umpire))
     input('press enter to continue..')
@@ -733,23 +733,23 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
         if run == 4:
             field = Randomize(resources.fields[4])
             comment=Randomize(commentary.commentary_four)
-            PrintInColor (field + " FOUR! " + comment, Fore.GREEN)
+            PrintInColor (field + " FOUR! " + comment, Fore.LIGHTGREEN_EX)
             #check if first ball hit for a boundary
             if on_strike.balls == 0:
-                PrintInColor(Randomize(commentary.commentary_firstball_four), Fore.GREEN)
+                PrintInColor(Randomize(commentary.commentary_firstball_four), Fore.LIGHTGREEN_EX)
             if CheckForConsecutiveBalls(bowler, 4) == True:
-                PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
+                PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.LIGHTGREEN_EX)
             #inc numbers of 4s
             on_strike.fours += 1
         elif run == 6:
             #check uf furst ball is hit
             if on_strike.balls == 0:
-                PrintInColor(Randomize(commentary.commentary_firstball_six), Fore.GREEN)
+                PrintInColor(Randomize(commentary.commentary_firstball_six), Fore.LIGHTGREEN_EX)
             if CheckForConsecutiveBalls(bowler, 6) == True:
-                PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.GREEN)
+                PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.LIGHTGREEN_EX)
             field = Randomize(resources.fields[6])
             comment=Randomize(commentary.commentary_six)
-            PrintInColor (field + " SIX! " + comment, Fore.GREEN)
+            PrintInColor (field + " SIX! " + comment, Fore.LIGHTGREEN_EX)
             #inc nuber of 6s
             on_strike.sixes += 1
         #dot ball
@@ -946,7 +946,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
 
             # check if target achieved chasing
             if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
-                PrintInColor(Randomize(commentary.commentary_match_won), Fore.GREEN)
+                PrintInColor(Randomize(commentary.commentary_match_won), Fore.LIGHTGREEN_EX)
                 match_status = False
                 UpdateLastPartnership(batting_team, pair)
                 input('press enter to continue...')
@@ -1007,6 +1007,7 @@ def Play(match, batting_team, bowling_team):
     overs=match.overs
     pair = batting_team.opening_pair
 
+    comment=''
     if batting_team.batting_second is True:
         PrintInColor('Target for {0}: {1} from {2} overs'.format(batting_team.name,
                                                                  str(batting_team.target),
