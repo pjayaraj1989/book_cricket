@@ -1,7 +1,6 @@
 
 from data.resources import*
 from data.commentary import*
-from colorama import Fore
 from functions.helper import*
 from functions.utilities import *
 from operator import attrgetter
@@ -89,7 +88,6 @@ def GetMatchInfo(list_of_teams, venue):
 
     #initialize match with teams, overs
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
-    temp = ' '
     if overs == 50: temp = 'ODI'
     elif overs == 20:   temp = 'T20'
     else:   temp = str(overs) + ' over'
@@ -251,7 +249,6 @@ def CalculateResult(match):
     else:
         None
     if result.winner is not None:
-        win_margin = 0
         #if batting first, simply get diff between total runs
         #else get how many wkts remaining
         if result.winner.batting_second == True:
@@ -292,13 +289,11 @@ def FindBestPlayers(match):
 def FindPlayerOfTheMatch(match):
     #find which team won
     if match.team1.total_score == match.team2.total_score:
-        #if tied, randomly select a team
-        team_won, team_lost = (match.team1,match.team2)
+        team_won, team_lost = (match.team1, match.team2)
     else:
         team_won = max([match.team1,match.team2], key=attrgetter('total_score'))
         team_lost = min([match.team1,match.team2], key=attrgetter('total_score'))
 
-    best_player = None
     best_batsman = None
     best_bowler = None
 
@@ -332,7 +327,6 @@ def FindPlayerOfTheMatch(match):
         best_player = best_batsman
 
     #if a player is found in both top batsmen and bowler list he is my MOM
-    common_players = None
     common_players = list(set(best_bowlers).intersection(best_batsmen))
     if len(common_players) != 0:    best_player = common_players[0]
 
@@ -530,8 +524,6 @@ def BatsmanOut(pair, dismissal):
         Error_Exit("Error! both cant be on strike!")
     player_on_strike = next((x for x in pair if x.onstrike == True), None)
     ind=pair.index(player_on_strike)
-    if ind == 0:    alt_ind=1
-    elif ind == 1:  alt_ind=0
     #bastman dismissed
     pair[ind].status = False
     pair[ind].balls += 1
@@ -593,7 +585,6 @@ def CheckForConsecutiveBalls(bowler, element):
 #update dismissal
 def UpdateDismissal(bowler, bowling_team, batting_team, pair):
     keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
-    on_strike = next((x for x in pair if x.onstrike == True), None)
     dismissal = GenerateDismissal(bowler, bowling_team)
     if not 'runout' in dismissal:
         # add this to bowlers history
@@ -712,7 +703,6 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair):
         PrintInColor(Randomize(commentary.commentary_partnership_milestone), Style.BRIGHT)
 
     # calculate the situation
-    towin = batting_team.target - batting_team.total_score
     if batting_team.batting_second and batting_team.wickets_fell >= 8:
         PrintInColor(Randomize(commentary.commentary_goingtolose), Style.BRIGHT)
 
@@ -732,8 +722,6 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair):
 
 #play a ball
 def Ball(run, pair, bowler, batting_team, bowling_team):
-    #get keeper
-    keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
     #get who is on strike
     on_strike = next((x for x in pair if x.onstrike == True), None)
     #if out
@@ -803,7 +791,6 @@ def DisplayBowlingStats(match, team):
     logger.info(msg)
     print (char*45)
     logger.info(char*45)
-    eco=0.0
     #nested list of fixed size elements
     data_to_print=[['Bowler', 'Ovrs', 'Mdns', 'Runs', 'Wkts', 'Eco']]
     for bowler in bowlers:
@@ -1018,7 +1005,6 @@ def CheckMilestone(pair, batting_team):
 def Play(match, batting_team, bowling_team):
     overs=match.overs
     pair = batting_team.opening_pair
-    bowlers = bowling_team.bowlers
 
     if batting_team.batting_second is True:
         PrintInColor('Target for {0}: {1} from {2} overs'.format(batting_team.name,
