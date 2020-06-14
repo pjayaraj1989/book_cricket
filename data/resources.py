@@ -18,6 +18,14 @@ class resources():
                  "black":Fore.BLACK,
                  }
 
+    # populate weather
+    weathers = {'sunny': 'Weather looks so pleasant and sunny, ideal for cricket',
+                'overcast': 'Overcast weather, might help the swing bowlers',
+                'rainy': 'There is a slight rain scare',
+                'cloudy': 'cloudy weather, hope we wont have a rain interruption',
+                'humid': 'A very humid day!'}
+    weather_prob = [0.3, 0.2, 0.1, 0.2, 0.2]
+
     commentators = ['Harsha Bhogle',
                     'Ramiz Raja',
                     'Tony Greig',

@@ -5,7 +5,7 @@ class commentary():
 
     intro_dialogues = ['Welcome everybody, here we are at',
                     'Hello everyone, here we are at',
-                    'Lovely evening here at ',
+                    'Hello and welcome everyone to ',
                     'Electrifying atmosphere here at',
                     'Warm welcome to everybody to ']
 

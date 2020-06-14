@@ -33,12 +33,10 @@ def GetVenue(venue_data):
     #populate run_prob_t20
     run_prob_t20 = data['run_prob_t20']
     venue_obj.run_prob_t20 = run_prob_t20
-    #populate weather
-    weathers = ['sunny','overcast','rainy','cloudy','damp']
-    weather_prob = [0.3, 0.2, 0.1, 0.2, 0.2]
-    weather = choice(weathers, 1, p=weather_prob, replace=False)[0]
+    #choose weather
+    weather = choice(list(resources.weathers.keys()), 1, p=resources.weather_prob, replace=False)[0]
     venue_obj.weather = weather
-    PrintInColor("Weather: {0}".format(weather), Style.BRIGHT)
+    PrintInColor(resources.weathers[weather], Style.BRIGHT)
     return venue_obj
 
 #read teams and
