@@ -2,15 +2,17 @@
 #venues
 class Venue():
     def __init__(self, **kwargs):
-        name=run_prob=run_prob_t20=None
+        name=run_prob=run_prob_t20=weather=None
         self.name=''
         self.run_prob=[]
         self.run_prob_t20=[]
+        self.weather=None
         if kwargs is not None:
             for k,v in kwargs.items():
                 if k=='name':   self.name=v
                 if k=='run_prob':   self.run_prob=v
                 if k=='run_prob_t20':   self.run_prob_t20=v
+                if k=='weather':    self.weather=v
 
 #player attributes
 class PlayerAttr():
@@ -92,8 +94,9 @@ class Player():
 #match details
 class Match():
     def __init__(self, **kwargs):
-        team1=team2=overs=result=venue=batting_first=batting_second=bowler_max_overs=autoplay=logger=None
+        status=team1=team2=overs=result=venue=batting_first=batting_second=bowler_max_overs=autoplay=logger=None
         #initialize default values
+        self.status=False
         self.overs=0
         self.logger=None
         self.result=None
@@ -108,6 +111,7 @@ class Match():
         self.autoplay=False
         if kwargs is not None:
             for k,v in kwargs.items():
+                if k=='status': self.status=kwargs[k]
                 if k=='team1':  self.team1=kwargs[k]
                 if k=='logger': self.logger=kwargs[k]
                 if k=='team2':  self.team2=kwargs[k]               

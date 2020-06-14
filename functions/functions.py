@@ -9,6 +9,14 @@ import json
 import random
 import time
 
+#D/L method
+def SimulateMatch(match, batting_team):
+    if batting_team.batting_second == True:
+        #calculate current run rate. If it is > required rate, they win
+        nrr=GetRequiredRate(match.overs, batting_team)
+        #get current rate
+
+
 #read venue data
 def GetVenue(venue_data):
     venue_obj = None
@@ -25,6 +33,12 @@ def GetVenue(venue_data):
     #populate run_prob_t20
     run_prob_t20 = data['run_prob_t20']
     venue_obj.run_prob_t20 = run_prob_t20
+    #populate weather
+    weathers = ['sunny','overcast','rainy','cloudy','damp']
+    weather_prob = [0.3, 0.2, 0.1, 0.2, 0.2]
+    weather = choice(weathers, 1, p=weather_prob, replace=False)[0]
+    venue_obj.weather = weather
+    PrintInColor("Weather: {0}".format(weather), Style.BRIGHT)
     return venue_obj
 
 #read teams and
@@ -361,6 +375,14 @@ def GetRequiredRate(totalovers, team):
     nrr = float(towin / overs_remaining)
     nrr = round(nrr,2)
     return nrr
+
+#get current rate
+def GetCurrentRate(team):
+    crr = 0.0
+    if team.total_balls > 0:
+        crr = team.total_score / BallsToOvers(team.total_balls)
+    return crr
+
 
 #batting summary - scoreboard
 def DisplayScore(match, team):
@@ -1019,8 +1041,53 @@ def Play(match, batting_team, bowling_team):
         elif nrr < 6.0: comment = Randomize(commentary.commentary_less_req_rate)
         PrintInColor(comment, Style.BRIGHT)
 
+    #depending on weather, if rainy, decide afer whhich over
+    over_interrupt = 0
+    if batting_team.batting_second is True:
+        if match.venue.weather == 'rainy':
+            over_interrupt = random.choice(list(range(10,50)))
+
     #now run for each over
     for over in range(0,overs):
+        #check if match interrupted
+        if batting_team.batting_second == True and match.venue.weather == "rainy":
+            if over == over_interrupt-5:
+                PrintInColor(Randomize(commentary.commentary_rain_cloudy), Style.BRIGHT)
+                input("Press enter to continue")
+            elif over == over_interrupt-3:
+                PrintInColor(Randomize(commentary.commentary_rain_drizzling), Style.BRIGHT)
+                input("Press enter to continue")
+            elif over == over_interrupt-1:
+                PrintInColor(Randomize(commentary.commentary_rain_heavy), Style.BRIGHT)
+                input("Press enter to continue")
+            elif over == over_interrupt:
+                # abandon due to rain
+                PrintInColor(Randomize(commentary.commentary_rain_interrupt), Style.BRIGHT)
+                input("Press any key to continue")
+                # check nrr and crr
+                nrr = GetRequiredRate(overs, batting_team)
+                crr = GetCurrentRate(batting_team)
+                result = Result(team1=match.team1, team2=match.team2)
+                result_str = ''
+                remaining_overs = match.overs - BallsToOvers(batting_team.total_balls)
+                simulated_score = int(round(remaining_overs*crr)) + batting_team.total_score
+                if crr >= nrr:
+                    #calculate win margin
+                    result_str = "{0} wins by {1} run(s) using D/L method!".format(batting_team.name,
+                                                                      str(abs(simulated_score - batting_team.target)))
+                else:
+                    result_str = "{0} wins by {1} run(s) D/L method!".format(bowling_team.name,
+                                                                             str(abs(batting_team.target - simulated_score)))
+                input("Press any key to continue")
+                match.status = False
+                result.result_str = result_str
+                DisplayScore(match, batting_team)
+                DisplayBowlingStats(match, bowling_team)
+                # change result string
+                match.result = result
+                MatchSummary(match)
+                Error_Exit("Match abandoned due to rain!!")
+
         #check if last over
         if over==overs-1:
             if batting_team.batting_second == True:

@@ -46,6 +46,8 @@ def PlayMatch():
     match.team1 = match.batting_first
     match.team2 = match.batting_second
     # play one inns
+    #match start
+    match.status = True
     Play(match, match.team1, match.team2)
     DisplayScore(match, match.team1)
     DisplayBowlingStats(match, match.team2)
@@ -54,6 +56,7 @@ def PlayMatch():
     Play(match, match.team2, match.team1)
     DisplayScore(match, match.team2)
     DisplayBowlingStats(match, match.team1)
+    match.status = False
     # show results
     CalculateResult(match)
     MatchSummary(match)

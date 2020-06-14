@@ -372,3 +372,20 @@ class commentary():
     commentary_lost_chasing = ['end of the match!',
                                'they have failed in this chase!',
                                'they have succumbed to pressure!']
+
+    #rain
+    commentary_rain_cloudy = ['well it looks cloudy and looks like it might rain..',
+                              'oops.. there are some rain clouds above us.. ',
+                              'weather doesnt look good.. can see the rain clouds developing....']
+
+    commentary_rain_drizzling = ['this is not looking good, a slight drizzle.. we can see raincoats among the crowd',
+                                 'it started drizzling a little now..  tougher for the players',
+                                 'slight drizzle, and fielding is getting tougher!.. we could see the spectators getting their coats']
+
+    commentary_rain_heavy = ['this is bad.. it started pouring!.. Umpires looking concerned',
+                             'oops it has started pouring!.. Umpires are having a chat with the players',
+                             'Its raining.. !!']
+
+    commentary_rain_interrupt = ['heavy rain I am afraid to say the match might have to be called off!',
+                                 'this is an unfortunate end ! Rain has forced to call off the match',
+                                 'heavy rains and the umpires and the match referee have decided to call off the match']
