@@ -645,6 +645,9 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair):
         bowler.hattricks += 1
         PrintInColor(Randomize(commentary.commentary_hattrick), bowling_team.color)
         input('press enter to continue..')
+    if bowler.wkts == 3:
+        PrintInColor('Third wkt for {0} !'.format(bowler.name), bowling_team.color)
+        input('press enter to continue..')
     # check if bowler got 5 wkts
     if bowler.wkts == 5:
         PrintInColor('Thats 5 Wickets for {0} !'.format(bowler.name), bowling_team.color)
@@ -665,6 +668,7 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair):
     #get partnership details
     #1st wkt partnership
     if batting_team.wickets_fell == 1:
+        PrintInColor(Randomize(commentary.commentary_one_down), bowling_team.color)
         partnership_runs = batting_team.fow[0].runs
     else:
         partnership_runs = batting_team.fow[batting_team.wickets_fell-1].runs - batting_team.fow[batting_team.wickets_fell - 2].runs
@@ -723,7 +727,7 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair):
         PrintInColor(Randomize(commentary.commentary_partnership_milestone), Style.BRIGHT)
 
     # calculate the situation
-    if batting_team.batting_second and batting_team.wickets_fell >= 8:
+    if batting_team.batting_second and (7 <= batting_team.wickets_fell < 10):
         PrintInColor(Randomize(commentary.commentary_goingtolose), Style.BRIGHT)
 
     # last man
@@ -732,12 +736,13 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair):
 
     #show score
     ShowHighlights(batting_team)
-    input('press enter to continue..')
+
     if batting_team.wickets_fell < 10:
         ind = pair.index(player_dismissed)
         pair[ind] = batting_team.team_array[batting_team.wickets_fell + 1]
         pair[ind].onstrike = True
         PrintInColor("New Batsman: " + pair[ind].name, batting_team.color)
+    input('press enter to continue..')
     return
 
 #play a ball

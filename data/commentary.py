@@ -11,7 +11,7 @@ class commentary():
 
     commentary_less_req_rate = ['looks easily gettable for them',
                                 'not a big task for them at all!',
-                                'target looks easy but they are going to face some quality bowling attack!'
+                                'target looks easy but they are going to face some quality bowling attack!',
                                 'looks like an easy target for them!']
 
     commentary_high_req_rate = ['reqd rate is really high for them!',
@@ -29,6 +29,7 @@ class commentary():
                       'he has blazed that one! go fetch that!',
                       'thats gone miles in the air!',
                       'he is dealing in sixes here!',
+                      'loose delivery and punished hard!',
                       'what a biggie! it has gone into the trees!',
                       'the batsman has decided that tonights gonna be his night!',
                       'fielder in the deep will just watch it sail over the fence!',
@@ -46,9 +47,11 @@ class commentary():
                        'beautiful drive and the fielder has given up the chase!',
                        'into the gap for four!',
                        'smashed through the gap!',
+                       'poor delivery and deserved to be hit!',
                        'long chase for the fielder... and the ball wins the race!',
                         'how do you set fields for this batsman!',
                         'bad ball and punished!..',
+                       'bad delivery.. it had 4 written all over it!',
                         'well connected!.. that will go to the boundary',
                         'Great shot! Abssollutely magnificent!. And the batsman has not moved an inch!',
                         'that will find the fence!',
@@ -73,6 +76,7 @@ class commentary():
                         'good delivery and somehow the batsman manages to get some runs out of it',
                         'very quick running',
                         'he has to hurry!',
+                        'well played into the gap',
                         'edged and dropped!!! oh what a miss',
                         'in the air, dropped! batsman will get some runs too!',
                         'poor fielding, thats gifting singles and doubles to the batsman!',
@@ -111,6 +115,12 @@ class commentary():
                                   'thats how you lead your team! bravo skipper!',
                                   'he is a perfect example of a brave leader!',
                                   'the skipper leading from the front here']
+
+    commentary_one_down = ['they draw first blood!',
+                           'the opening stand is broken!',
+                           'first one down!',
+                           'the bowling team draw first blood!',
+                           'one down!']
 
     #half the side is down
     commentary_five_down = ['half the side is back in the pavilion!',
@@ -178,7 +188,11 @@ class commentary():
                        'oh it turned a long way! surprised even the bowler!',
                        'what a turn! the batsman is stunned!',
                        'that spun like never before!',
+                       'deceived by the googly!',
                        'that ball turned so sharp!!',
+                       'that was the wrong-un!',
+                       'beautiful top spinner!',
+                       'what a delivery!.. terrific spin!',
                        'oh what a turn! and the batsman is fooled completely!',
                        'what a turn! it has stunned the batsman!',]
 
@@ -189,6 +203,7 @@ class commentary():
                             'magnificent fielding.. brilliant throw!',
                             'he is coming back for the second.. direct hit and gone!',
                             'that was a horrible call!',
+                            'there was absolutely no run there! poor running between the wkts!',
                             'that is horrific! where was the run there?',
                             'lazy running between the wickets at this stage of the match!',
                             'horrible running between the wickets!',
@@ -206,6 +221,7 @@ class commentary():
                             'stumped, no need to refer it!',
                             'fast hands behind the stumps!',
                             'very quick piece of stumping!',
+                            'terrific stumping!',
                             'quick stumping! keeper appeals, umpire says out!',
                             'lightning quick behind the stumps']
 
@@ -220,6 +236,10 @@ class commentary():
                             'thats in the air, has he dropped it, no he hasnt! what a catch!',
                             'thats hit straight down the fielders throat!',
                             'unbelievable catch!',
+                            'magnificent catch..! ..diving in the air!',
+                            'batsman looks shell shocked! what a catch!',
+                            'brilliant dive! what a take! batsman looks stunned!',
+                            'oh what a catch! one handed!',
                             'straight down the fielder\'s throat!',
                             'has he taken that? He has! what a catch!']
 
@@ -230,30 +250,37 @@ class commentary():
                         'trapped him in front! ',
                         'missing leg? No! thats out',
                         'oh thats a harsh decision',
+                        'looks really close, and given out!',
                         'big big appeal from the bowler! finally the umpires finger raises!',
                         'given out, batsman is not happy at all',
+                        'the batsman doesnt look happy! he is shaking his head!',
                         'thats dead, dont look at the umpire!',
+                        'batsman shakes his head, but umpire thinks otherwise!',
+                        'batsman looks unhappy, he thinks it was outside the line',
                         'thats a long appeal and... finally the finger has raised!']
 
     commentary_return_catch = ['beautiful return catch!',
                                'oh what a return catch!',
                                'oh he has dropped.. no he hasnt! what a catch!',
                                'thats out, caught n bowled!',
+                               'caught and bowled! what a reflex!',
                                'what kind of reflexes by the bowler! Thats taken!',
                                'hit it hard but taken by the bowler himself!']
 
     commentary_dot_ball = ['beautiful delivery, missed the stumps by inches!',
-                            'well defended!',
-                            'solid defence',
-                            'textbook defence!',
+                            'thats well defended!',
+                            'thats a solid defence',
+                            'thats a textbook defence!',
                             'He\'s Bowling a Good Line and Length',
                             'edged and dropped at first slip!.. oh dear!',
                             'swings and misses',
+                            'in the air and oh.. ! put down!',
                             'in the air but drops safe..!',
                             'big appeal.. but umpire says not out!',
                             'that looks close, but not out says the umpire!',
                             'missed it, there is a stare from the bowler',
                             'swing and a miss!',
+                            'thats in the air but put down by the keeper! oh what a miss!',
                             'decieved the batsman and nearly missed the offstump',
                             'ooh it bounced and hit the batsman!',
                             'oh that has hit the batsman on the helmet!',
@@ -263,6 +290,7 @@ class commentary():
                             'dangerous delivery! batsman had no clue about it',
                             'oh that was a quick one!',
                             'beautiful slow ball!',
+                            'thats in the air but falls in no mans land',
                             'driven nicely but the fielder was lightning quick! saved a certain boundary!',
                             'played well but straight to the fielder!',
                             'slower ball and he misses it!']
@@ -273,20 +301,20 @@ class commentary():
                                         'ends a terrific partnership between these two!']
 
     commentary_out_first_ball = ['Out first ball!',
-                                    'Gone for a duck!',
-                                    'gone for nothing!',
-                                    'Dissappoinment for the batsman! gone for a duck!',
+                                    'gone without tickling the scoreboard!',
+                                    'gone... first ball wicket!',
+                                    'Disappointment for the batsman! gone for a duck!',
                                     'Thats a slow walk back when youre out first ball!',
                                     'He is out without disturbing the scoreboard!',]
 
-    commentary_nineties = ['Oh he will be so dissapointed! Gone in the nineties!'
+    commentary_nineties = ['Oh he will be so disappointed! Gone in the nineties!'
                            'oh what a shame! missed a deserving century!',
-                           'gone in the nervous nineties! he will be so dissapointed here!',
+                           'gone in the nervous nineties! he will be so disappointed here!',
                            'needless shot! lost a brilliant century!',
                            'unlucky! gone in the nineties!',
                            'oh missed a well deserving ton!']
 
-    commentary_out_duck = ['The batsman will be so dissapointed.. he is gone for nothing!',
+    commentary_out_duck = ['The batsman will be so disappointed.. he is gone for nothing!',
                            'gone for a duck! His nightmare continues!',
                            'thats his second duck in a row in this season!',
                            'slow walk back when youre gone for a duck!',
