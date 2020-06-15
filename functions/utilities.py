@@ -40,6 +40,20 @@ def Randomize(list):
     op = random.choice(list)
     return op
 
+#check for N consecutive elements in a list
+def CheckForConsecutiveElements(arr, element, N):
+	result=False
+	l = len(arr)
+	if len(arr) >= N:
+		for i in range(l):
+			temp=[]
+			for x in range(N):	temp.append(arr[i-x])
+			#check for equal elements
+			if len(temp) > 0 and all(elem == element for elem in temp) == True:
+				result = True
+				break
+	return result
+
 #get short name
 def GetShortName(name):
 	shortname=name

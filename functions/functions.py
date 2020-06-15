@@ -223,7 +223,9 @@ def ValidateMatchTeams(match):
     #make first batsman on strike
     for t in [match.team1, match.team2]:
         t.opening_pair[0].onstrike=True
+        t.opening_pair[0].onfield=True
         t.opening_pair[1].onstrike=False
+        t.opening_pair[1].onfield=True
 
     #check if players have numbers, else assign randomly
     for t in [match.team1, match.team2]:
@@ -319,7 +321,11 @@ def FindPlayerOfTheMatch(match):
     if len(best_batsmen) > 2:
         best_batsmen = best_batsmen[:2]
         if best_batsmen[0].runs == best_batsmen[1].runs:
-            best_batsman = [plr for plr in best_batsmen if plr.status == True][0]
+            #workaround, if both are 0 and both are out
+            if best_batsmen[0].runs == best_batsmen[1].runs == 0:
+                best_batsman = best_batsmen[0]
+            else:
+                best_batsman = [plr for plr in best_batsmen if plr.status == True][0]
         else:   best_batsman = best_batsmen[0]
 
     #if same no of wkts, check eco
@@ -381,7 +387,6 @@ def GetCurrentRate(team):
         crr = team.total_score / BallsToOvers(team.total_balls)
     return crr
 
-
 #batting summary - scoreboard
 def DisplayScore(match, team):
     logger=match.logger
@@ -402,7 +407,7 @@ def DisplayScore(match, team):
         if p.attr.iscaptain == True:    name = name + '(c)'
         if p.attr.iskeeper == True: name = name + '(wk)'
         if p.status is True:    #* if not out
-            if p.balls == 0 and p.runs == 0:
+            if p.onfield == False:
                 data_to_print.append([name, 'DNB', ''])
             else:
                 data_to_print.append([name, "not out", "{0}* ({1})".format(str(p.runs), str(p.balls))])
@@ -546,6 +551,7 @@ def BatsmanOut(pair, dismissal):
     ind=pair.index(player_on_strike)
     #bastman dismissed
     pair[ind].status = False
+    pair[ind].onfield = False
     pair[ind].balls += 1
     pair[ind].strikerate = float((pair[ind].runs / pair[ind].balls)*100)
     pair[ind].strikerate = round(pair[ind].strikerate, 2)
@@ -590,18 +596,6 @@ def ShowHighlights(batting_team):
                                                str( BallsToOvers(batting_team.total_balls))),
                  Style.BRIGHT)
 
-#check for N consecutive elements in a list
-def CheckForConsecutiveBalls(bowler, element):
-    result=False
-    #check array bowler.ball_history[] without extras!
-    arr=[x for x in bowler.ball_history if x != 'WD']
-    total_balls_bowled = len(arr)
-    for i in range(2, total_balls_bowled):
-        if arr[i] == arr[i-1] == arr[i-2] == element:
-            result = True
-            break
-    return result
-
 #update dismissal
 def UpdateDismissal(bowler, bowling_team, batting_team, pair):
     keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
@@ -640,7 +634,8 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair):
                  Style.BRIGHT)
 
     # detect a hat-trick!
-    isHattrick = CheckForConsecutiveBalls(bowler, 'Wkt')
+    arr=[x for x in bowler.ball_history if x != 'WD']
+    isHattrick = CheckForConsecutiveElements(arr, 'Wkt', 3)
     if isHattrick == True:
         bowler.hattricks += 1
         PrintInColor(Randomize(commentary.commentary_hattrick), bowling_team.color)
@@ -742,6 +737,8 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair):
         pair[ind] = batting_team.team_array[batting_team.wickets_fell + 1]
         pair[ind].onstrike = True
         PrintInColor("New Batsman: " + pair[ind].name, batting_team.color)
+        #now new batter on field
+        pair[ind].onfield = True
     input('press enter to continue..')
     return
 
@@ -762,7 +759,9 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             #check if first ball hit for a boundary
             if on_strike.balls == 0:
                 PrintInColor(Randomize(commentary.commentary_firstball_four), Fore.LIGHTGREEN_EX)
-            if CheckForConsecutiveBalls(bowler, 4) == True:
+            #hattrick 4s
+            arr = [x for x in bowler.ball_history if x != 'WD']
+            if CheckForConsecutiveElements(arr, 4, 3) == True:
                 PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.LIGHTGREEN_EX)
             #inc numbers of 4s
             on_strike.fours += 1
@@ -770,7 +769,9 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             #check uf furst ball is hit
             if on_strike.balls == 0:
                 PrintInColor(Randomize(commentary.commentary_firstball_six), Fore.LIGHTGREEN_EX)
-            if CheckForConsecutiveBalls(bowler, 6) == True:
+            #hattrick sixes
+            arr = [x for x in bowler.ball_history if x != 'WD']
+            if CheckForConsecutiveElements(arr, 6, 3) == True:
                 PrintInColor(Randomize(commentary.commentary_in_a_row), Fore.LIGHTGREEN_EX)
             field = Randomize(resources.fields[6])
             comment=Randomize(commentary.commentary_six)

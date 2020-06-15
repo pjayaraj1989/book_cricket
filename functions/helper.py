@@ -39,7 +39,7 @@ class PlayerAttr():
 #player details
 class Player():
     def __init__(self, **kwargs):
-        attr=onstrike=runs=fours=sixes=singles=doubles=threes=no=balls=name=status=wkts=balls_bowled=runs_given=hattricks=ball_history=dismissal=maidens=eco=fifty=hundred=strikerate=max_overs=None
+        attr=onstrike=runs=fours=sixes=onfield=singles=doubles=threes=no=balls=name=status=wkts=balls_bowled=runs_given=hattricks=ball_history=dismissal=maidens=eco=fifty=hundred=strikerate=max_overs=None
         self.attr=PlayerAttr()
         self.no=None
         self.onstrike=False
@@ -51,6 +51,7 @@ class Player():
         self.maidens=0
         self.name=''
         self.status=True
+        self.onfield=False
         self.dismissal=""
         self.eco=0.0
         self.fifty=0
@@ -72,6 +73,7 @@ class Player():
                 if k=='balls':  self.balls=v
                 if k=='name':   self.name=v
                 if k=='status': self.status=v
+                if k=='onfield':    self.onfield=v
                 if k=='attr':   self.attr=v
                 if k=='wkts':   self.wkts=v
                 if k=='balls_bowled':   self.balls_bowled=v
