@@ -1,3 +1,13 @@
+#tournament
+class Tournament():
+    def __init__(self, **kwargs):
+        name=teams=None
+        self.name=''
+        self.teams=[]
+        if kwargs is not None:
+            for k,v in kwargs.items():
+                if k=='name':   self.name=v
+                if k=='teams':   self.teams=v
 
 #venues
 class Venue():

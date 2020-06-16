@@ -62,7 +62,21 @@ def PlayMatch(match):
     handler.close()
 
 if __name__ == "__main__":
-    teams,venue = ReadData()
-    match = GetMatchInfo(teams, venue)
-    PlayMatch(match)
+    t = Tournament(name="Friendly")
+    while True:
+        teams, venue = ReadData()
+        match = GetMatchInfo(teams, venue)
+        t.teams.append(match.team1)
+        t.teams.append(match.team2)
+        PlayMatch(match)
+        while True:
+            opt = input("Play again? y/n")
+            if opt.lower() in ['y','n']:
+                break
+            print ("Invalid input")
+        if opt.lower() == 'y':
+            continue
+        else:
+            break
+
     input("Thanks for playing, goodbye!")
