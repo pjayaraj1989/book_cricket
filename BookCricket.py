@@ -2,27 +2,25 @@
 from functions.functions import*
 import logging
 import os
+ScriptPath = os.path.dirname(os.path.abspath(__file__))
+data_path = os.path.join(ScriptPath, 'data')
+venue_data = os.path.join(data_path, 'venue_data.json')
 
-def PlayMatch():
-    ScriptPath = os.path.dirname(os.path.abspath(__file__))
-    # input teams to play
-    data_path = os.path.join(ScriptPath,'data')
-    #now get the json files available
+def ReadData():
+    # input teams to play    # now get the json files available
     json_files = [f for f in os.listdir(data_path) if (f.startswith('teams_') and f.endswith('.json') == True)]
     leagues = [l.lstrip('teams_').strip('.json') for l in json_files]
-
     # welcome text
     PrintInColor(commentary.intro_game, Style.BRIGHT)
     league = ChooseFromOptions(leagues, "Choose league")
     data_file = [l for l in json_files if league in l][0]
-    team_data = os.path.join(data_path,data_file)
+    team_data = os.path.join(data_path, data_file)
     teams = ReadTeams(team_data)
-
-    #now read venue data
-    venue_data = os.path.join(data_path,'venue_data.json')
+    # now read venue data
     venue = GetVenue(venue_data)
+    return teams,venue
 
-    match = GetMatchInfo(teams, venue)
+def PlayMatch(match):
     # logging
     log_file = 'log_{0}_v_{1}_{2}_{3}_ovrs.log'.format(match.team1.name,
                                                        match.team2.name,
@@ -64,5 +62,7 @@ def PlayMatch():
     handler.close()
 
 if __name__ == "__main__":
-    PlayMatch()
+    teams,venue = ReadData()
+    match = GetMatchInfo(teams, venue)
+    PlayMatch(match)
     input("Thanks for playing, goodbye!")
