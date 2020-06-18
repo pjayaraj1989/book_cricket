@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['BookCricket.py'],
-             pathex=['.\\functions', '.\\data', 'C:\\Users\\pjayaraj\\source\\repos\\pjayaraj1989\\book_cricket'],
+             pathex=['.\\functions', '.\\data', 'c:\\Users\\pjayaraj\\source\\repos\\pjayaraj1989\\book_cricket'],
              binaries=[],
              datas=[],
              hiddenimports=[],
