@@ -16,6 +16,27 @@ def SimulateMatch(match, batting_team):
         nrr=GetRequiredRate(match.overs, batting_team)
         #get current rate
 
+def CheckDRS(team):
+    result=False
+    if team.drs_chances <= 0:
+        print ("No DRS available")
+        return result
+    #check if all 4 decisions are taken
+    elif team.drs_chances > 0:
+        opt = ChooseFromOptions(['y','n'],
+                                "DRS? {0} chances remaining".format(str(team.drs_chances)),
+                                20)
+        if opt == 'n':
+            print ("Not opting DRS!")
+            return result
+        else:
+            print("Decision pending...")
+            time.sleep(5)
+            result = random.choice([True,False])
+            if result == True:  PrintInColor ("It says not out!", Fore.GREEN)
+            else:   PrintInColor ("DECISION STAYS.. ", Fore.RED)
+            team.drs_chances -= 1
+    return result
 
 #read venue data
 def GetVenue(venue_data):
@@ -25,7 +46,7 @@ def GetVenue(venue_data):
     countries = {}
     if data is not None:    countries = data['Venues']
     #now get venues for each countries
-    country = ChooseFromOptions(list(countries.keys()), "Select Venue")
+    country = ChooseFromOptions(list(countries.keys()), "Select Venue", 5)
     #now get venues in this
     venue = random.choice(countries[country]['places'])
     print ("Selected Stadium: " + venue['name'])
@@ -89,9 +110,9 @@ def GetMatchInfo(list_of_teams, venue):
     bowler_max_overs = overs / 5
 
     #input teams
-    t1 = ChooseFromOptions(teams, "Select your team")
+    t1 = ChooseFromOptions(teams, "Select your team", 5)
     teams.remove(t1)
-    t2 = ChooseFromOptions(teams, 'Select opponent')
+    t2 = ChooseFromOptions(teams, 'Select opponent', 5)
     print('Selected {0} and {1}'.format(t1,t2))
     #find teams from user input
     for t in list_of_teams:
@@ -120,7 +141,7 @@ def GetMatchInfo(list_of_teams, venue):
     #display squad
     DisplayPlayingXI(match)
     #Want to skip balls?
-    opt=ChooseFromOptions(['y','n'], "Do you want to play only highlights? y/n?")
+    opt=ChooseFromOptions(['y','n'], "Do you want to play only highlights? y/n?", 5)
     if opt.lower() == 'y':
         match.autoplay=True
     return match
@@ -597,9 +618,8 @@ def ShowHighlights(batting_team):
                  Style.BRIGHT)
 
 #update dismissal
-def UpdateDismissal(bowler, bowling_team, batting_team, pair):
+def UpdateDismissal(bowler, bowling_team, batting_team, pair, dismissal):
     keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
-    dismissal = GenerateDismissal(bowler, bowling_team)
     if not 'runout' in dismissal:
         # add this to bowlers history
         bowler.ball_history.append('Wkt')
@@ -747,10 +767,28 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
     #get who is on strike
     on_strike = next((x for x in pair if x.onstrike == True), None)
     #if out
-    if run == -1:
-        UpdateDismissal(bowler, bowling_team, batting_team, pair)
-    #runs other than dismissal
-    else:
+    used_drs=False
+    while run == -1:
+        dismissal = GenerateDismissal(bowler, bowling_team)
+        if 'lbw' in dismissal:
+            PrintInColor("Thats close! finger raises!", Style.BRIGHT)
+            result = CheckDRS(batting_team)
+            #overturn
+            if result == True:
+                run = 0
+                used_drs=True
+                break
+            #decision stays
+            else:
+                run = -1
+                UpdateDismissal(bowler, bowling_team, batting_team, pair, dismissal)
+                return
+        else:
+            UpdateDismissal(bowler, bowling_team, batting_team, pair, dismissal)
+            return
+
+    #other than dismissal
+    if run != -1:
         #appropriate commentary for 4s and 6s
         if run == 4:
             field = Randomize(resources.fields[4])
@@ -780,7 +818,10 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             on_strike.sixes += 1
         #dot ball
         elif run == 0:
-            comment=Randomize(commentary.commentary_dot_ball)
+            if used_drs == False:
+                comment=Randomize(commentary.commentary_dot_ball)
+            else:
+                comment="Decision overturned!"
             print ('{0}, No Run'.format(comment))
         #ones and twos and threes
         else:

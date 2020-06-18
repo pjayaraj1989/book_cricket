@@ -12,7 +12,7 @@ def ReadData():
     leagues = [l.lstrip('teams_').strip('.json') for l in json_files]
     # welcome text
     PrintInColor(commentary.intro_game, Style.BRIGHT)
-    league = ChooseFromOptions(leagues, "Choose league")
+    league = ChooseFromOptions(leagues, "Choose league", 5)
     data_file = [l for l in json_files if league in l][0]
     team_data = os.path.join(data_path, data_file)
     teams = ReadTeams(team_data)

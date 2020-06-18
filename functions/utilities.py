@@ -7,7 +7,7 @@ import sys
 import os
 
 #choose from options a list
-def ChooseFromOptions(options, msg):
+def ChooseFromOptions(options, msg, tries):
     print (msg)
     option_selected = None
     options_dict = {}
@@ -16,7 +16,7 @@ def ChooseFromOptions(options, msg):
     msg = ''
     for k, v in options_dict.items():    msg += '{0}.{1} '.format(k, v)
     keys = list(options_dict.keys())
-    n = 3
+    n = tries
     while n > 0:
         opt = input("Select from : {0}".format(msg))
         if opt not in keys:
