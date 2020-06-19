@@ -1,3 +1,4 @@
+#resources needed
 
 class resources():
     #color maps
@@ -63,7 +64,7 @@ class resources():
                      'between the first slip and short third man!',
                      'through the covers',
                      'over backward point',
-                     'steered between ',
+                     'steered between the covers',
                      'punched off the backfoot',
                      'driven off the front foot',
                      'advances down the ground',

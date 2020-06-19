@@ -1,7 +1,10 @@
 #! /usr/bin/env python3
+from functions.Initiate import ReadTeams, ValidateMatchTeams, Toss, GetMatchInfo, GetVenue
 from functions.functions import*
 import logging
 import os
+from functions.results import CalculateResult, FindPlayerOfTheMatch
+
 ScriptPath = os.path.dirname(os.path.abspath(__file__))
 data_path = os.path.join(ScriptPath, 'data')
 venue_data = os.path.join(data_path, 'venue_data.json')
@@ -18,7 +21,7 @@ def ReadData():
     teams = ReadTeams(team_data)
     # now read venue data
     venue = GetVenue(venue_data)
-    return teams,venue
+    return teams, venue
 
 def PlayMatch(match):
     # logging

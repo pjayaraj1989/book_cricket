@@ -1,5 +1,4 @@
 import random
-
 import colorama
 from colorama import Style, AnsiToWin32, init, Fore
 import time

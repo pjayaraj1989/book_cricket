@@ -1,13 +1,14 @@
+#all the commentary phrases are defined here
 
 #commentary phrases
 class commentary():
     intro_game = '*'*50 + '\n' + '*'*14 + 'Book Cricket Simulator' + '*'*14 + '\n' + '*' * 50
 
-    intro_dialogues = ['Welcome everybody, here we are at',
-                    'Hello everyone, here we are at',
-                    'Hello and welcome everyone to ',
-                    'Electrifying atmosphere here at',
-                    'Warm welcome to everybody to ']
+    intro_dialogues = ['Welcome everybody, here we are at ',
+                        'Hello everyone, here we are at ',
+                        'Hello and welcome everyone to ',
+                        'Electrifying atmosphere here at ',
+                        'Warm welcome to everybody to ']
 
     commentary_less_req_rate = ['looks easily gettable for them',
                                 'not a big task for them at all!',
@@ -41,6 +42,7 @@ class commentary():
                       'thats big and the crowd will catch it! ',
                       'boy what a hit!',
                       'thats huge, its out of here!',]
+
     commentary_four = ['what a shot!.. that will find the fence!',
                        'oh will this be taken in the deep, oh he has dropped it.. and its 4!',
                         'the crowd is loving this!',
@@ -433,7 +435,7 @@ class commentary():
     commentary_last_ball_match = ['this is it.. the last ball of the match!',
                                   'we are down to the last ball of the match',
                                   'last ball of this match coming up!']
-    commentary_last_ball_innings = ['last over of this innings coming up!']
+    commentary_last_ball_innings = ['last ball of this innings !']
 
     commentary_last_over_match = ['last over of the match!',
                                   'last over! the crowd on their feet!',
