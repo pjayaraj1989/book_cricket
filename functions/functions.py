@@ -103,20 +103,22 @@ def GenerateDismissal(bowler, bowling_team):
     fielder=Randomize(bowling_team.team_array)
     #list of mode of dismissals
     if bowler.attr.isspinner == True:
-        dismissal_types = ['c','st','runout','lbw','b']
+        dismissal_types = ['c', 'st', 'runout', 'lbw', 'b']
+        dismissal_prob = [0.38, 0.2, 0.02, 0.2, 0.2]
     else:
-        dismissal_types = ['c','runout','lbw','b']
+        dismissal_types = ['c', 'runout', 'lbw', 'b']
+        dismissal_prob = [0.45, 0.05, 0.25, 0.25]
     #generate dismissal
-    dismissal=Randomize(dismissal_types)
+    dismissal = choice(dismissal_types, 1, p=dismissal_prob, replace=False)[0]
     #generate dismissal string
     if dismissal == 'lbw' or dismissal == 'b':
-        dismissal_str = '{0} {1}'.format(dismissal,GetShortName(bowler.name))
+        dismissal_str = '{0} {1}'.format(dismissal, GetShortName(bowler.name))
     elif dismissal == 'st':
         #stumped
         dismissal_str = 'st {0} b {1}'.format(GetShortName(keeper.name), GetShortName(bowler.name))
     elif dismissal == 'c':
         #check if catcher is the bowler
-        if fielder == bowler:   dismissal_str = 'c&b {0}'.format(bowler.name)
+        if fielder == bowler:   dismissal_str = 'c&b {0}'.format(GetShortName(bowler.name))
         else:   dismissal_str = '{0} {1} b {2}'.format(dismissal, GetShortName(fielder.name), GetShortName(bowler.name))
     elif dismissal == 'runout':
         dismissal_str = 'runout {0}'.format(GetShortName(fielder.name))
