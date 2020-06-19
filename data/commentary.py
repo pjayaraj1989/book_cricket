@@ -243,22 +243,57 @@ class commentary():
                             'straight down the fielder\'s throat!',
                             'has he taken that? He has! what a catch!']
 
-    commentary_lbw = ['big appeal.. and the finger goes up!',
-                        'thats in line and umpire says out',
-                        'thats plumb! given out!',
-                        'ohh that looks close, and the finger is raised!',
-                        'trapped him in front! ',
-                        'missing leg? No! thats out',
-                        'oh thats a harsh decision',
-                        'looks really close, and given out!',
-                        'big big appeal from the bowler! finally the umpires finger raises!',
+    #modify this as per DRS
+    commentary_lbw_umpire = ['big appeal.. and the finger goes up!',
+                             'that looks in line and umpire says out!',
+                             'looks plumb, and the finger raises!',
+                             'hit on the pads! and given out!',
+                             'looks dead straight to me... and umpire says out!',
+                             'thats a big appeal.. and finally given lbw!!',
+                             'big appeal.. and umpire says out! oh that looks like a harsh decision!',]
+
+    commentary_lbw_drs_taken = ['batsman looks confused.. long chat with his partner.. and finally takes it upstairs!',
+                                'long discussion with his partner.. and finally decides to go for the DRS',
+                                'Oh they are going with the DRS.. looks like a review wasted?',
+                                'He is having a chat with the non striker.. and decides to opt for the DRS',
+                                'This is a tough call.. Will they waste a DRS chance here?',
+                                'well, he hasnt even discussed with the non-striker, has gone upstairs instantly!',
+                                'well he has gone for the review instantly!']
+
+    commentary_lbw_drs_not_taken = ['long chat with the non striker.. and finally he is walking off..',
+                                    'it looked close to me, they will not be wasting a DRS chance here',
+                                    'Will he go upstairs, dont think so.. he is walking off the field',
+                                    'are they going for the DRS here? I dont think so..']
+
+    commentary_lbw_decision_stays = ['Well it shows that the ball will be hitting the top of off!. Decision stays!',
+                                     'Pitching in line, impact in line.. hitting middle!',
+                                     'missing leg? No! thats out',
+                                     'Its pitching in-line! Hitting middle and leg.. Decision stays! He has to go!']
+
+    commentary_lbw_overturned = ['It shows the ball missing the stumps by an inch! not out!',
+                                 'Impact in line, but wickets missing!',
+                                 'pitching in line, impact in line, wkts.. missing! good review!',
+                                'Oh thats missing the top of off by inches!.. decision will be overturned!']
+
+    commentary_lbw_edged_outside = ['DRS says there is bat involved! Overturned!.. well that saves them a review',
+                                    'impact outside leg!.. this will be overturned',
+                                    'impact outside off!...',
+                                    'pitching outside off.. impact outside off!',
+                                    'DRS says thats pitching outside leg! Not out!',
+                                    'there is a slight nick!.. ',
+                                    'Oh there is an inside edge...? This will be given not out!',]
+
+    commentary_lbw = [ 'trapped him in front! ',
                         'given out, batsman is not happy at all',
                         'the batsman doesnt look happy! he is shaking his head!',
-                        'thats dead, dont look at the umpire!',
-                        'batsman shakes his head, but umpire thinks otherwise!',
-                        'batsman looks unhappy, he thinks it was outside the line',
-                        'thats a long appeal and... finally the finger has raised!']
+                        'batsman shakes his head',
+                        'batsman looks unhappy, he thinks it was outside the line',]
 
+    commentary_lbw_nomore_drs = ['they donot have any more DRS reviews left!',
+                                 'they have used all their review chances!',
+                                 'No more reviews left!']
+
+    #DISMISSALS
     commentary_return_catch = ['beautiful return catch!',
                                'oh what a return catch!',
                                'oh he has dropped.. no he hasnt! what a catch!',
@@ -295,6 +330,7 @@ class commentary():
                             'played well but straight to the fielder!',
                             'slower ball and he misses it!']
 
+    #MILESTONES
     commentary_partnership_milestone = ['this has been a terrific partnership!',
                                         'what a partnership this has been!',
                                         'was a magnificent partnership!',
@@ -307,7 +343,7 @@ class commentary():
                                     'Thats a slow walk back when youre out first ball!',
                                     'He is out without disturbing the scoreboard!',]
 
-    commentary_nineties = ['Oh he will be so disappointed! Gone in the nineties!'
+    commentary_nineties = ['Oh he will be so disappointed! Gone in the nineties!',
                            'oh what a shame! missed a deserving century!',
                            'gone in the nervous nineties! he will be so disappointed here!',
                            'needless shot! lost a brilliant century!',
@@ -385,20 +421,33 @@ class commentary():
                                 'straight up in the air, keeper says mine and takes it!',]
 
     commentary_match_won = ['thats it, thats the end of the match!',
+                            'thats it, they have won the match!',
                             'thats the end of the match!']
     commentary_all_out = ['thats it! they have been bowled out!',
+                          'terrific bowling performance, they have been bowled out!',
+                          'all over for them!',
                           'all out!']
+
+    #LAST OVER/MATCH/INNS
+    # LAST BALL OF THE MATCH
+    commentary_last_ball_match = ['this is it.. the last ball of the match!',
+                                  'we are down to the last ball of the match',
+                                  'last ball of this match coming up!']
+    commentary_last_ball_innings = ['last over of this innings coming up!']
 
     commentary_last_over_match = ['last over of the match!',
                                   'last over! the crowd on their feet!',
                                   'we are all set to witness a last over thriller!',
                                   'here we go! last over of this match!',
                                   'this is what it has come down to! the last over!']
+
     commentary_last_over_innings = ['last over of this innings coming up',
                                     'last over of the innings!']
     #chasing and lost
     commentary_lost_chasing = ['end of the match!',
+                               'afraid to say thats the end of the chase',
                                'they have failed in this chase!',
+                               'the pressure was too much for them!',
                                'they have succumbed to pressure!']
 
     #rain

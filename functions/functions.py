@@ -18,24 +18,38 @@ def SimulateMatch(match, batting_team):
 
 def CheckDRS(team):
     result=False
+    impact_outside_bat_involved=False
     if team.drs_chances <= 0:
-        print ("No DRS available")
+        PrintInColor (Randomize(commentary.commentary_lbw_nomore_drs), Fore.RED)
         return result
     #check if all 4 decisions are taken
     elif team.drs_chances > 0:
         opt = ChooseFromOptions(['y','n'],
-                                "DRS? {0} chances remaining".format(str(team.drs_chances)),
+                                "DRS? {0} chance(s) left".format(str(team.drs_chances)),
                                 20)
         if opt == 'n':
-            print ("Not opting DRS!")
+            PrintInColor(Randomize(commentary.commentary_lbw_drs_not_taken), Fore.RED)
             return result
         else:
+            PrintInColor(Randomize(commentary.commentary_lbw_drs_taken), Fore.GREEN)
             print("Decision pending...")
             time.sleep(5)
             result = random.choice([True,False])
-            if result == True:  PrintInColor ("It says not out!", Fore.GREEN)
-            else:   PrintInColor ("DECISION STAYS.. ", Fore.RED)
-            team.drs_chances -= 1
+            impact_outside_bat_involved = random.choice([True,False])
+            #if not out
+            if result == True:
+                #if edged or pitching outside
+                if impact_outside_bat_involved == True:
+                    PrintInColor(Randomize(commentary.commentary_lbw_edged_outside), Fore.GREEN)
+                else:
+                    team.drs_chances -= 1
+                PrintInColor (Randomize(commentary.commentary_lbw_overturned), Fore.GREEN)
+
+            #if out!
+            else:
+                PrintInColor (Randomize(commentary.commentary_lbw_decision_stays), Fore.RED)
+                team.drs_chances -= 1
+
     return result
 
 #read venue data
@@ -346,8 +360,16 @@ def FindPlayerOfTheMatch(match):
             if best_batsmen[0].runs == best_batsmen[1].runs == 0:
                 best_batsman = best_batsmen[0]
             else:
-                best_batsman = [plr for plr in best_batsmen if plr.status == True][0]
-        else:   best_batsman = best_batsmen[0]
+                #get who are not out
+                best_batsmen = [plr for plr in best_batsmen if plr.status == True]
+                #if both are notout
+                if best_batsmen[0].status == best_batsmen[1].status == True:
+                    #get random
+                    best_batsman = random.choice(best_batsmen[0], best_batsmen[1])
+                else:
+                    best_batsman = best_batsmen[0]
+        else:
+            best_batsman = best_batsmen[0]
 
     #if same no of wkts, check eco
     if len(best_bowlers) > 2:
@@ -771,7 +793,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
     while run == -1:
         dismissal = GenerateDismissal(bowler, bowling_team)
         if 'lbw' in dismissal:
-            PrintInColor("Thats close! finger raises!", Style.BRIGHT)
+            PrintInColor(Randomize(commentary.commentary_lbw_umpire), Fore.RED)
             result = CheckDRS(batting_team)
             #overturn
             if result == True:
@@ -940,9 +962,9 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
     while(ball <= 6):
         if over == overs-1 and ball == 6:
             if batting_team.batting_second == True:
-                PrintInColor('Last ball of the match!', Style.BRIGHT)
+                PrintInColor(Randomize(commentary.commentary_last_ball_match), Style.BRIGHT)
             else:
-                PrintInColor('Last ball of the innings!', Style.BRIGHT)
+                PrintInColor(Randomize(commentary.commentary_last_ball_innings), Style.BRIGHT)
         #towards the death overs, show a highlights
         towin=batting_team.target - batting_team.total_score
         #calculate if score is close
@@ -978,9 +1000,8 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
         if run == 5:
             # add this to bowlers history
             bowler.ball_history.append('WD')
-            comment = Randomize(commentary.commentary_wide)
             PrintInColor ("WIDE...!", Style.BRIGHT)
-            PrintInColor (comment, Style.BRIGHT)
+            PrintInColor (Randomize(commentary.commentary_wide), Style.BRIGHT)
             bowler.runs_given += 1
             batting_team.extras += 1
             batting_team.total_score += 1
@@ -1034,18 +1055,16 @@ def CheckMilestone(pair, batting_team):
     for p in pair:
         #first fifty
         if p.runs >= 50 and p.fifty == 0:
-            comment=Randomize(commentary.commentary_milestone)
             p.fifty += 1
             PrintInColor("50 for {0}!".format(p.name), batting_team.color)
             PrintInColor("{0} fours and {1} sixes".format(str(p.fours), str(p.sixes)), Style.BRIGHT)
             #check if captain
             if p.attr.iscaptain == True:
                 PrintInColor(Randomize(commentary.commentary_captain_leading), batting_team.color)
-            PrintInColor(comment, batting_team.color)
+            PrintInColor(Randomize(commentary.commentary_milestone), batting_team.color)
             input('press enter to continue..')
         elif p.runs >= 100 and (p.fifty == 1 and p.hundred == 0):
             #after first fifty is done
-            comment=Randomize(commentary.commentary_milestone)
             p.hundred += 1
             p.fifty += 1
             PrintInColor("100 for {0}!".format(p.name),  batting_team.color)
@@ -1053,18 +1072,17 @@ def CheckMilestone(pair, batting_team):
             #check if captain
             if p.attr.iscaptain == True:
                 PrintInColor(Randomize(commentary.commentary_captain_leading), batting_team.color)
-            PrintInColor(comment, batting_team.color)
+            PrintInColor(Randomize(commentary.commentary_milestone), batting_team.color)
             input('press enter to continue..')
         elif p.runs >= 200 and (p.hundred == 1):
             #after first fifty is done
-            comment=Randomize(commentary.commentary_milestone)
             p.hundred += 1
             PrintInColor("200 for {0}! What a superman!".format(p.name),  batting_team.color)
             PrintInColor("{0} fours and {1} sixes".format(str(p.fours), str(p.sixes)), Style.BRIGHT)
             #check if captain
             if p.attr.iscaptain == True:
                 PrintInColor(Randomize(commentary.commentary_captain_leading), batting_team.color)
-            PrintInColor(comment, batting_team.color)
+            PrintInColor(Randomize(commentary.commentary_milestone), batting_team.color)
             input('press enter to continue..')
         else:
             None
@@ -1082,7 +1100,7 @@ def Play(match, batting_team, bowling_team):
         #check if required rate
         nrr = GetRequiredRate(match.overs, batting_team)
         print("Reqd. run rate: {0}".format(str(nrr)))
-        if nrr > 10.0:    comment = Randomize(commentary.commentary_high_req_rate)
+        if nrr > 7.0:    comment = Randomize(commentary.commentary_high_req_rate)
         elif nrr < 6.0: comment = Randomize(commentary.commentary_less_req_rate)
         PrintInColor(comment, Style.BRIGHT)
 
