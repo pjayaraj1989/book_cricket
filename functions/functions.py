@@ -409,9 +409,30 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
                                                         str(bowler.wkts),
                                                         str(BallsToOvers(bowler.balls_bowled))),
                  bowling_team.color)
+
+    #update bowler economy
+    if bowler.balls_bowled > 0:
+        eco = float(bowler.runs_given / BallsToOvers(bowler.balls_bowled))
+        eco = round(eco, 2)
+        bowler.eco = eco
+
+    #check if spinner or seamer
+    if bowler.attr.isspinner == True:
+        PrintInColor(Randomize(commentary.commentary_spinner_into_attack), Style.BRIGHT)
+    else:
+        PrintInColor(Randomize(commentary.commentary_pacer_into_attack), Style.BRIGHT)
+    #check if it is his last over!
+    if (BallsToOvers(bowler.balls_bowled) == match.bowler_max_overs - 1) and (bowler.balls_bowled != 0):
+        PrintInColor(Randomize(commentary.commentary_bowler_last_over), Style.BRIGHT)
+        if bowler.wkts >= 3 or bowler.eco <= 5.0:
+            PrintInColor(Randomize(commentary.commentary_bowler_good_spell), Style.BRIGHT)
+        elif bowler.eco >= 7.0:
+            PrintInColor(Randomize(commentary.commentary_bowler_bad_spell), Style.BRIGHT)
+
     ball=1
     bowling_team.last_bowler=bowler
     ismaiden=True
+    total_runs_in_over=0
     while(ball <= 6):
         if over == overs-1 and ball == 6:
             if batting_team.batting_second == True:
@@ -449,6 +470,9 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
         #if run > 0, change this flag
         if run not in [-1,0]:
             ismaiden=False
+            if run == 5:    total_runs_in_over += 1
+            else:   total_runs_in_over += run
+
         #check if extra
         if run == 5:
             # add this to bowlers history
@@ -501,6 +525,15 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
     #check if over is a maiden
     if ismaiden == True:
         bowler.maidens += 1
+    #check total runs taken in over
+    if total_runs_in_over > 14:
+        PrintInColor(Randomize(commentary.commentary_expensive_over) + '\n' +
+                     '{0} runs in this over!'.format(str(total_runs_in_over)),
+                     Style.BRIGHT)
+    elif total_runs_in_over < 6:
+        PrintInColor(Randomize(commentary.commentary_economical_over) + '\n' +
+                     'only {0} run(s) off this over!'.format(str(total_runs_in_over)),
+                     Style.BRIGHT)
     return match_status
 
 #check for milestones
