@@ -443,9 +443,17 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
         towin=batting_team.target - batting_team.total_score
         #calculate if score is close
         if batting_team.batting_second:
-            if towin <= 20 or over == overs-1:
+            if towin == 0:
                 ShowHighlights(batting_team)
-                PrintInColor ('To win: {0} from {1}'.format(str(towin),
+                PrintInColor("Match won!!", Style.BRIGHT)
+                input('press enter to continue...')
+                break
+            elif towin <= 20 or over == overs-1:
+                ShowHighlights(batting_team)
+                if towin == 1:
+                    PrintInColor("Match tied!", Fore.GREEN)
+                else:
+                    PrintInColor ('To win: {0} from {1}'.format(str(towin),
                                                     str(overs*6 - batting_team.total_balls)),
                               Style.BRIGHT)
                 input('press enter to continue...')
