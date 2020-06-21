@@ -106,6 +106,15 @@ class commentary():
                                 'thats how you start an innings! pressure straightway on the bowler now!'
                                 'thats hit off the first ball!.. ']
 
+    #captain next:
+    commentary_captain_to_bat_next = ['the captain walking out to the middle!',
+                                      'the skipper to bat next!',
+                                      'and now we have the captain at the crease',
+                                      'the captain now has a job to do!',
+                                      'crowd cheering as the captain walks out to bat',
+                                      'the skipper, to walk into the ground now',
+                                      'huge applause as the captain is going into the middle']
+
     #captain out
     commentary_captain_out = ['got rid of the skipper!',
                               'the captain goes!',

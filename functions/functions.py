@@ -13,7 +13,7 @@ def CheckDRS(team):
     result=False
     impact_outside_bat_involved=False
     if team.drs_chances <= 0:
-        PrintInColor (Randomize(commentary.commentary_lbw_nomore_drs), Fore.RED)
+        PrintInColor (Randomize(commentary.commentary_lbw_nomore_drs), Fore.LIGHTRED_EX)
         return result
     #check if all 4 decisions are taken
     elif team.drs_chances > 0:
@@ -21,10 +21,10 @@ def CheckDRS(team):
                                 "DRS? {0} chance(s) left".format(str(team.drs_chances)),
                                 20)
         if opt == 'n':
-            PrintInColor(Randomize(commentary.commentary_lbw_drs_not_taken), Fore.RED)
+            PrintInColor(Randomize(commentary.commentary_lbw_drs_not_taken), Fore.LIGHTRED_EX)
             return result
         else:
-            PrintInColor(Randomize(commentary.commentary_lbw_drs_taken), Fore.GREEN)
+            PrintInColor(Randomize(commentary.commentary_lbw_drs_taken), Fore.LIGHTGREEN_EX)
             print("Decision pending...")
             time.sleep(5)
             result = random.choice([True,False])
@@ -33,14 +33,14 @@ def CheckDRS(team):
             if result == True:
                 #if edged or pitching outside
                 if impact_outside_bat_involved == True:
-                    PrintInColor(Randomize(commentary.commentary_lbw_edged_outside), Fore.GREEN)
+                    PrintInColor(Randomize(commentary.commentary_lbw_edged_outside), Fore.LIGHTGREEN_EX)
                 else:
                     team.drs_chances -= 1
-                PrintInColor (Randomize(commentary.commentary_lbw_overturned), Fore.GREEN)
+                PrintInColor (Randomize(commentary.commentary_lbw_overturned), Fore.LIGHTGREEN_EX)
 
             #if out!
             else:
-                PrintInColor (Randomize(commentary.commentary_lbw_decision_stays), Fore.RED)
+                PrintInColor (Randomize(commentary.commentary_lbw_decision_stays), Fore.LIGHTRED_EX)
                 team.drs_chances -= 1
     return result
 
@@ -152,7 +152,7 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair, dismissal):
                                                           str(player_dismissed.runs),
                                                           str(player_dismissed.balls),
                                                           str(player_dismissed.strikerate)),
-                 Fore.RED)
+                 Fore.LIGHTRED_EX)
 
     #show 4s, 6s
     PrintInColor("4s:{0}, 6s:{1}, 1s:{2}, 2s:{3} 3s:{4}".format(str(player_dismissed.fours),
@@ -266,6 +266,9 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair, dismissal):
         pair[ind] = batting_team.team_array[batting_team.wickets_fell + 1]
         pair[ind].onstrike = True
         PrintInColor("New Batsman: " + pair[ind].name, batting_team.color)
+        #check if he is captain
+        if pair[ind].attr.iscaptain == True:
+            PrintInColor(Randomize(commentary.commentary_captain_to_bat_next), batting_team.color)
         #now new batter on field
         pair[ind].onfield = True
     input('press enter to continue..')
@@ -280,7 +283,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
     while run == -1:
         dismissal = GenerateDismissal(bowler, bowling_team)
         if 'lbw' in dismissal:
-            PrintInColor(Randomize(commentary.commentary_lbw_umpire), Fore.RED)
+            PrintInColor(Randomize(commentary.commentary_lbw_umpire), Fore.LIGHTRED_EX)
             result = CheckDRS(batting_team)
             #overturn
             if result == True:
@@ -336,7 +339,10 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
         else:
             field = Randomize(resources.fields["ground_shot"])
             comment=Randomize(commentary.commentary_ground_shot)
-            print ('{0},{1} {2} run'.format(comment, field, str(run)))
+            if run == 1:
+                print ('{0},{1} {2} run'.format(comment, field, str(run)))
+            else:
+                print('{0},{1} {2} runs'.format(comment, field, str(run)))
             #update 1s and 2s
             if run == 1:    on_strike.singles += 1
             elif run == 2:  on_strike.doubles += 1
@@ -451,7 +457,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
             elif towin <= 20 or over == overs-1:
                 ShowHighlights(batting_team)
                 if towin == 1:
-                    PrintInColor("Match tied!", Fore.GREEN)
+                    PrintInColor("Match tied!", Fore.LIGHTGREEN_EX)
                 else:
                     PrintInColor ('To win: {0} from {1}'.format(str(towin),
                                                     str(overs*6 - batting_team.total_balls)),
@@ -485,7 +491,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
         if run == 5:
             # add this to bowlers history
             bowler.ball_history.append('WD')
-            PrintInColor ("WIDE...!", Style.BRIGHT)
+            PrintInColor ("WIDE...!", Fore.LIGHTCYAN_EX)
             PrintInColor (Randomize(commentary.commentary_wide), Style.BRIGHT)
             bowler.runs_given += 1
             batting_team.extras += 1
@@ -495,7 +501,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
             ball += 1
             # check if 1st innings over
             if batting_team.batting_second is False and batting_team.total_balls == (match.overs * 6):
-                PrintInColor("End of innings", Style.BRIGHT)
+                PrintInColor("End of innings", Fore.LIGHTCYAN_EX)
                 #update last partnership
                 if batting_team.wickets_fell > 0:
                     last_fow = batting_team.fow[-1].runs
@@ -526,7 +532,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
                 break
             # if all out
             if batting_team.wickets_fell == 10:
-                PrintInColor(Randomize(commentary.commentary_all_out), Fore.RED)
+                PrintInColor(Randomize(commentary.commentary_all_out), Fore.LIGHTRED_EX)
                 match_status = False
                 input('press enter to continue...')
                 break
