@@ -489,13 +489,25 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
 
         #check if extra
         if run == 5:
-            # add this to bowlers history
-            bowler.ball_history.append('WD')
-            PrintInColor ("WIDE...!", Fore.LIGHTCYAN_EX)
-            PrintInColor (Randomize(commentary.commentary_wide), Style.BRIGHT)
-            bowler.runs_given += 1
-            batting_team.extras += 1
-            batting_team.total_score += 1
+            #generate wide or no ball
+            extra = random.choice(['wd', 'nb'])
+            if extra == 'wd':
+                # add this to bowlers history
+                bowler.ball_history.append('WD')
+                PrintInColor ("WIDE...!", Fore.LIGHTCYAN_EX)
+                PrintInColor (Randomize(commentary.commentary_wide), Style.BRIGHT)
+                bowler.runs_given += 1
+                batting_team.extras += 1
+                batting_team.total_score += 1
+            elif extra == 'nb':
+                #no balls
+                bowler.ball_history.append('NB')
+                PrintInColor("NO BALL...!", Fore.LIGHTCYAN_EX)
+                PrintInColor(Randomize(commentary.commentary_no_ball), Style.BRIGHT)
+                bowler.runs_given += 1
+                batting_team.extras += 1
+                batting_team.total_score += 1
+
         else:
             Ball(run, pair, bowler, batting_team, bowling_team)
             ball += 1

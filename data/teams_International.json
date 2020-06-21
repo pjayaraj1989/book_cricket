@@ -6,7 +6,7 @@
         {"name": "Shikhar Dhawan","batting": 8,"bowling": 3,"opener2":  1},
         {"name": "Virat Kohli","batting": 9,"bowling": 4, "spinner": 1, "captain": 1},
         {"name": "Shreyas Iyer","batting": 8},
-        {"name": "KL Rahul","batting": 7,"keeper": 1},
+        {"name": "K.L. Rahul","batting": 7,"keeper": 1},
         {"name": "Hardik Pandya","batting": 7,"bowling": 7},
         {"name": "Ravindra Jadeja","batting": 7,"bowling": 8,"spinner": 1},
         {"name": "Bhuvneshwar Kumar","batting": 5,"bowling": 8,"openingbowler": 1},

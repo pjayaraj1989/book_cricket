@@ -413,6 +413,16 @@ class commentary():
                             'oh big appeal from the keeper but Wide says the umpire!',
                             'bowler under pressure here!',]
 
+    commentary_no_ball = ['good delivery , batsman misses it.. but No ball called!',
+                          'well bowled.. but no ball!',
+                          'lost his run up !',
+                          'oh thats a dangerous beamer! no ball called!',
+                          'bowler tries a full toss but thats way above waist height!',
+                          'bowler loses his rhythm! no ball called',
+                          'bowled him! but oh thats a no ball!',
+                          'in the air and taken!. but no ball called!!',
+                          'oh thats a high full toss! no ball called!']
+
     commentary_milestone = ['Its been a terrific knock..!',
                                 'what a performance...!',
                                 'Take a bow! What a knock!',
@@ -458,6 +468,7 @@ class commentary():
     commentary_match_won = ['thats it, thats the end of the match!',
                             'thats it, they have won the match!',
                             'thats the end of the match!']
+
     commentary_all_out = ['thats it! they have been bowled out!',
                           'terrific bowling performance, they have been bowled out!',
                           'its all over for them!',
@@ -468,6 +479,7 @@ class commentary():
     commentary_last_ball_match = ['this is it.. the last ball of the match!',
                                   'we are down to the last ball of the match',
                                   'last ball of this match coming up!']
+
     commentary_last_ball_innings = ['last ball of this innings !']
 
     commentary_last_over_match = ['last over of the match!',
@@ -478,6 +490,7 @@ class commentary():
 
     commentary_last_over_innings = ['last over of this innings coming up',
                                     'last over of the innings!']
+
     #chasing and lost
     commentary_lost_chasing = ['end of the match!',
                                'afraid to say thats the end of the chase',
@@ -528,6 +541,7 @@ class commentary():
                                       'the spinner to start his over',
                                       'we have a spinner to bowl this over',
                                       'the spin bowler to start the over',]
+
     commentary_pacer_into_attack = ['a pacer into the attack now!',
                                     'a pacer into the attack',
                                     'seamer to start a new over',
