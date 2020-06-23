@@ -112,12 +112,13 @@ def GenerateDismissal(bowler, bowling_team):
 #update dismissal
 def UpdateDismissal(bowler, bowling_team, batting_team, pair, dismissal):
     keeper = next((x for x in bowling_team.team_array if x.attr.iskeeper == True), None)
-    if not 'runout' in dismissal:
+    if 'runout' in dismissal:
+        bowler.ball_history.append('RO')
+    else:
         # add this to bowlers history
         bowler.ball_history.append('Wkt')
         bowler.wkts += 1
-    elif 'runout' in dismissal:
-        bowler.ball_history.append('RO')
+
     # update wkts, balls, etc
     bowler.balls_bowled += 1
     batting_team.wickets_fell += 1
@@ -146,7 +147,7 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair, dismissal):
                  Style.BRIGHT)
 
     # detect a hat-trick!
-    arr=[x for x in bowler.ball_history if x != 'WD']
+    arr=[x for x in bowler.ball_history if x != 'WD' or x != 'NB']
     isHattrick = CheckForConsecutiveElements(arr, 'Wkt', 3)
     if isHattrick == True:
         bowler.hattricks += 1
@@ -286,6 +287,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
     if run != -1:
         #appropriate commentary for 4s and 6s
         if run == 4:
+            bowler.ball_history.append(4)
             field = Randomize(resources.fields[4])
             comment=Randomize(commentary.commentary_four)
             PrintInColor (field + " FOUR! " + comment, Fore.LIGHTGREEN_EX)
@@ -299,6 +301,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             #inc numbers of 4s
             on_strike.fours += 1
         elif run == 6:
+            bowler.ball_history.append(6)
             #check uf furst ball is hit
             if on_strike.balls == 0:
                 PrintInColor(Randomize(commentary.commentary_firstball_six), Fore.LIGHTGREEN_EX)
@@ -313,6 +316,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             on_strike.sixes += 1
         #dot ball
         elif run == 0:
+            bowler.ball_history.append(0)
             if used_drs == False:
                 comment=Randomize(commentary.commentary_dot_ball)
             else:
@@ -320,6 +324,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
             print ('{0}, No Run'.format(comment))
         #ones and twos and threes
         else:
+            bowler.ball_history.append(run)
             field = Randomize(resources.fields["ground_shot"])
             comment=Randomize(commentary.commentary_ground_shot)
             if run == 1:
@@ -337,7 +342,7 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
         batting_team.total_balls += 1
         batting_team.total_score += run
         # add this to bowlers history
-        bowler.ball_history.append(run)
+        #bowler.ball_history.append(run)
         #check for milestones
         CheckMilestone(pair, batting_team)
 

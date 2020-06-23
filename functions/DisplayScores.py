@@ -25,22 +25,20 @@ def GetRequiredRate(team):
 def ShowHighlights(batting_team):
     reqd_rate=0.0
     crr = GetCurrentRate(batting_team)
+    # default msg
+    msg = '{0} {1} / {2} ({3} Overs)'.format(batting_team.name,
+                                             str(batting_team.total_score),
+                                             str(batting_team.wickets_fell),
+                                             str(BallsToOvers(batting_team.total_balls)))
+    # if overs done, dont print Runrate
+    if batting_team.total_balls <= batting_team.total_overs * 6:
+        msg += ', Current RR: {0}'.format(str(crr))
+
     if batting_team.batting_second == True:
         if batting_team.total_balls <= batting_team.total_overs * 6 or batting_team.total_score <= batting_team.target:
             reqd_rate = GetRequiredRate(batting_team)
-    #default msg
-    msg = '{0} {1} / {2} ({3} Overs)'.format(batting_team.name,
-                                               str(batting_team.total_score),
-                                               str(batting_team.wickets_fell),
-                                               str(BallsToOvers(batting_team.total_balls)))
-    #if overs done, dont print Runrate
-    if batting_team.total_balls <= batting_team.total_overs*6:
-        msg += ', Current RR: {0}'.format(str(crr))
-    #if second innings
-    if batting_team.batting_second == True:
-        #if overs done, dont print this
-        if batting_team.total_balls <= batting_team.total_overs*6 or batting_team.total_score <= batting_team.target:
             msg += ", Reqd. Rate: {0}".format(str(reqd_rate))
+
     PrintInColor(msg, Style.BRIGHT)
 
 #batting summary - scoreboard

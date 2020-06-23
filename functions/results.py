@@ -100,7 +100,7 @@ def FindPlayerOfTheMatch(match):
                 #if both are notout
                 if best_batsmen[0].status == best_batsmen[1].status == True:
                     #get random
-                    best_batsman = random.choice(best_batsmen[0], best_batsmen[1])
+                    best_batsman = random.choice([best_batsmen[0], best_batsmen[1]])
                 else:
                     best_batsman = best_batsmen[0]
         else:
