@@ -433,10 +433,10 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
             else:
                 PrintInColor(Randomize(commentary.commentary_last_ball_innings), Style.BRIGHT)
         #towards the death overs, show a highlights
-        towin=batting_team.target - batting_team.total_score
+        towin=abs(batting_team.target - batting_team.total_score)
         #calculate if score is close
         if batting_team.batting_second:
-            if towin == 0:
+            if towin <= 0:
                 ShowHighlights(batting_team)
                 PrintInColor("Match won!!", Style.BRIGHT)
                 input('press enter to continue...')
