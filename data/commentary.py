@@ -328,13 +328,14 @@ class commentary():
                             'big big appeal ... but umpire shakes his head!',
                             'He\'s Bowling a Good Line and Length',
                             'edged and dropped at first slip!.. oh dear!',
-                            'swings and misses',
+                            'swings and misses.. batsman living dangerously!',
                             'in the air and oh.. ! put down!',
                             'in the air but drops safe..!',
+                            'deceived the batsman.. and the bowler gives him a stare!',
                             'big appeal.. but umpire says not out!',
                             'that looks close, but not out says the umpire!',
                             'missed it, there is a stare from the bowler',
-                            'oh swing and a miss!',
+                            'oh swing and a miss!.. batsman is looking nervous!',
                             'hit well but straight to the man at short extra cover!.. well fielded!',
                             'that bounced too much.. batsman had no clue.. and well taken by the keeper too!',
                             'magnificent delivery.. just above the bails to the keeper!',
@@ -548,6 +549,15 @@ class commentary():
                                     'a quick bowler into the attack here',
                                     'the seamer to begin a new over',
                                     'we have a fast bowler into the attack',]
+
+    #check if bowler is captain
+    commentary_captain_to_bowl = ['skipper to bowl a new over',
+                                  'captain to start a new over here!',
+                                  'skipper, to begin a new over',
+                                  'captain to bowl now!',
+                                  'lets see if the captain can make an impact!',
+                                  'captain is going to try an over now!',
+                                  'captain coming on to bowl this over!']
 
     commentary_maiden_over = ['what a bowler.. thats a maiden over!',
                               'maiden over!!!.. brilliant!',

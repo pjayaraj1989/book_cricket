@@ -3,12 +3,45 @@
 from functions.utilities import PrintInColor, BallsToOvers, GetShortName, PrintListFormatted
 from colorama import Style
 
+#get current rate
+def GetCurrentRate(team):
+    crr = 0.0
+    if team.total_balls > 0:
+        crr = team.total_score / BallsToOvers(team.total_balls)
+    crr = round(crr, 2)
+    return crr
+
+def GetRequiredRate(team):
+    nrr=0.0
+    #if chasing, calc net nrr
+    balls_remaining=(team.total_overs)*6 - team.total_balls
+    if balls_remaining > 0:
+        overs_remaining=BallsToOvers(balls_remaining)
+        towin = team.target - team.total_score
+        nrr = float(towin / overs_remaining)
+        nrr = round(nrr, 2)
+    return nrr
+
 def ShowHighlights(batting_team):
-    PrintInColor('{0} {1} / {2} ({3} Overs)'.format(batting_team.name,
+    reqd_rate=0.0
+    crr = GetCurrentRate(batting_team)
+    if batting_team.batting_second == True:
+        if batting_team.total_balls <= batting_team.total_overs * 6 or batting_team.total_score <= batting_team.target:
+            reqd_rate = GetRequiredRate(batting_team)
+    #default msg
+    msg = '{0} {1} / {2} ({3} Overs)'.format(batting_team.name,
                                                str(batting_team.total_score),
                                                str(batting_team.wickets_fell),
-                                               str( BallsToOvers(batting_team.total_balls))),
-                 Style.BRIGHT)
+                                               str(BallsToOvers(batting_team.total_balls)))
+    #if overs done, dont print Runrate
+    if batting_team.total_balls <= batting_team.total_overs*6:
+        msg += ', Current RR: {0}'.format(str(crr))
+    #if second innings
+    if batting_team.batting_second == True:
+        #if overs done, dont print this
+        if batting_team.total_balls <= batting_team.total_overs*6 or batting_team.total_score <= batting_team.target:
+            msg += ", Reqd. Rate: {0}".format(str(reqd_rate))
+    PrintInColor(msg, Style.BRIGHT)
 
 #batting summary - scoreboard
 def DisplayScore(match, team):
@@ -51,6 +84,14 @@ def DisplayScore(match, team):
                                                        str(BallsToOvers(team.total_balls)))
     PrintInColor(msg, team.color)
     logger.info(msg)
+
+    #show RR
+    crr=GetCurrentRate(team)
+    msg = "RunRate: {0}".format(str(crr))
+    print (msg)
+    logger.info(msg)
+    print(' ')
+    logger.info(' ')
 
     #show FOW
     if team.wickets_fell != 0:

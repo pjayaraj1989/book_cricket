@@ -113,6 +113,10 @@ def GetMatchInfo(list_of_teams, venue):
     match.umpire = umpire
     match.bowler_max_overs = bowler_max_overs
 
+    #set overs to team also
+    for t in [match.team1,match.team2]:
+        t.total_overs = match.overs
+
     #display squad
     DisplayPlayingXI(match)
     #Want to skip balls?

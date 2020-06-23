@@ -2,7 +2,8 @@
 
 from data.resources import*
 from data.commentary import*
-from functions.DisplayScores import ShowHighlights, DisplayScore, DisplayBowlingStats, MatchSummary
+from functions.DisplayScores import ShowHighlights, DisplayScore, DisplayBowlingStats, MatchSummary, GetCurrentRate, \
+    GetRequiredRate
 from functions.helper import*
 from functions.utilities import *
 from numpy.random import choice
@@ -17,9 +18,9 @@ def CheckDRS(team):
         return result
     #check if all 4 decisions are taken
     elif team.drs_chances > 0:
-        opt = ChooseFromOptions(['y','n'],
+        opt = ChooseFromOptions(['y', 'n'],
                                 "DRS? {0} chance(s) left".format(str(team.drs_chances)),
-                                20)
+                                200000)
         if opt == 'n':
             PrintInColor(Randomize(commentary.commentary_lbw_drs_not_taken), Fore.LIGHTRED_EX)
             return result
@@ -27,8 +28,8 @@ def CheckDRS(team):
             PrintInColor(Randomize(commentary.commentary_lbw_drs_taken), Fore.LIGHTGREEN_EX)
             print("Decision pending...")
             time.sleep(5)
-            result = random.choice([True,False])
-            impact_outside_bat_involved = random.choice([True,False])
+            result = random.choice([True, False])
+            impact_outside_bat_involved = random.choice([True, False])
             #if not out
             if result == True:
                 #if edged or pitching outside
@@ -36,11 +37,11 @@ def CheckDRS(team):
                     PrintInColor(Randomize(commentary.commentary_lbw_edged_outside), Fore.LIGHTGREEN_EX)
                 else:
                     team.drs_chances -= 1
-                PrintInColor (Randomize(commentary.commentary_lbw_overturned), Fore.LIGHTGREEN_EX)
+                PrintInColor(Randomize(commentary.commentary_lbw_overturned), Fore.LIGHTGREEN_EX)
 
             #if out!
             else:
-                PrintInColor (Randomize(commentary.commentary_lbw_decision_stays), Fore.LIGHTRED_EX)
+                PrintInColor(Randomize(commentary.commentary_lbw_decision_stays), Fore.LIGHTRED_EX)
                 team.drs_chances -= 1
     return result
 
@@ -59,24 +60,6 @@ def PairFaceBall(pair, run):
         pair[ind].onstrike = False
         pair[alt_ind].onstrike = True
     return pair
-
-#calculate required rr at a point
-def GetRequiredRate(totalovers, team):
-    nrr=0.0
-    #if chasing, calc net nrr
-    balls_remaining=totalovers*6 - team.total_balls
-    overs_remaining=BallsToOvers(balls_remaining)
-    towin = team.target - team.total_score
-    nrr = float(towin / overs_remaining)
-    nrr = round(nrr,2)
-    return nrr
-
-#get current rate
-def GetCurrentRate(team):
-    crr = 0.0
-    if team.total_balls > 0:
-        crr = team.total_score / BallsToOvers(team.total_balls)
-    return crr
 
 #batsman out
 def BatsmanOut(pair, dismissal):
@@ -422,6 +405,10 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
         eco = round(eco, 2)
         bowler.eco = eco
 
+    #check if bowler is captain
+    if bowler.attr.iscaptain == True:
+        PrintInColor(Randomize(commentary.commentary_captain_to_bowl), Style.BRIGHT)
+
     #check if spinner or seamer
     if bowler.attr.isspinner == True:
         PrintInColor(Randomize(commentary.commentary_spinner_into_attack), Style.BRIGHT)
@@ -610,7 +597,7 @@ def Play(match, batting_team, bowling_team):
                                                                  str(batting_team.target),
                                                                  str(overs)), batting_team.color)
         #check if required rate
-        nrr = GetRequiredRate(match.overs, batting_team)
+        nrr = GetRequiredRate(batting_team)
         print("Reqd. run rate: {0}".format(str(nrr)))
         if nrr > 7.0:    comment = Randomize(commentary.commentary_high_req_rate)
         elif nrr < 6.0: comment = Randomize(commentary.commentary_less_req_rate)
@@ -640,7 +627,7 @@ def Play(match, batting_team, bowling_team):
                 PrintInColor(Randomize(commentary.commentary_rain_interrupt), Style.BRIGHT)
                 input("Press any key to continue")
                 # check nrr and crr
-                nrr = GetRequiredRate(overs, batting_team)
+                nrr = GetRequiredRate(batting_team)
                 crr = GetCurrentRate(batting_team)
                 result = Result(team1=match.team1, team2=match.team2)
                 result_str = ''
@@ -669,10 +656,6 @@ def Play(match, batting_team, bowling_team):
                 PrintInColor(Randomize(commentary.commentary_last_over_match), Style.BRIGHT)
             else:
                 PrintInColor(Randomize(commentary.commentary_last_over_innings), Style.BRIGHT)
-        #show net rr required if batting second
-        if batting_team.batting_second is True:
-            nrr=GetRequiredRate(overs, batting_team)
-            PrintInColor('Reqd Run Rate: {0} per over'.format(str(nrr)), Style.BRIGHT)
 
         #play an over
         status=PlayOver(over, overs, batting_team, bowling_team, pair, match)
