@@ -52,6 +52,7 @@ def ReadTeams(json_file):
                 if 'batting' in plr:    p.attr.batting = plr['batting']
                 if 'bowling' in plr:    p.attr.bowling = plr['bowling']
                 if 'spinner' in plr and plr['spinner'] == 1:    p.attr.isspinner = True
+                if 'pacer' in plr and plr['pacer'] == 1:  p.attr.ispacer = True
                 if 'keeper' in plr and plr['keeper'] == 1:    p.attr.iskeeper = True
                 if 'openingbowler' in plr and plr['openingbowler'] == 1:    p.attr.isopeningbowler = True
                 t.team_array.append(p)

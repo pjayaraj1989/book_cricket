@@ -10,17 +10,18 @@ class commentary():
                         'Electrifying atmosphere here at ',
                         'Warm welcome to everybody to ']
 
+    #Run rates
     commentary_less_req_rate = ['looks easily gettable for them',
                                 'not a big task for them at all!',
                                 'target looks easy but they are going to face some quality bowling attack!',
                                 'looks like an easy target for them!']
-
     commentary_high_req_rate = ['reqd rate is really high for them!',
                                 'this is gonna be a tough chase for them!',
                                 'a big target and they will be facing a tough bowling attack too!',
                                 'a himalayan task ahead for them! need to bat really well!',
                                 'thats a big task ahead for them!']
 
+    #comments for diff shots
     commentary_six = ['thats in the stands! ',
                       'he goes bang ! Thats a big one!',
                       'smashed it out of the park!',
@@ -43,7 +44,6 @@ class commentary():
                       'thats big and the crowd will catch it! ',
                       'boy what a hit!',
                       'thats huge, its out of here!',]
-
     commentary_four = ['what a shot!.. that will find the fence!',
                        'oh will this be taken in the deep, oh he has dropped it.. and its 4!',
                         'the crowd is loving this!',
@@ -71,7 +71,6 @@ class commentary():
                         'Terrific batting this.. what would be the reply from the bowler?',
                         'Another one of those, and there will be a chat between the bowler and his captain!',
                         'he goes bang!']
-                        
     commentary_ground_shot = ['not timed well but will get some runs',
                         'found the gap well',
                         'good ball ! but well played into the gap',
@@ -88,7 +87,6 @@ class commentary():
                         'thats quick running!',
                         'not timed well but lazy fielding, bowler is not happy!',
                         'singles and doubles will surely irritate the fielding captain']
-
     #four first  ball
     commentary_firstball_four = ['what a way to start the innings!',
                                  'glorious start to the innings!',
@@ -105,6 +103,10 @@ class commentary():
                                 'bang! he has smashed the first ball out of here!',
                                 'thats how you start an innings! pressure straightway on the bowler now!'
                                 'thats hit off the first ball!.. ']
+
+    #comment situation based on Reqd RR
+    commentary_situation_reqd_rate_low = ['the reqd rate is way too less']
+    commentary_situation_reqd_rate_high = ['required rate is high!']
 
     #captain next:
     commentary_captain_to_bat_next = ['the captain walking out to the middle!',
@@ -128,6 +130,7 @@ class commentary():
                                   'he is a perfect example of a brave leader!',
                                   'the skipper leading from the front here']
 
+    #comments for wkts
     commentary_one_down = ['they draw first blood!',
                            'the opening stand is broken!',
                            'first one down!',
@@ -146,9 +149,8 @@ class commentary():
                           'now they will be trying to mop up the tail!',
                           'tail ender coming out into the middle!']
 
-    #hit wkt
+    #diff types of dismissals
     commentary_hit_wkt = ['gone! he has hit the stumps!']
-
     commentary_bowled = ['full and straight what a ball',
                         'what a yorker! he is on fire!',
                         'bowled himm!',
@@ -171,11 +173,9 @@ class commentary():
                         'Bowled him! And he is showing the batsman the way to the dressing room!',
                         'done him with a toe crushing yorker!',
                         'oh bowledimm!, an unplayable delivery!',]
-
     commentary_in_a_row = ['thats 3 in a row!',
                             'three in a row now!, bowler is clueless here',
                             'three in a row!']
-
     commentary_reverse = ['Oh thats reversed!',
                           'the ball has reversed!',
                           'he gets it to reverse!',
@@ -183,7 +183,6 @@ class commentary():
                           'reverse swinging delivery !',
                           'magnificent reverse swinging delivery!',
                           'brilliant reverse swinger this!']
-
     commentary_swing = ['Terrific inswinger!',
                         'superb inswinger!',
                         'outswinging delivery!',
@@ -195,7 +194,6 @@ class commentary():
                         'oh that swung a long way!',
                         'brilliant outswinger!',
                         'unbelievable swing!']
-
     commentary_turn = ['that ball turned a long way!',
                        'oh that spun a long way!',
                        'terrific spin bowling this!',
@@ -211,7 +209,6 @@ class commentary():
                        'what a delivery!.. terrific spin!',
                        'oh what a turn! and the batsman is fooled completely!',
                        'what a turn! it has stunned the batsman!',]
-
     commentary_runout = ['what a terrible mix up!',
                             'this is bizzare!.. terrible miscommunication',
                             'dead accurate throw from the fielder!',
@@ -230,7 +227,6 @@ class commentary():
                             'direct hit and gone!',
                             'thats gone.. runout!! never run off a mis-field!',
                             'what was the batsman thinking!?']
-
     commentary_stumped = ['swift work by the keeper!',
                             'thats out! stumped!',
                             'batsman misses it and swift work behind the stumps!',
@@ -240,7 +236,6 @@ class commentary():
                             'terrific stumping!',
                             'quick stumping! keeper appeals, umpire says out!',
                             'lightning quick behind the stumps']
-
     commentary_caught = ['in the air.. and taken!',
                             'thats straight up in the air.. taken!',
                             'bad shot.. leading edge and gone!',
@@ -270,7 +265,6 @@ class commentary():
                              'looks dead straight to me... and umpire says out!',
                              'thats a big appeal.. and finally given lbw!!',
                              'big appeal.. and umpire says out! oh that looks like a harsh decision!',]
-
     commentary_lbw_drs_taken = ['batsman looks confused.. long chat with his partner.. and finally takes it upstairs!',
                                 'long discussion with his partner.. and finally decides to go for the DRS',
                                 'Oh they are going with the DRS.. looks like a review wasted?',
@@ -278,22 +272,18 @@ class commentary():
                                 'This is a tough call.. Will they waste a DRS chance here?',
                                 'well, he hasnt even discussed with the non-striker, has gone upstairs instantly!',
                                 'well he has gone for the review instantly!']
-
     commentary_lbw_drs_not_taken = ['long chat with the non striker.. and finally he is walking off..',
                                     'it looked close to me, they will not be wasting a DRS chance here',
                                     'Will he go upstairs, dont think so.. he is walking off the field',
                                     'are they going for the DRS here? I dont think so..']
-
     commentary_lbw_decision_stays = ['Well it shows that the ball will be hitting the top of off!. Decision stays!',
                                      'Pitching in line, impact in line.. hitting middle!',
                                      'missing leg? No! thats out',
                                      'Its pitching in-line! Hitting middle and leg.. Decision stays! He has to go!']
-
     commentary_lbw_overturned = ['It shows the ball missing the stumps by an inch! not out!',
                                  'Impact in line, but wickets missing!',
                                  'pitching in line, impact in line, wkts.. missing! good review!',
                                 'Oh thats missing the top of off by inches!.. decision will be overturned!']
-
     commentary_lbw_edged_outside = ['DRS says there is bat involved! Overturned!.. well that saves them a review',
                                     'impact outside leg!.. this will be overturned',
                                     'impact outside off!...',
@@ -301,18 +291,15 @@ class commentary():
                                     'DRS says thats pitching outside leg! Not out!',
                                     'there is a slight nick!.. ',
                                     'Oh there is an inside edge...? This will be given not out!',]
-
     commentary_lbw = [ 'trapped him in front! ',
                         'given out, batsman is not happy at all',
                         'the batsman doesnt look happy! he is shaking his head!',
                         'batsman shakes his head',
                         'batsman looks unhappy, he thinks it was outside the line',]
-
     commentary_lbw_nomore_drs = ['they donot have any more DRS reviews left!',
                                  'they have used all their review chances!',
                                  'No more reviews left!']
 
-    #DISMISSALS
     commentary_return_catch = ['beautiful return catch!',
                                'oh what a return catch!',
                                'oh he has dropped.. no he hasnt! what a catch!',
@@ -320,6 +307,17 @@ class commentary():
                                'caught and bowled! what a reflex!',
                                'what kind of reflexes by the bowler! Thats taken!',
                                'hit it hard but taken by the bowler himself!']
+
+    commentary_dot_ball_pacer = ['swing and a miss.. no run!',
+                                 'its a short one and hit him on the shoulder!',
+                                 'oh thats a nasty bouncer! hit the batsman!',
+                                 'ooh it bounced and hit the batsman!',
+                                 'oh that has hit the batsman on the helmet!',
+                                 'oh thats a quick delivery!',
+                                 'its fast and swinging dangerously.. missed the off stump!',
+                                 'dangerous delivery! batsman had no clue about it',
+                                 'that bounced too much.. batsman had no clue.. and well taken by the keeper too!',
+                                 'dangerous short ball.. !',]
 
     commentary_dot_ball = ['beautiful delivery, missed the stumps by inches!',
                             'thats well defended!',
@@ -337,23 +335,19 @@ class commentary():
                             'missed it, there is a stare from the bowler',
                             'oh swing and a miss!.. batsman is looking nervous!',
                             'hit well but straight to the man at short extra cover!.. well fielded!',
-                            'that bounced too much.. batsman had no clue.. and well taken by the keeper too!',
                             'magnificent delivery.. just above the bails to the keeper!',
                             'oh tantalizingly close to the stumps... a near miss!',
                             'bowler thinks there is an edge..? keeper is appealing.. but the umpire shakes his head!',
                             'thats in the air but put down by the keeper! oh what a miss!',
                             'decieved the batsman and nearly missed the offstump',
-                            'ooh it bounced and hit the batsman!',
                             'thats in the air and chance goes down! goodness me! catches win matches',
                             'in the air and this should be out. oh dropped! goodness me!',
-                            'oh that has hit the batsman on the helmet!',
                             'straight up in the air, oh he has dropped it!',
                             'oh that was perilously close to the off stump!, batsman looking nervous here!',
                             'outside off and he misses that!',
-                            'dangerous delivery! batsman had no clue about it',
                             'oh that was a quick one!',
                             'mistimed. should be taken.. and dropped!.. dear o dear!',
-                            'beautiful slow ball!',
+                            'beautiful slow ball.. fooled the batsman!',
                             'thats straight up in the air, keeper says mine.. oh and put down!',
                             'thats in the air but falls in no mans land',
                             'driven nicely but the fielder was lightning quick! saved a certain boundary!',
@@ -490,13 +484,17 @@ class commentary():
                                   'this is what it has come down to! the last over!']
 
     commentary_last_over_innings = ['last over of this innings coming up',
+                                    'we are down to the last over!',
                                     'last over of the innings!']
 
     #chasing and lost
-    commentary_lost_chasing = ['end of the match!',
+    commentary_lost_chasing = ['end of the match.. end of the chase!!',
                                'afraid to say thats the end of the chase',
                                'they have failed in this chase!',
+                               'they fought well, but the bowlers dominated today!',
                                'the pressure was too much for them!',
+                               'the bowling team was too good for them!',
+                               'they were totally outsmarted by the bowling team!',
                                'they have succumbed to pressure!']
 
     #maiden
@@ -537,18 +535,24 @@ class commentary():
 
     #check if bowler is spinner
     commentary_spinner_into_attack = ['the spinner, to start the over!',
-                                      'spinner into the attack!',
+                                      'spinner into the attack!.. lets see if he gets the ball to turn!',
                                       'we have a spin bowler into the attack',
                                       'the spinner to start his over',
                                       'we have a spinner to bowl this over',
                                       'the spin bowler to start the over',]
 
     commentary_pacer_into_attack = ['a pacer into the attack now!',
-                                    'a pacer into the attack',
+                                    'a pacer into the attack!.. lets see if he can get some swing',
                                     'seamer to start a new over',
+                                    'a fast bowler to start a new over!',
                                     'a quick bowler into the attack here',
-                                    'the seamer to begin a new over',
+                                    'the seamer to begin a new over.. ',
                                     'we have a fast bowler into the attack',]
+
+    commentary_medium_into_attack = ['medium pacer into the attack',
+                                     'a medium pacer, to start a new over',
+                                     'the medium pacer to start the over.. lets see if he can induce a wicket',
+                                     'we have a medium bowler into the attack',]
 
     #check if bowler is captain
     commentary_captain_to_bowl = ['skipper to bowl a new over',

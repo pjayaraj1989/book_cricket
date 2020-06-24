@@ -201,10 +201,10 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair, dismissal):
             comment = Randomize(commentary.commentary_caught)
     elif 'b ' or 'lbw' in dismissal:
         # reverse swing if > 30 overs
-        if 150 <= batting_team.total_balls <= 240 and bowler.attr.isspinner == False:
+        if 150 <= batting_team.total_balls <= 240 and bowler.attr.ispacer == True:
             PrintInColor(Randomize(commentary.commentary_reverse), Style.BRIGHT)
         # initial swing
-        if batting_team.total_balls < 24 and bowler.attr.isspinner == False:
+        if batting_team.total_balls < 24 and bowler.attr.ispacer == True:
             PrintInColor(Randomize(commentary.commentary_swing), Style.BRIGHT)
         # turn
         if bowler.attr.isspinner == True:
@@ -318,7 +318,10 @@ def Ball(run, pair, bowler, batting_team, bowling_team):
         elif run == 0:
             bowler.ball_history.append(0)
             if used_drs == False:
-                comment=Randomize(commentary.commentary_dot_ball)
+                if bowler.attr.ispacer == True:
+                    comment=Randomize(commentary.commentary_dot_ball_pacer + commentary.commentary_dot_ball)
+                else:
+                    comment = Randomize(commentary.commentary_dot_ball)
             else:
                 comment="Decision overturned!"
             print ('{0}, No Run'.format(comment))
@@ -417,8 +420,10 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
     #check if spinner or seamer
     if bowler.attr.isspinner == True:
         PrintInColor(Randomize(commentary.commentary_spinner_into_attack), Style.BRIGHT)
-    else:
+    elif bowler.attr.ispacer == True:
         PrintInColor(Randomize(commentary.commentary_pacer_into_attack), Style.BRIGHT)
+    else:
+        PrintInColor(Randomize(commentary.commentary_medium_into_attack), Style.BRIGHT)
     #check if it is his last over!
     if (BallsToOvers(bowler.balls_bowled) == match.bowler_max_overs - 1) and (bowler.balls_bowled != 0):
         PrintInColor(Randomize(commentary.commentary_bowler_last_over), Style.BRIGHT)
