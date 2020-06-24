@@ -8,11 +8,11 @@
         {"name": "Mahela Jayawardene", "batting": 8,"bowling": 5, "spinner": 1},
         {"name": "Carl Hooper", "batting": 8,"bowling" : 6,  "spinner" : 1},
         {"name": "Mark Boucher","batting": 8,"keeper": 1},
-        {"name": "Lance Klusener","batting": 7,"bowling": 7},
-        {"name": "Shaun Pollock", "batting": 7,"bowling": 7},
-        {"name": "Chaminda Vaas", "batting": 6,"bowling": 8,"openingbowler":1},
+        {"name": "Lance Klusener","batting": 7,"bowling": 7, "pacer":1},
+        {"name": "Shaun Pollock", "batting": 7,"bowling": 7, "pacer":1},
+        {"name": "Chaminda Vaas", "batting": 6,"bowling": 8,"openingbowler":1, "pacer":1},
         {"name": "Muttiah Muralitharan","batting": 6,"bowling": 9,"spinner":1},
-        {"name": "Glenn McGrath","batting": 5,"bowling": 9}
+        {"name": "Glenn McGrath","batting": 5,"bowling": 9, "pacer":1}
       ],
       "key": "ST",
       "color": "lcyan"
@@ -25,12 +25,12 @@
         {"name": "Herschelle Gibbs", "batting": 8},
         {"name": "Ricky Ponting", "batting": 8,"bowling": 5,"spinner": 1,"captain":	1},
         {"name": "Kumar Sangakkara", "batting": 8,"keeper": 1},
-        {"name": "Jacques Kallis", "batting": 7, "bowling": 8},
-        {"name": "Andrew Symonds", "batting": 7, "bowling": 6, "spinner": 1},
+        {"name": "Jacques Kallis", "batting": 7, "bowling": 8, "pacer":1},
+        {"name": "Andrew Symonds", "batting": 7, "bowling": 6},
         {"name": "Shane Warne", "batting": 6, "bowling": 8, "spinner": 1},
-        {"name": "Brett Lee",  "batting": 6, "bowling": 9},
-        {"name": "Zaheer Khan", "batting": 5, "bowling": 9,  "openingbowler": 1},
-        {"name": "Allan Donald", "batting": 5,"bowling": 9}
+        {"name": "Brett Lee",  "batting": 6, "bowling": 9, "pacer":1},
+        {"name": "Zaheer Khan", "batting": 5, "bowling": 9,  "openingbowler": 1, "pacer":1},
+        {"name": "Allan Donald", "batting": 5,"bowling": 9, "pacer":1}
       ],
       "key": "RP",
       "color": "lyellow"
@@ -43,12 +43,12 @@
         {"name": "Shivnarine Chanderpaul","batting": 8},
         {"name": "Steve Waugh", "batting": 8,"bowling": 6,"captain": 1},
         {"name": "Michael Bevan","batting": 8},
-        {"name": "Andrew Flintoff","batting": 7,"bowling": 7},
+        {"name": "Andrew Flintoff","batting": 7,"bowling": 7, "pacer":1},
         {"name": "Daniel Vettori", "batting": 7, "bowling": 7,"spinner": 1},
         {"name": "Harbhajan Singh", "batting": 6, "bowling": 8,"spinner": 1},
-        {"name": "Mitchell Johnson","batting": 6, "bowling": 9},
-        {"name": "Wasim Akram","batting": 5, "bowling": 9,"openingbowler": 1},
-        {"name": "Shoaib Akhtar","batting": 5,"bowling": 9}
+        {"name": "Mitchell Johnson","batting": 6, "bowling": 9, "pacer":1},
+        {"name": "Wasim Akram","batting": 5, "bowling": 9,"openingbowler": 1, "pacer":1},
+        {"name": "Shoaib Akhtar","batting": 5,"bowling": 9, "pacer":1}
       ],
       "key": "SW",
       "color": "lgreen"
