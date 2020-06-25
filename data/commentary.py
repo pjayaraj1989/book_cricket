@@ -20,6 +20,27 @@ class commentary():
                                 'a big target and they will be facing a tough bowling attack too!',
                                 'a himalayan task ahead for them! need to bat really well!',
                                 'thats a big task ahead for them!']
+    # comment situation based on Reqd RR
+    commentary_situation_reqd_rate_low = ['they are well on course here!',
+                                          'the reqd rate looks easily gettable!',
+                                          'this chase looks easy for them!',
+                                          'this chase is on!',
+                                          'they are cruising here!',
+                                          'they really know their target.. well on course!',
+                                          'they are punishing the bowlers here! reqd rate is less than required',
+                                          'they can get home without any hurdles with this scoring rate!',
+                                          'they are chasing well here!',]
+
+    commentary_situation_reqd_rate_high = ['required rate is high!.. they need to gear up!',
+                                           'they need some big hits to boost up the run rate!',
+                                           'singles and doubles wont take them home!',
+                                           'need to boost up the run rate!',
+                                           'required rate is going higher.. pressure building!',
+                                           'bowlers are not giving them room to cope up with the reqd. rate!',
+                                           'they will have to struggle to get home with this scoring rate!',
+                                           'chase looks pretty sluggish!',
+                                           'they need some hard hitters to stay alive in this chase!',
+                                           'they really need to boost up the run rate here!']
 
     #comments for diff shots
     commentary_six = ['thats in the stands! ',
@@ -103,10 +124,6 @@ class commentary():
                                 'bang! he has smashed the first ball out of here!',
                                 'thats how you start an innings! pressure straightway on the bowler now!'
                                 'thats hit off the first ball!.. ']
-
-    #comment situation based on Reqd RR
-    commentary_situation_reqd_rate_low = ['the reqd rate is way too less']
-    commentary_situation_reqd_rate_high = ['required rate is high!']
 
     #captain next:
     commentary_captain_to_bat_next = ['the captain walking out to the middle!',

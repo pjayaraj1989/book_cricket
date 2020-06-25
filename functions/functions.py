@@ -448,7 +448,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
         if batting_team.batting_second:
             if towin <= 0:
                 ShowHighlights(batting_team)
-                PrintInColor("Match won!!", Style.BRIGHT)
+                PrintInColor("Match won!!", Fore.LIGHTGREEN_EX)
                 input('press enter to continue...')
                 break
             elif towin <= 20 or over == overs-1:

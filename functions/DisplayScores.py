@@ -1,6 +1,7 @@
 #routines to display scores, etc
 #display temporary stats
-from functions.utilities import PrintInColor, BallsToOvers, GetShortName, PrintListFormatted
+from functions.utilities import PrintInColor, BallsToOvers, GetShortName, PrintListFormatted, Randomize
+from data.commentary import *
 from colorama import Style
 
 #get current rate
@@ -38,6 +39,10 @@ def ShowHighlights(batting_team):
         if batting_team.total_balls <= batting_team.total_overs * 6 or batting_team.total_score <= batting_team.target:
             reqd_rate = GetRequiredRate(batting_team)
             msg += ", Reqd. Rate: {0}".format(str(reqd_rate))
+            if reqd_rate >= crr:
+                PrintInColor(Randomize(commentary.commentary_situation_reqd_rate_high), Style.BRIGHT)
+            else:
+                PrintInColor(Randomize(commentary.commentary_situation_reqd_rate_low), Style.BRIGHT)
 
     PrintInColor(msg, Style.BRIGHT)
 
