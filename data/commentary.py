@@ -26,12 +26,14 @@ class commentary():
                                           'this chase looks easy for them!',
                                           'this chase is on!',
                                           'they are cruising here!',
+                                          'they look relaxed as the asking rate is looking easy!',
                                           'they really know their target.. well on course!',
                                           'they are punishing the bowlers here! reqd rate is less than required',
                                           'they can get home without any hurdles with this scoring rate!',
                                           'they are chasing well here!',]
 
     commentary_situation_reqd_rate_high = ['required rate is high!.. they need to gear up!',
+                                           'they need to push themselves hard to stay on course!',
                                            'they need some big hits to boost up the run rate!',
                                            'singles and doubles wont take them home!',
                                            'need to boost up the run rate!',
