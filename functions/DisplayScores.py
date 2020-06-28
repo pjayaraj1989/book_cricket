@@ -26,6 +26,9 @@ def GetRequiredRate(team):
 def ShowHighlights(batting_team):
     reqd_rate=0.0
     crr = GetCurrentRate(batting_team)
+    #update rate
+    batting_team.nrr = crr
+
     # default msg
     msg = '{0} {1} / {2} ({3} Overs)'.format(batting_team.name,
                                              str(batting_team.total_score),

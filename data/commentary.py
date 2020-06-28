@@ -31,7 +31,6 @@ class commentary():
                                           'they are punishing the bowlers here! reqd rate is less than required',
                                           'they can get home without any hurdles with this scoring rate!',
                                           'they are chasing well here!',]
-
     commentary_situation_reqd_rate_high = ['required rate is high!.. they need to gear up!',
                                            'they need to push themselves hard to stay on course!',
                                            'they need some big hits to boost up the run rate!',
@@ -110,6 +109,7 @@ class commentary():
                         'thats quick running!',
                         'not timed well but lazy fielding, bowler is not happy!',
                         'singles and doubles will surely irritate the fielding captain']
+
     #four first  ball
     commentary_firstball_four = ['what a way to start the innings!',
                                  'glorious start to the innings!',
@@ -135,7 +135,6 @@ class commentary():
                                       'crowd cheering as the captain walks out to bat',
                                       'the skipper, to walk into the ground now',
                                       'huge applause as the captain is going into the middle']
-
     #captain out
     commentary_captain_out = ['got rid of the skipper!',
                               'the captain goes!',
@@ -155,13 +154,11 @@ class commentary():
                            'first one down!',
                            'the bowling team draw first blood!',
                            'one down!']
-
     #half the side is down
     commentary_five_down = ['half the side is back in the pavilion!',
                             'job half done!.. 5 wkts down!',
                             '5 down and i am afraid the flood gates have opened!',
                             'half down and the tail is exposed!']
-
     #commentary last man
     commentary_lastman = ['last man coming out to bat!',
                           '9 down, last wicket coming out to bat',
@@ -248,6 +245,9 @@ class commentary():
                             'what was the batsman thinking!?']
     commentary_stumped = ['swift work by the keeper!',
                             'thats out! stumped!',
+                            'the keeper took the bails off in a flash!',
+                            'that spun hard, batsman misses and quick work behind the stumps!',
+                            'tries for a wild shot and missed it.. quick stumping by the keeper!',
                             'batsman misses it and swift work behind the stumps!',
                             'stumped, no need to refer it!',
                             'fast hands behind the stumps!',
@@ -275,6 +275,22 @@ class commentary():
                             'hit hard to the fielder and he takes it!',
                             'hit straight down the fielder\'s throat!',
                             'in the air and oh! has he taken that? He has! what a catch!']
+    commentary_keeper_catch = ['edged.. and taken!',
+                               'there is an edge and what a catch by the keeper!',
+                               'thin edge, big appeal behind the stumps! given!',
+                               'is there an edge? Yes it is!',
+                               'edged and brilliant dive from the keeper!',
+                               'ooh there is an edge? Keeper appeals, bowler appeals...given!',
+                               'outside edge and brilliantly taken by the keeper!',
+                               'oh is there a nick!? Batsman is walking...!',
+                               'straight up in the air, keeper says mine and takes it!', ]
+    commentary_return_catch = ['beautiful return catch!',
+                               'oh what a return catch!',
+                               'oh he has dropped.. no he hasnt! what a catch!',
+                               'thats out, caught n bowled!',
+                               'caught and bowled! what a reflex!',
+                               'what kind of reflexes by the bowler! Thats taken!',
+                               'hit it hard but taken by the bowler himself!']
 
     #modify this as per DRS
     commentary_lbw_umpire = ['big appeal.. and the finger goes up!',
@@ -319,17 +335,10 @@ class commentary():
                                  'they have used all their review chances!',
                                  'No more reviews left!']
 
-    commentary_return_catch = ['beautiful return catch!',
-                               'oh what a return catch!',
-                               'oh he has dropped.. no he hasnt! what a catch!',
-                               'thats out, caught n bowled!',
-                               'caught and bowled! what a reflex!',
-                               'what kind of reflexes by the bowler! Thats taken!',
-                               'hit it hard but taken by the bowler himself!']
-
+    #dot ball
     commentary_dot_ball_pacer = ['swing and a miss.. no run!',
                                  'its a short one and hit him on the shoulder!',
-                                 'oh thats a nasty bouncer! hit the batsman!',
+                                 'oh that is a nasty bouncer! hit the batsman!',
                                  'ooh it bounced and hit the batsman!',
                                  'oh that has hit the batsman on the helmet!',
                                  'oh thats a quick delivery!',
@@ -337,9 +346,8 @@ class commentary():
                                  'dangerous delivery! batsman had no clue about it',
                                  'that bounced too much.. batsman had no clue.. and well taken by the keeper too!',
                                  'dangerous short ball.. !',]
-
     commentary_dot_ball = ['beautiful delivery, missed the stumps by inches!',
-                            'thats well defended!',
+                            'thats very well defended!',
                             'thats a solid defence',
                             'thats a textbook defence!',
                             'big big appeal ... but umpire shakes his head!',
@@ -380,14 +388,12 @@ class commentary():
                                         'this was a magnificent partnership!',
                                         'one of the best partnerships ever!',
                                         'ends a terrific partnership between these two!']
-
     commentary_out_first_ball = ['Out first ball!',
                                     'gone without tickling the scoreboard!',
                                     'gone... first ball wicket!',
                                     'Disappointment for the batsman! gone for a duck!',
                                     'Thats a slow walk back when youre out first ball!',
                                     'He is out without disturbing the scoreboard!',]
-
     commentary_nineties = ['Oh he will be so disappointed! Gone in the nervous nineties!',
                            'oh what a shame! missed a deserving century!',
                            'gone in the nervous nineties! he will be so disappointed here!',
@@ -395,7 +401,6 @@ class commentary():
                            'oh gone in the nineties.. the batsman will be kicking himself!',
                            'unlucky! gone in the nineties!',
                            'oh missed a well deserving ton!']
-
     commentary_out_duck = ['The batsman will be so disappointed.. he is gone for nothing!',
                            'gone for a duck! His nightmare continues!',
                            'thats his second duck in a row in this season!',
@@ -404,7 +409,6 @@ class commentary():
                            'gone for none! The scoreboard is undisturbed by him!',
                            'gone for zero.. disappointment for the batsman!',
                            'he hasnt troubled the scoreboard!']
-
     commentary_out_fifty = ['what a valuable innings!',
                             'useful innings comes to a close!',
                             'he is out but the damage is done!',
@@ -415,7 +419,6 @@ class commentary():
                             'take a bow, what an innings it was!',
                             'terrific knock comes to an end!',
                             'end of a brilliant innings']
-
     commentary_wide = ['he has lost his line completely!',
                             'oh thats a harsh call from the umpire!',
                             'not good bowling from him!',
@@ -426,17 +429,15 @@ class commentary():
                             'poor bowling, wide delivery!',
                             'oh big appeal from the keeper but Wide says the umpire!',
                             'bowler under pressure here!',]
-
     commentary_no_ball = ['good delivery , batsman misses it.. but No ball called!',
                           'well bowled.. but no ball!',
-                          'lost his run up !',
+                          'he has lost his run up !',
                           'oh thats a dangerous beamer! no ball called!',
-                          'bowler tries a full toss but thats way above waist height!',
+                          'bowler tries a full toss but thats way above the waist height!',
                           'bowler loses his rhythm! no ball called',
                           'bowled him! but oh thats a no ball!',
                           'in the air and taken!. but no ball called!!',
                           'oh thats a high full toss! no ball called!']
-
     commentary_milestone = ['Its been a terrific knock..!',
                                 'what a performance...!',
                                 'Take a bow! What a knock!',
@@ -446,7 +447,6 @@ class commentary():
                                 'he decides tonight is going to be his night!',
                                 'Thats it! A brilliant knock under pressure!',
                                 'he is on absolute fire here !']
-
     commentary_goingtolose = ['surely its all over now!',
                               'its literally impossible to win now!',
                               'that, I am sure, is the final nail on the coffin!',
@@ -455,7 +455,6 @@ class commentary():
                               'they need some miracle to win this match!',
                               'one by one they are going down the drain!',
                               'now, the bowling captain eyes victory for sure!',]
-
     commentary_fifer = ['what a bowler he is!',
                         'he has totally rattled this batting team!',
                         'he is on absolute fire!',
@@ -463,45 +462,28 @@ class commentary():
                         'thats a fantastic five-fer!',
                         'he has intimidated every batsmen today!',
                         'he has made an aweful mess of this innings!',]
-
     commentary_hattrick = ['thats it! thats a hattrick !!',
                            'Hattrick for the bowler!',
                            '3 in 3! This man is on absolllute fire!',
                            'hattrick for the bowler! what a performance from him!',]
-
-    commentary_keeper_catch = ['edged.. and taken!',
-                                'there is an edge and what a catch by the keeper!',
-                                'thin edge, big appeal behind the stumps! given!',
-                                'is there an edge? Yes it is!',
-                                'edged and brilliant dive from the keeper!',
-                                'ooh there is an edge? Keeper appeals, bowler appeals...given!',
-                                'outside edge and brilliantly taken by the keeper!',
-                                'oh is there a nick!? Batsman is walking...!',
-                                'straight up in the air, keeper says mine and takes it!',]
-
     commentary_match_won = ['thats it, thats the end of the match!',
                             'thats it, they have won the match!',
                             'thats the end of the match!']
-
     commentary_all_out = ['thats it! they have been bowled out!',
                           'terrific bowling performance, they have been bowled out!',
                           'its all over for them!',
                           'done ! all out!']
 
     #LAST OVER/MATCH/INNS
-    # LAST BALL OF THE MATCH
     commentary_last_ball_match = ['this is it.. the last ball of the match!',
                                   'we are down to the last ball of the match',
                                   'last ball of this match coming up!']
-
     commentary_last_ball_innings = ['last ball of this innings !']
-
     commentary_last_over_match = ['last over of the match!',
                                   'last over! the crowd on their feet!',
                                   'we are all set to witness a last over thriller!',
                                   'here we go! last over of this match!',
                                   'this is what it has come down to! the last over!']
-
     commentary_last_over_innings = ['last over of this innings coming up',
                                     'we are down to the last over!',
                                     'last over of the innings!']
@@ -516,21 +498,23 @@ class commentary():
                                'they were totally outsmarted by the bowling team!',
                                'they have succumbed to pressure!']
 
-    #maiden
+    #over
     commentary_expensive_over=['what an expensive over!',
                                'a costly over.. they will have to pay for this!',
                                'an expensive over! this could turn the course of the match!',
                                'costly over.. this could change the match!',
                                'expensive over.. the bowler is shattered!',
                                'poor bowling.. expensive over!',
+                               'expensive over! the bowler is totally battered!',
                                'thats an expensive over from the bowler!',]
-
-    #good over
     commentary_economical_over = ['what an over.. very economical!',
-                                  'magnificent over.. ',
+                                  'magnificent over..!',
                                   'superb over .. very disciplined!',
                                   'very economical bowling!',
                                   'an economical over !']
+    commentary_maiden_over = ['what a bowler.. thats a maiden over!',
+                              'maiden over!!!.. brilliant!',
+                              'thats it.. its a maiden over.. brilliant!']
 
     #bowler's last over
     commentary_bowler_last_over = ['this is the last of his allotted overs!',
@@ -538,14 +522,12 @@ class commentary():
                                    'he is going to bowl the last of his allotted overs',
                                    'bowler with his last over!',
                                    'he is gonna bowl his last over!']
-
     #check if bowler had a good spell
     commentary_bowler_good_spell = ['he had a terrific spell so far!',
                                     'he was in good form today!',
                                     'he bowled really well today!',
                                     'he had a nice spell so far!',
                                     'he had a good day with the ball!',]
-
     commentary_bowler_bad_spell = ['he didnt have a good day so far!',
                                    'he was very expensive today!',
                                    'he was not in form today!.. too expensive',
@@ -559,7 +541,6 @@ class commentary():
                                       'the spinner to start his over',
                                       'we have a spinner to bowl this over',
                                       'the spin bowler to start the over',]
-
     commentary_pacer_into_attack = ['a pacer into the attack now!',
                                     'a pacer into the attack!.. lets see if he can get some swing',
                                     'seamer to start a new over',
@@ -567,13 +548,10 @@ class commentary():
                                     'a quick bowler into the attack here',
                                     'the seamer to begin a new over.. ',
                                     'we have a fast bowler into the attack',]
-
     commentary_medium_into_attack = ['medium pacer into the attack',
                                      'a medium pacer, to start a new over',
                                      'the medium pacer to start the over.. lets see if he can induce a wicket',
                                      'we have a medium bowler into the attack',]
-
-    #check if bowler is captain
     commentary_captain_to_bowl = ['skipper to bowl a new over',
                                   'captain to start a new over here!',
                                   'skipper, to begin a new over',
@@ -582,23 +560,16 @@ class commentary():
                                   'captain is going to try an over now!',
                                   'captain coming on to bowl this over!']
 
-    commentary_maiden_over = ['what a bowler.. thats a maiden over!',
-                              'maiden over!!!.. brilliant!',
-                              'thats it.. its a maiden over.. brilliant!']
-
     #rain
     commentary_rain_cloudy = ['well it looks cloudy and looks like it might rain..',
                               'oops.. there are some rain clouds above us.. ',
                               'weather doesnt look good.. can see the rain clouds developing....']
-
     commentary_rain_drizzling = ['this is not looking good, a slight drizzle.. we can see raincoats among the crowd',
                                  'it started drizzling a little now..  tougher for the players',
                                  'slight drizzle, and fielding is getting tougher!.. we could see the spectators getting their coats']
-
     commentary_rain_heavy = ['this is bad.. it started pouring!.. Umpires looking concerned',
                              'oops it has started pouring!.. Umpires are having a chat with the players',
                              'Its raining.. !!']
-
     commentary_rain_interrupt = ['heavy rain I am afraid to say the match might have to be called off!',
                                  'this is an unfortunate end ! Rain has forced to call off the match',
                                  'heavy rains and the umpires and the match referee have decided to call off the match']

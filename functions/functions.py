@@ -91,6 +91,7 @@ def GenerateDismissal(bowler, bowling_team):
     else:
         dismissal_types = ['c', 'runout', 'lbw', 'b']
         dismissal_prob = [0.45, 0.05, 0.25, 0.25]
+
     #generate dismissal
     dismissal = choice(dismissal_types, 1, p=dismissal_prob, replace=False)[0]
     #generate dismissal string
@@ -195,7 +196,7 @@ def UpdateDismissal(bowler, bowling_team, batting_team, pair, dismissal):
         comment = Randomize(commentary.commentary_return_catch)
     elif 'c ' in dismissal and ' b ' in dismissal:
         # see if the catcher is the keeper
-        if keeper.name in dismissal:
+        if GetShortName(keeper.name) in dismissal:
             comment = Randomize(commentary.commentary_keeper_catch)
         else:
             comment = Randomize(commentary.commentary_caught)
@@ -539,6 +540,7 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
                 UpdateLastPartnership(batting_team, pair)
                 input('press enter to continue...')
                 break
+
             # if all out
             if batting_team.wickets_fell == 10:
                 PrintInColor(Randomize(commentary.commentary_all_out), Fore.LIGHTRED_EX)
@@ -552,6 +554,9 @@ def PlayOver(over, overs, batting_team, bowling_team, pair, match):
     if total_runs_in_over > 14:
         PrintInColor(Randomize(commentary.commentary_expensive_over) + '\n' +
                      '{0} runs in this over!'.format(str(total_runs_in_over)),
+                     Style.BRIGHT)
+    elif total_runs_in_over == 0:
+        PrintInColor(Randomize(commentary.commentary_maiden_over) + '\n' +
                      Style.BRIGHT)
     elif total_runs_in_over < 6:
         PrintInColor(Randomize(commentary.commentary_economical_over) + '\n' +
@@ -669,12 +674,14 @@ def Play(match, batting_team, bowling_team):
 
         #play an over
         status=PlayOver(over, overs, batting_team, bowling_team, pair, match)
+        if status is False:
+            break
+
         #show batting stats
         for p in pair:
             PrintInColor('{0} {1} ({2})'.format(GetShortName(p.name), str(p.runs), str(p.balls)), Style.BRIGHT)
         ShowHighlights(batting_team)
-        if status is False:
-            break
+
         #rotate strike after an over
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         ind=pair.index(player_on_strike)
