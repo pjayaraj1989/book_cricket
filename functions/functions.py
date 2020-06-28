@@ -681,6 +681,7 @@ def Play(match, batting_team, bowling_team):
         for p in pair:
             PrintInColor('{0} {1} ({2})'.format(GetShortName(p.name), str(p.runs), str(p.balls)), Style.BRIGHT)
         ShowHighlights(batting_team)
+        DisplayBowlingStats(match, bowling_team)
 
         #rotate strike after an over
         player_on_strike = next((x for x in pair if x.onstrike == True), None)

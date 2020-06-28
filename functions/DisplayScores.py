@@ -249,7 +249,7 @@ def DisplayBowlingStats(match, team):
     print (char*45)
     logger.info(char*45)
     input('press enter to continue..')
-    team.bowlers = bowlers_updated
+    #team.bowlers = bowlers_updated
 
 #print playing XI
 def DisplayPlayingXI(match):
