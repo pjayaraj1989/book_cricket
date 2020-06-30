@@ -23,7 +23,8 @@ def GetRequiredRate(team):
         nrr = round(nrr, 2)
     return nrr
 
-def ShowHighlights(batting_team):
+def ShowHighlights(match, batting_team):
+    logger = match.logger
     reqd_rate=0.0
     crr = GetCurrentRate(batting_team)
     #update rate
@@ -48,6 +49,7 @@ def ShowHighlights(batting_team):
                 PrintInColor(Randomize(commentary.commentary_situation_reqd_rate_low), Style.BRIGHT)
 
     PrintInColor(msg, Style.BRIGHT)
+    logger.info(msg)
 
 #batting summary - scoreboard
 def DisplayScore(match, team):
