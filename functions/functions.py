@@ -10,6 +10,35 @@ from numpy.random import choice
 import random
 import time
 
+#match abandon due to rain
+def MatchAbandon(match, batting_team, bowling_team):
+    # abandon due to rain
+    PrintInColor(Randomize(commentary.commentary_rain_interrupt), Style.BRIGHT)
+    input("Press any key to continue")
+    # check nrr and crr
+    nrr = GetRequiredRate(batting_team)
+    crr = GetCurrentRate(batting_team)
+    result = Result(team1=match.team1, team2=match.team2)
+    result_str = ''
+    remaining_overs = match.overs - BallsToOvers(batting_team.total_balls)
+    simulated_score = int(round(remaining_overs * crr)) + batting_team.total_score
+    if crr >= nrr:
+        # calculate win margin
+        result_str = "{0} wins by {1} run(s) using D/L method!".format(batting_team.name,
+                                                                       str(abs(simulated_score - batting_team.target)))
+    else:
+        result_str = "{0} wins by {1} run(s) D/L method!".format(bowling_team.name,
+                                                                 str(abs(batting_team.target - simulated_score)))
+    input("Press any key to continue")
+    match.status = False
+    result.result_str = result_str
+    DisplayScore(match, batting_team)
+    DisplayBowlingStats(match, bowling_team)
+    # change result string
+    match.result = result
+    MatchSummary(match)
+
+
 def CheckDRS(match, team):
     result=False
     impact_outside_bat_involved=False
@@ -60,6 +89,17 @@ def PairFaceBall(pair, run):
         pair[ind].onstrike = False
         pair[alt_ind].onstrike = True
     return pair
+
+#rotate strike
+def RotateStrike(pair):
+    player_on_strike = next((x for x in pair if x.onstrike == True), None)
+    ind = pair.index(player_on_strike)
+    if ind == 0:
+        alt_ind = 1
+    elif ind == 1:
+        alt_ind = 0
+    pair[ind].onstrike = False
+    pair[alt_ind].onstrike = True
 
 #batsman out
 def BatsmanOut(pair, dismissal):
@@ -467,7 +507,7 @@ def PlayOver(match, over, overs, batting_team, bowling_team, pair):
                               Style.BRIGHT)
                 input('press enter to continue...')
 
-        msg="Over: {0}.{1}".format(str(over),str(ball))
+        msg="Over: {0}.{1}".format(str(over), str(ball))
         print (msg)
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         msg='{0} to {1}'.format(GetShortName(bowler.name), GetShortName(player_on_strike.name))
@@ -514,7 +554,7 @@ def PlayOver(match, over, overs, batting_team, bowling_team, pair):
                 bowler.runs_given += 1
                 batting_team.extras += 1
                 batting_team.total_score += 1
-
+        #if not wide
         else:
             Ball(match, run, pair, bowler, batting_team, bowling_team)
             ball += 1
@@ -541,7 +581,6 @@ def PlayOver(match, over, overs, batting_team, bowling_team, pair):
                 PrintInColor(Randomize(commentary.commentary_lost_chasing), Style.BRIGHT)
                 input('press enter to continue...')
                 break
-
             # check if target achieved chasing
             if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
                 PrintInColor(Randomize(commentary.commentary_match_won), Fore.LIGHTGREEN_EX)
@@ -549,7 +588,6 @@ def PlayOver(match, over, overs, batting_team, bowling_team, pair):
                 UpdateLastPartnership(match, batting_team, pair)
                 input('press enter to continue...')
                 break
-
             # if all out
             if batting_team.wickets_fell == 10:
                 PrintInColor(Randomize(commentary.commentary_all_out), Fore.LIGHTRED_EX)
@@ -659,31 +697,7 @@ def Play(match, batting_team, bowling_team):
                 PrintInColor(Randomize(commentary.commentary_rain_heavy), Style.BRIGHT)
                 input("Press enter to continue")
             elif over == over_interrupt:
-                # abandon due to rain
-                PrintInColor(Randomize(commentary.commentary_rain_interrupt), Style.BRIGHT)
-                input("Press any key to continue")
-                # check nrr and crr
-                nrr = GetRequiredRate(batting_team)
-                crr = GetCurrentRate(batting_team)
-                result = Result(team1=match.team1, team2=match.team2)
-                result_str = ''
-                remaining_overs = match.overs - BallsToOvers(batting_team.total_balls)
-                simulated_score = int(round(remaining_overs*crr)) + batting_team.total_score
-                if crr >= nrr:
-                    #calculate win margin
-                    result_str = "{0} wins by {1} run(s) using D/L method!".format(batting_team.name,
-                                                                      str(abs(simulated_score - batting_team.target)))
-                else:
-                    result_str = "{0} wins by {1} run(s) D/L method!".format(bowling_team.name,
-                                                                             str(abs(batting_team.target - simulated_score)))
-                input("Press any key to continue")
-                match.status = False
-                result.result_str = result_str
-                DisplayScore(match, batting_team)
-                DisplayBowlingStats(match, bowling_team)
-                # change result string
-                match.result = result
-                MatchSummary(match)
+                MatchAbandon(match, batting_team, bowling_team)
                 Error_Exit("Match abandoned due to rain!!")
 
         #check if last over
@@ -705,11 +719,6 @@ def Play(match, batting_team, bowling_team):
             logger.info(msg)
         ShowHighlights(match, batting_team)
         DisplayBowlingStats(match, bowling_team)
-
         #rotate strike after an over
-        player_on_strike = next((x for x in pair if x.onstrike == True), None)
-        ind=pair.index(player_on_strike)
-        if ind == 0:    alt_ind=1
-        elif ind == 1:  alt_ind=0
-        pair[ind].onstrike = False
-        pair[alt_ind].onstrike = True
+        RotateStrike(pair)
+
