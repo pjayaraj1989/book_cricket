@@ -236,10 +236,6 @@ def UpdateDismissal(match, bowler, bowling_team, batting_team, pair, dismissal):
     if partnership.runs > 50:
         PrintInColor(Randomize(commentary.commentary_partnership_milestone), Style.BRIGHT)
 
-    # calculate the situation
-    if batting_team.batting_second and (7 <= batting_team.wickets_fell < 10):
-        PrintInColor(Randomize(commentary.commentary_goingtolose), Style.BRIGHT)
-
     # last man
     if batting_team.wickets_fell == 9:
         PrintInColor(Randomize(commentary.commentary_lastman), batting_team.color)
@@ -383,7 +379,7 @@ def AssignBowler(match, bowling_team):
     else:
         if bowling_team.last_bowler in bowlers:
             # bowling list except the bowler who did last over and bowlers who finished their allotted overs
-            temp = [x for x in bowlers if (x != bowling_team.last_bowler and x.balls_bowled < x.max_overs * 6)]
+            temp = [x for x in bowlers if (x != bowling_team.last_bowler)]
             # sort this based on skill
             temp = sorted(temp, key=lambda x: x.attr.bowling, reverse=True)
             # if autoplay, let bowlers be chosen randomly
@@ -430,43 +426,12 @@ def PlayOver(match, over, overs, batting_team, bowling_team, pair):
         PrintInColor(Randomize(commentary.commentary_pacer_into_attack), Style.BRIGHT)
     else:
         PrintInColor(Randomize(commentary.commentary_medium_into_attack), Style.BRIGHT)
-    #check if it is his last over!
-    if (BallsToOvers(bowler.balls_bowled) == match.bowler_max_overs - 1) and (bowler.balls_bowled != 0):
-        PrintInColor(Randomize(commentary.commentary_bowler_last_over), Style.BRIGHT)
-        if bowler.wkts >= 3 or bowler.eco <= 5.0:
-            PrintInColor(Randomize(commentary.commentary_bowler_good_spell), Style.BRIGHT)
-        elif bowler.eco >= 7.0:
-            PrintInColor(Randomize(commentary.commentary_bowler_bad_spell), Style.BRIGHT)
 
     ball=1
     bowling_team.last_bowler=bowler
     ismaiden=True
     total_runs_in_over=0
     while(ball <= 6):
-        if over == overs-1 and ball == 6:
-            if batting_team.batting_second == True:
-                PrintInColor(Randomize(commentary.commentary_last_ball_match), Style.BRIGHT)
-            else:
-                PrintInColor(Randomize(commentary.commentary_last_ball_innings), Style.BRIGHT)
-        #towards the death overs, show a highlights
-        towin=abs(batting_team.target - batting_team.total_score)
-        #calculate if score is close
-        if batting_team.batting_second:
-            if towin <= 0:
-                ShowHighlights(match, batting_team)
-                PrintInColor("Match won!!", Fore.LIGHTGREEN_EX)
-                input('press enter to continue...')
-                break
-            elif towin <= 20 or over == overs-1:
-                ShowHighlights(match, batting_team)
-                if towin == 1:
-                    PrintInColor("Match tied!", Fore.LIGHTGREEN_EX)
-                else:
-                    PrintInColor ('To win: {0} from {1}'.format(str(towin),
-                                                    str(overs*6 - batting_team.total_balls)),
-                              Style.BRIGHT)
-                input('press enter to continue...')
-
         msg="Over: {0}.{1}".format(str(over),str(ball))
         print (msg)
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
@@ -478,11 +443,7 @@ def PlayOver(match, over, overs, batting_team, bowling_team, pair):
             input('press enter to continue..')
 
         #generate run
-        prob = []
-        if match.overs == 50:
-            prob = match.venue.run_prob
-        else:
-            prob = match.venue.run_prob_t20
+        prob = match.venue.run_prob
         run = choice([-1,0,1,2,3,4,5,6], 1, p=prob, replace=False)[0]
 
         #check if maiden or not
@@ -518,38 +479,6 @@ def PlayOver(match, over, overs, batting_team, bowling_team, pair):
         else:
             Ball(match, run, pair, bowler, batting_team, bowling_team)
             ball += 1
-            # check if 1st innings over
-            if batting_team.batting_second is False and batting_team.total_balls == (match.overs * 6):
-                PrintInColor("End of innings", Fore.LIGHTCYAN_EX)
-                #update last partnership
-                if batting_team.wickets_fell > 0:
-                    last_fow = batting_team.fow[-1].runs
-                    last_partnership_runs = batting_team.total_score - last_fow
-                    last_partnership = Partnership(batsman_dismissed=pair[0],
-                                                    batsman_onstrike=pair[1],
-                                                    runs=last_partnership_runs)
-                    batting_team.partnerships.append(last_partnership)
-                input('press enter to continue')
-                break
-
-            #batting second
-            # if chasing and lost
-            if batting_team.batting_second is True and batting_team.total_balls >= (match.overs * 6):
-                # update last partnership
-                UpdateLastPartnership(match, batting_team, pair)
-                match_status = False
-                PrintInColor(Randomize(commentary.commentary_lost_chasing), Style.BRIGHT)
-                input('press enter to continue...')
-                break
-
-            # check if target achieved chasing
-            if batting_team.batting_second is True and (batting_team.total_score >= batting_team.target):
-                PrintInColor(Randomize(commentary.commentary_match_won), Fore.LIGHTGREEN_EX)
-                match_status = False
-                UpdateLastPartnership(match, batting_team, pair)
-                input('press enter to continue...')
-                break
-
             # if all out
             if batting_team.wickets_fell == 10:
                 PrintInColor(Randomize(commentary.commentary_all_out), Fore.LIGHTRED_EX)
@@ -559,18 +488,6 @@ def PlayOver(match, over, overs, batting_team, bowling_team, pair):
     #check if over is a maiden
     if ismaiden == True:
         bowler.maidens += 1
-    #check total runs taken in over
-    if total_runs_in_over > 14:
-        PrintInColor(Randomize(commentary.commentary_expensive_over) + '\n' +
-                     '{0} runs in this over!'.format(str(total_runs_in_over)),
-                     Style.BRIGHT)
-    elif total_runs_in_over == 0:
-        PrintInColor(Randomize(commentary.commentary_maiden_over),
-                     Style.BRIGHT)
-    elif total_runs_in_over < 6:
-        PrintInColor(Randomize(commentary.commentary_economical_over) + '\n' +
-                     'only {0} run(s) off this over!'.format(str(total_runs_in_over)),
-                     Style.BRIGHT)
     return match_status
 
 #check for milestones
@@ -617,87 +534,19 @@ def CheckMilestone(match, pair, batting_team):
         else:
             None
 
-#play!
+#play innings!
 def Play(match, batting_team, bowling_team):
     overs=match.overs
     logger=match.logger
     pair = batting_team.opening_pair
-
     comment=''
-    if batting_team.batting_second is True:
-        msg = 'Target for {0}: {1} from {2} overs'.format(batting_team.name,
-                                                                 str(batting_team.target),
-                                                                 str(overs))
-        PrintInColor(msg, batting_team.color)
-        logger.info(msg)
-        #check if required rate
-        nrr = GetRequiredRate(batting_team)
-        msg="Reqd. run rate: {0}".format(str(nrr))
-        print(msg)
-        logger.info(msg)
-        if nrr > 7.0:    comment = Randomize(commentary.commentary_high_req_rate)
-        elif nrr < 6.0: comment = Randomize(commentary.commentary_less_req_rate)
-        PrintInColor(comment, Style.BRIGHT)
-
-    #depending on weather, if rainy, decide afer whhich over
-    over_interrupt = 0
-    if batting_team.batting_second is True:
-        if match.venue.weather == 'rainy':
-            over_interrupt = random.choice(list(range(10,50)))
-
     #now run for each over
-    for over in range(0,overs):
-        #check if match interrupted
-        if batting_team.batting_second == True and match.venue.weather == "rainy":
-            if over == over_interrupt-5:
-                PrintInColor(Randomize(commentary.commentary_rain_cloudy), Style.BRIGHT)
-                input("Press enter to continue")
-            elif over == over_interrupt-3:
-                PrintInColor(Randomize(commentary.commentary_rain_drizzling), Style.BRIGHT)
-                input("Press enter to continue")
-            elif over == over_interrupt-1:
-                PrintInColor(Randomize(commentary.commentary_rain_heavy), Style.BRIGHT)
-                input("Press enter to continue")
-            elif over == over_interrupt:
-                # abandon due to rain
-                PrintInColor(Randomize(commentary.commentary_rain_interrupt), Style.BRIGHT)
-                input("Press any key to continue")
-                # check nrr and crr
-                nrr = GetRequiredRate(batting_team)
-                crr = GetCurrentRate(batting_team)
-                result = Result(team1=match.team1, team2=match.team2)
-                result_str = ''
-                remaining_overs = match.overs - BallsToOvers(batting_team.total_balls)
-                simulated_score = int(round(remaining_overs*crr)) + batting_team.total_score
-                if crr >= nrr:
-                    #calculate win margin
-                    result_str = "{0} wins by {1} run(s) using D/L method!".format(batting_team.name,
-                                                                      str(abs(simulated_score - batting_team.target)))
-                else:
-                    result_str = "{0} wins by {1} run(s) D/L method!".format(bowling_team.name,
-                                                                             str(abs(batting_team.target - simulated_score)))
-                input("Press any key to continue")
-                match.status = False
-                result.result_str = result_str
-                DisplayScore(match, batting_team)
-                DisplayBowlingStats(match, bowling_team)
-                # change result string
-                match.result = result
-                MatchSummary(match)
-                Error_Exit("Match abandoned due to rain!!")
-
-        #check if last over
-        if over==overs-1:
-            if batting_team.batting_second == True:
-                PrintInColor(Randomize(commentary.commentary_last_over_match), Style.BRIGHT)
-            else:
-                PrintInColor(Randomize(commentary.commentary_last_over_innings), Style.BRIGHT)
-
+    over=0
+    while(batting_team.wickets_fell < 10):
         #play an over
         status=PlayOver(match, over, overs, batting_team, bowling_team, pair)
         if status is False:
             break
-
         #show batting stats
         for p in pair:
             msg='{0} {1} ({2})'.format(GetShortName(p.name), str(p.runs), str(p.balls))
@@ -705,7 +554,6 @@ def Play(match, batting_team, bowling_team):
             logger.info(msg)
         ShowHighlights(match, batting_team)
         DisplayBowlingStats(match, bowling_team)
-
         #rotate strike after an over
         player_on_strike = next((x for x in pair if x.onstrike == True), None)
         ind=pair.index(player_on_strike)
@@ -713,3 +561,4 @@ def Play(match, batting_team, bowling_team):
         elif ind == 1:  alt_ind=0
         pair[ind].onstrike = False
         pair[alt_ind].onstrike = True
+        overs += 1

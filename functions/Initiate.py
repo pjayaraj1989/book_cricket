@@ -72,18 +72,6 @@ def GetMatchInfo(list_of_teams, venue):
     umpire = Randomize(resources.umpires)
 
     teams = [l.key for l in list_of_teams]
-    #select overs
-    overs=input('Select overs (multiple of 5)\n')
-    if (overs.isdigit() == False) or \
-            (int(overs)%5 != 0) or \
-            (int(overs) > 50) or \
-            (int(overs) <= 0):
-        overs = 5
-        print("Invalid entry, default {0} overs selected".format(overs))
-
-    overs=int(overs)
-    #max overs alloted for each bowler
-    bowler_max_overs = overs / 5
 
     #input teams
     t1 = ChooseFromOptions(teams, "Select your team", 5)
@@ -95,13 +83,14 @@ def GetMatchInfo(list_of_teams, venue):
         if t.key == t1:    team1=t
         if t.key == t2:    team2=t
 
+    overs=450
     #initialize match with teams, overs
     match=Match(team1=team1, team2=team2, overs=overs, result=None)
     if overs == 50: temp = 'ODI'
     elif overs == 20:   temp = 'T20'
     else:   temp = str(overs) + ' over'
     PrintInColor('{4}, {0}, for the exciting {1} match between {2} and {3}'.format(venue.name,
-                                                        temp,
+                                                        "Test",
                                                         team1.name,
                                                         team2.name,
                                                        intro), Fore.LIGHTCYAN_EX)
@@ -112,10 +101,9 @@ def GetMatchInfo(list_of_teams, venue):
     #assign match properties
     match.venue = venue
     match.umpire = umpire
-    match.bowler_max_overs = bowler_max_overs
 
     #set overs to team also
-    for t in [match.team1,match.team2]:
+    for t in [match.team1, match.team2]:
         t.total_overs = match.overs
 
     #display squad
@@ -185,9 +173,7 @@ def ValidateMatchTeams(match):
             Error_Exit('Team {0} should have 6 bowlers in the playing XI'.format(t.name) )
         else:
             t.bowlers = bowlers
-            #assign max overs for bowlers
-            for bowler in t.bowlers:
-                bowler.max_overs = match.bowler_max_overs
+
     #ensure no common members in the teams
     common_players=list(set(match.team1.team_array).intersection(match.team2.team_array))
     if common_players != []:
