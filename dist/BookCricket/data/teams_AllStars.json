@@ -46,7 +46,7 @@
         {"name": "M.S Dhoni","batting": 8,"keeper": 1, "captain":1},
         {"name": "Shane Watson","batting": 7,"bowling": 7, "pacer":1},
         {"name": "Irfan Pathan", "batting": 7,"bowling": 7, "pacer":1},        
-        {"name": "Anil Kumble","batting": 6,"bowling": 7,"spinner":1},
+        {"name": "Ravichandran Ashwin","batting": 6,"bowling": 7,"spinner":1},
 		{"name": "James Anderson", "batting": 6,"bowling": 9,"openingbowler":1, "pacer":1},
         {"name": "Dale Steyn","batting": 5,"bowling": 9, "pacer":1}
       ],
